@@ -1,0 +1,3291 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Quy Trình Liên Kết Ngân Hàng | Tingee × HENO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg: #f5f7fa;
+        --white: #ffffff;
+        --bdr: #e8ecf0;
+        --bdr2: #d0d7de;
+        --tx: #111827;
+        --tx2: #4b5563;
+        --tx3: #9ca3af;
+        --sw: 260px;
+        --sh: 56px;
+        --r: 12px;
+        --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.06);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          sans-serif;
+        background: var(--bg);
+        color: var(--tx);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      /* ── HEADER ── */
+      .hdr {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--sh);
+        background: var(--white);
+        border-bottom: 1px solid var(--bdr);
+        display: flex;
+        align-items: center;
+        padding: 0 20px 0 calc(var(--sw) + 20px);
+        z-index: 200;
+      }
+      .hdr-logo {
+        height: 22px;
+        opacity: 0.85;
+      }
+      .hdr-sep {
+        width: 1px;
+        height: 20px;
+        background: var(--bdr2);
+        margin: 0 16px;
+      }
+      .hdr-t {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--tx);
+      }
+      .hdr-s {
+        font-size: 12px;
+        color: var(--tx3);
+        margin-left: 8px;
+      }
+      .hdr-left {
+        display: flex;
+        align-items: center;
+        width: var(--sw);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: var(--sh);
+        padding: 0 20px;
+        border-bottom: 1px solid var(--bdr);
+        background: var(--white);
+        z-index: 201;
+      }
+      .hdr-brand {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--tx);
+        letter-spacing: -0.3px;
+      }
+      .hdr-brand span {
+        color: #16a34a;
+      }
+
+      /* ── SIDEBAR ── */
+      .sb {
+        position: fixed;
+        top: var(--sh);
+        left: 0;
+        bottom: 0;
+        width: var(--sw);
+        background: var(--white);
+        border-right: 1px solid var(--bdr);
+        overflow-y: auto;
+        z-index: 100;
+      }
+      .sb::-webkit-scrollbar {
+        width: 3px;
+      }
+      .sb::-webkit-scrollbar-thumb {
+        background: var(--bdr);
+        border-radius: 2px;
+      }
+
+      .sb-search-wrap {
+        padding: 12px 12px 8px;
+        position: sticky;
+        top: 0;
+        background: var(--white);
+        border-bottom: 1px solid var(--bdr);
+        z-index: 1;
+      }
+      .sb-search {
+        width: 100%;
+        padding: 7px 10px 7px 30px;
+        border: 1.5px solid var(--bdr);
+        border-radius: 8px;
+        font-size: 13px;
+        font-family: inherit;
+        color: var(--tx);
+        background: var(--bg)
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2.5'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E")
+          9px center/13px no-repeat;
+        outline: none;
+        transition: 0.15s;
+      }
+      .sb-search:focus {
+        border-color: #6b7280;
+        background-color: #fff;
+      }
+
+      .sb-section {
+        padding: 14px 14px 4px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: var(--tx3);
+      }
+      .sb-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 7px 12px;
+        margin: 1px 6px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--tx2);
+        font-size: 13px;
+        font-weight: 500;
+        transition: 0.15s;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        width: calc(100% - 12px);
+        text-align: left;
+      }
+      .sb-link:hover {
+        background: #f3f4f6;
+        color: var(--tx);
+      }
+      .sb-link.active {
+        background: #eff6ff;
+        color: #1d4ed8;
+        font-weight: 600;
+      }
+      .sb-link.active .sb-num {
+        background: #1d4ed8;
+        color: #fff;
+      }
+      .sb-link.hidden {
+        display: none;
+      }
+      .sb-logo-wrap {
+        width: 28px;
+        height: 22px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .sb-logo {
+        width: 28px;
+        height: 22px;
+        object-fit: contain;
+      }
+      .sb-fallback {
+        width: 28px;
+        height: 22px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 8px;
+        font-weight: 800;
+        color: #fff;
+      }
+      .sb-num {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--bdr);
+        color: var(--tx3);
+        font-size: 10px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        flex-shrink: 0;
+      }
+      .sb-other .sb-link {
+        font-size: 12.5px;
+      }
+
+      /* ── MAIN ── */
+      .main {
+        margin-left: var(--sw);
+        margin-top: var(--sh);
+        padding: 28px 32px 64px;
+        max-width: 960px;
+      }
+
+      /* ── INTRO ── */
+      .intro {
+        background: var(--white);
+        border: 1px solid var(--bdr);
+        border-radius: var(--r);
+        padding: 24px 28px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .intro-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .intro-body h1 {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--tx);
+        margin-bottom: 4px;
+      }
+      .intro-body p {
+        font-size: 13px;
+        color: var(--tx2);
+      }
+      .intro-stats {
+        display: flex;
+        gap: 12px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+      .stat {
+        background: var(--bg);
+        border: 1px solid var(--bdr);
+        border-radius: 8px;
+        padding: 8px 16px;
+        text-align: center;
+      }
+      .stat-n {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--tx);
+      }
+      .stat-l {
+        font-size: 11px;
+        color: var(--tx3);
+        margin-top: 1px;
+      }
+
+      /* ── TERM TABLE ── */
+      .section-card {
+        background: var(--white);
+        border: 1px solid var(--bdr);
+        border-radius: var(--r);
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+      .section-hdr {
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--bdr);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .section-hdr-t {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .section-hdr-s {
+        font-size: 12px;
+        color: var(--tx3);
+        margin-top: 1px;
+      }
+      .term-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .term-table th {
+        background: #f9fafb;
+        padding: 10px 18px;
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--tx3);
+        border-bottom: 1px solid var(--bdr);
+      }
+      .term-table td {
+        padding: 10px 18px;
+        border-bottom: 1px solid var(--bdr);
+        vertical-align: top;
+        font-size: 13px;
+      }
+      .term-table tr:last-child td {
+        border-bottom: none;
+      }
+      .ta {
+        font-weight: 700;
+        color: var(--tx);
+        font-size: 13px;
+        width: 80px;
+      }
+      .tf {
+        font-weight: 600;
+        width: 180px;
+      }
+      .tn {
+        color: var(--tx2);
+      }
+
+      /* ── BANK CARD ── */
+      .bank-card {
+        background: var(--white);
+        border: 1px solid var(--bdr);
+        border-radius: var(--r);
+        overflow: hidden;
+        margin-bottom: 20px;
+        scroll-margin-top: calc(var(--sh) + 16px);
+        box-shadow: var(--shadow);
+        border-left-width: 4px;
+        border-left-style: solid;
+      }
+      .bank-hdr {
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--bdr);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: var(--white);
+      }
+      .bank-logo-wrap {
+        width: 64px;
+        height: 36px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .bank-logo {
+        width: 64px;
+        height: 36px;
+        object-fit: contain;
+      }
+      .bank-logo-fb {
+        width: 64px;
+        height: 36px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 800;
+        color: #fff;
+      }
+      .bank-hdr-info {
+        flex: 1;
+      }
+      .bank-hdr-info h2 {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--tx);
+        line-height: 1.2;
+      }
+      .bank-hdr-info .bank-code {
+        font-size: 12px;
+        color: var(--tx3);
+        font-weight: 600;
+        margin-top: 2px;
+        display: block;
+      }
+      .bank-num {
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
+        background: var(--bg);
+        border: 1px solid var(--bdr);
+        color: var(--tx3);
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* ── BODY ── */
+      .bank-body {
+        padding: 18px 22px;
+      }
+
+      /* ── ACCOUNT TABLE ── */
+      .acct-section {
+        margin-bottom: 18px;
+      }
+      .tbl-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--tx3);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 8px;
+      }
+      .acct-tbl {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid var(--bdr);
+        border-radius: 8px;
+        overflow: hidden;
+        font-size: 13px;
+      }
+      .acct-tbl th {
+        background: #f9fafb;
+        padding: 8px 14px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--tx3);
+        border-bottom: 1px solid var(--bdr);
+      }
+      .acct-tbl td {
+        padding: 8px 14px;
+        border-bottom: 1px solid var(--bdr);
+      }
+      .acct-tbl tr:last-child td {
+        border-bottom: none;
+      }
+      .badge {
+        display: inline-flex;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .bb {
+        background: #eff6ff;
+        color: #1d4ed8;
+      }
+      .bv {
+        background: #f0fdf4;
+        color: #15803d;
+      }
+      .br {
+        background: #fff7ed;
+        color: #c2410c;
+      }
+
+      /* ── ACCOUNT GROUP ── */
+      .ag {
+        border: 1px solid var(--bdr);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 12px;
+      }
+      .ag:last-child {
+        margin-bottom: 0;
+      }
+      .ag-hdr {
+        padding: 11px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid var(--bdr);
+        background: #fafafa;
+        cursor: pointer;
+        user-select: none;
+      }
+      .ag-hdr:hover {
+        background: #f3f4f6;
+      }
+      .ag-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--tx);
+        flex: 1;
+      }
+      .tag {
+        display: inline-flex;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .tag-self {
+        background: #dcfce7;
+        color: #15803d;
+      }
+      .tag-heno {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .tag-time {
+        background: #f1f5f9;
+        color: #475569;
+        font-weight: 500;
+      }
+      .ag-toggle {
+        font-size: 12px;
+        color: var(--tx3);
+        transition: transform 0.2s;
+        flex-shrink: 0;
+      }
+      .ag-toggle.open {
+        transform: rotate(180deg);
+      }
+      .ag-body {
+        padding: 16px;
+      }
+      .ag-body.collapsed {
+        display: none;
+      }
+
+      /* ── STEPS ── */
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .step {
+        display: flex;
+        gap: 14px;
+        position: relative;
+      }
+      .step:not(:last-child)::before {
+        content: "";
+        position: absolute;
+        left: 14px;
+        top: 32px;
+        bottom: -4px;
+        width: 1px;
+        background: var(--bdr);
+      }
+      .sn {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        margin-top: 2px;
+        border: 1.5px solid var(--bdr2);
+        background: var(--white);
+        color: var(--tx2);
+      }
+      .sb2 {
+        flex: 1;
+        padding-bottom: 16px;
+      }
+      .step:last-child .sb2 {
+        padding-bottom: 0;
+      }
+      .st {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--tx);
+        margin-bottom: 4px;
+      }
+      .sd {
+        font-size: 13px;
+        color: var(--tx2);
+        line-height: 1.6;
+      }
+      .sd ul {
+        padding-left: 18px;
+        margin-top: 6px;
+      }
+      .sd li {
+        margin-bottom: 3px;
+      }
+      .sd a {
+        color: #1d4ed8;
+      }
+
+      /* ── CONTACT CARD ── */
+      .c-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--tx3);
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        margin: 10px 0 5px;
+      }
+      .c-card {
+        background: #f9fafb;
+        border: 1px solid var(--bdr);
+        border-radius: 7px;
+        padding: 8px 12px;
+      }
+      .c-row {
+        font-size: 12.5px;
+        color: var(--tx2);
+        margin-bottom: 3px;
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .c-row:last-child {
+        margin-bottom: 0;
+      }
+      .c-row span {
+        color: var(--tx);
+        font-weight: 500;
+      }
+
+      /* ── NOTE ── */
+      .note {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-top: 12px;
+      }
+      .note-t {
+        font-size: 12px;
+        font-weight: 700;
+        color: #92400e;
+        margin-bottom: 6px;
+      }
+      .note-b {
+        font-size: 12.5px;
+        color: #78350f;
+      }
+      .note-b ul {
+        padding-left: 16px;
+      }
+      .note-b li {
+        margin-bottom: 4px;
+      }
+
+      /* ── INFO ── */
+      .ia {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 12.5px;
+        color: #1e40af;
+        margin-bottom: 12px;
+      }
+
+      /* ── DIVIDER ── */
+      .sdiv {
+        border: none;
+        border-top: 1px solid var(--bdr);
+        margin: 16px 0;
+      }
+
+      /* ── COMING SOON ── */
+      .cs {
+        text-align: center;
+        padding: 32px;
+        color: var(--tx3);
+      }
+      .cs p {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .cs small {
+        font-size: 12.5px;
+      }
+
+      /* ── CASE TAG ── */
+      .ctag {
+        display: inline-block;
+        padding: 3px 10px;
+        background: #f1f5f9;
+        border: 1px solid var(--bdr);
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--tx2);
+        margin-bottom: 10px;
+      }
+
+      /* ── TIME BADGE ── */
+      .time {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #f1f5f9;
+        border: 1px solid var(--bdr);
+        border-radius: 4px;
+        padding: 2px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #475569;
+      }
+      .time-ok {
+        background: #dcfce7;
+        border-color: #bbf7d0;
+        color: #15803d;
+      }
+
+      /* ── BACK BUTTON ── */
+      .back-btn {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: var(--white);
+        border: 1px solid var(--bdr2);
+        border-radius: 8px;
+        padding: 8px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--tx2);
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 150;
+        transition: 0.2s;
+      }
+      .back-btn:hover {
+        background: #f3f4f6;
+        color: var(--tx);
+      }
+      .back-btn.visible {
+        display: block;
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        text-align: center;
+        padding: 24px 0 0;
+        border-top: 1px solid var(--bdr);
+        color: var(--tx3);
+        font-size: 12px;
+        margin-top: 8px;
+      }
+
+      /* ── SCROLLBAR ── */
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--bdr2);
+        border-radius: 3px;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        .sb {
+          display: none;
+        }
+        .main {
+          margin-left: 0;
+          padding: 16px 14px 48px;
+        }
+        .hdr {
+          padding-left: 16px;
+        }
+        .hdr-left {
+          display: none;
+        }
+        .back-btn {
+          bottom: 16px;
+          right: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER LEFT (Brand) -->
+    <div class="hdr-left">
+      <div class="hdr-brand">tingee <span>×</span> HENO</div>
+    </div>
+
+    <!-- HEADER RIGHT -->
+    <header class="hdr">
+      <div style="display: flex; align-items: center; gap: 0; flex: 1">
+        <div>
+          <div class="hdr-t">Quy Trình Liên Kết Ngân Hàng</div>
+        </div>
+        <span class="hdr-s">— 13 ngân hàng</span>
+      </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <aside class="sb" id="sidebar">
+      <div class="sb-search-wrap">
+        <input
+          class="sb-search"
+          id="sbSearch"
+          type="text"
+          placeholder="Tìm ngân hàng..."
+        />
+      </div>
+
+      <div class="sb-section">Điều hướng</div>
+      <a class="sb-link" href="#intro">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          style="flex-shrink: 0; color: #6b7280"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M3 9h18" />
+          <path d="M9 21V9" />
+        </svg>
+        <span>Tổng quan</span>
+      </a>
+      <a class="sb-link" href="#terminology">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          style="flex-shrink: 0; color: #6b7280"
+        >
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path
+            d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+          />
+        </svg>
+        <span>Thuật ngữ</span>
+      </a>
+
+      <div class="sb-section">Ngân hàng</div>
+
+      <!-- Bank list -->
+      <a class="sb-link sb-bank" href="#vtb" data-name="vietinbank vtb">
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/VietinBank_logo.svg/200px-VietinBank_logo.svg.png"
+            alt="VTB"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #1a5276; display: none">
+            VTB
+          </div>
+        </div>
+        <span>Vietinbank</span>
+        <span class="sb-num">1</span>
+      </a>
+
+      <a class="sb-link sb-bank" href="#bidv" data-name="bidv">
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/BIDV_logo.svg/200px-BIDV_logo.svg.png"
+            alt="BIDV"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #004f9e; display: none">
+            BIDV
+          </div>
+        </div>
+        <span>BIDV</span>
+        <span class="sb-num">2</span>
+      </a>
+
+      <a class="sb-link sb-bank" href="#ocb" data-name="ocb phương đông">
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/OCB_logo.svg/200px-OCB_logo.svg.png"
+            alt="OCB"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #d32f2f; display: none">
+            OCB
+          </div>
+        </div>
+        <span>OCB</span>
+        <span class="sb-num">3</span>
+      </a>
+
+      <a class="sb-link sb-bank" href="#mbbank" data-name="mb bank mbbank">
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/MB_Bank_logo.svg/200px-MB_Bank_logo.svg.png"
+            alt="MB"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #880e4f; display: none">
+            MB
+          </div>
+        </div>
+        <span>MB Bank</span>
+        <span class="sb-num">4</span>
+      </a>
+
+      <a class="sb-link sb-bank" href="#acb" data-name="acb á châu">
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/ACB_Logo.svg/200px-ACB_Logo.svg.png"
+            alt="ACB"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #1565c0; display: none">
+            ACB
+          </div>
+        </div>
+        <span>ACB</span>
+        <span class="sb-num">5</span>
+      </a>
+
+      <a
+        class="sb-link sb-bank"
+        href="#vcb"
+        data-name="vietcombank vcb ngoại thương"
+      >
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Vietcombank_logo.svg/200px-Vietcombank_logo.svg.png"
+            alt="VCB"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #1b5e20; display: none">
+            VCB
+          </div>
+        </div>
+        <span>Vietcombank</span>
+        <span class="sb-num">6</span>
+      </a>
+
+      <a class="sb-link sb-bank" href="#vpbank" data-name="vpbank vp">
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/VPBank_logo.svg/200px-VPBank_logo.svg.png"
+            alt="VPB"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #2e7d32; display: none">
+            VPB
+          </div>
+        </div>
+        <span>VPBank</span>
+        <span class="sb-num">7</span>
+      </a>
+
+      <a class="sb-link sb-bank" href="#sacombank" data-name="sacombank stb">
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Sacombank_logo.svg/200px-Sacombank_logo.svg.png"
+            alt="STB"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #0d47a1; display: none">
+            STB
+          </div>
+        </div>
+        <span>Sacombank</span>
+        <span class="sb-num">8</span>
+      </a>
+
+      <a class="sb-link sb-bank" href="#vib" data-name="vib quốc tế">
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/VIB_logo.svg/200px-VIB_logo.svg.png"
+            alt="VIB"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #4a148c; display: none">
+            VIB
+          </div>
+        </div>
+        <span>VIB</span>
+        <span class="sb-num">9</span>
+      </a>
+
+      <a class="sb-link sb-bank" href="#pgbank" data-name="pgbank xăng dầu">
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/PGBank_logo.svg/200px-PGBank_logo.svg.png"
+            alt="PGB"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #c62828; display: none">
+            PGB
+          </div>
+        </div>
+        <span>PGBank</span>
+        <span class="sb-num">10</span>
+      </a>
+
+      <a
+        class="sb-link sb-bank"
+        href="#shinhan"
+        data-name="shinhanbank shinhan hàn quốc"
+      >
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Shinhan_Bank_logo.svg/200px-Shinhan_Bank_logo.svg.png"
+            alt="Shinhan"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #ce1126; display: none">
+            SHB
+          </div>
+        </div>
+        <span>ShinhanBank</span>
+        <span class="sb-num">11</span>
+      </a>
+
+      <a
+        class="sb-link sb-bank"
+        href="#coopbank"
+        data-name="coopbank co-op bank hợp tác"
+      >
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/vi/thumb/6/65/Logo_Co-opBank.png/200px-Logo_Co-opBank.png"
+            alt="Co-op"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #0277bd; display: none">
+            Co-op
+          </div>
+        </div>
+        <span>Co-op Bank</span>
+        <span class="sb-num">12</span>
+      </a>
+
+      <a class="sb-link sb-bank" href="#msb" data-name="msb hàng hải">
+        <div class="sb-logo-wrap">
+          <img
+            class="sb-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/MSB_logo.svg/200px-MSB_logo.svg.png"
+            alt="MSB"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="sb-fallback" style="background: #b71c1c; display: none">
+            MSB
+          </div>
+        </div>
+        <span>MSB</span>
+        <span class="sb-num">13</span>
+      </a>
+
+      <div style="padding: 12px; margin-top: auto">
+        <div
+          style="
+            font-size: 11px;
+            color: var(--tx3);
+            text-align: center;
+            line-height: 1.6;
+          "
+        >
+          © 2025 HENO &nbsp;·&nbsp; tingee.vn<br />1900 255 567
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <!-- INTRO -->
+      <div class="section-card" id="intro">
+        <div
+          style="
+            padding: 22px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+          "
+        >
+          <div style="flex: 1">
+            <h1 style="font-size: 17px; font-weight: 800; margin-bottom: 6px">
+              Quy Trình Liên Kết Ngân Hàng
+            </h1>
+            <p style="font-size: 13px; color: var(--tx2); max-width: 560px">
+              Hướng dẫn chi tiết quy trình liên kết tài khoản ngân hàng với hệ
+              thống Tingee dành cho đội ngũ HENO và khách hàng.
+            </p>
+            <div class="intro-stats">
+              <div class="stat">
+                <div class="stat-n">13</div>
+                <div class="stat-l">Ngân hàng</div>
+              </div>
+              <div class="stat">
+                <div class="stat-n">3</div>
+                <div class="stat-l">Loại TK</div>
+              </div>
+              <div class="stat">
+                <div class="stat-n">CN + HKD + DN</div>
+                <div class="stat-l">Cá nhân · HKD · Doanh nghiệp</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TERMINOLOGY -->
+      <div
+        class="section-card"
+        id="terminology"
+        style="scroll-margin-top: calc(var(--sh) + 16px)"
+      >
+        <div class="section-hdr">
+          <div>
+            <div class="section-hdr-t">Thuật ngữ &amp; Viết tắt</div>
+            <div class="section-hdr-s">
+              Giải thích các ký hiệu dùng trong tài liệu
+            </div>
+          </div>
+        </div>
+        <table class="term-table">
+          <thead>
+            <tr>
+              <th style="width: 80px">Viết tắt</th>
+              <th style="width: 190px">Thuật ngữ đầy đủ</th>
+              <th>Ghi chú</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ta">VA</td>
+              <td class="tf">Tài khoản định danh</td>
+              <td class="tn">Sử dụng STK hoặc QR tạo từ hệ thống Tingee</td>
+            </tr>
+            <tr>
+              <td class="ta">TKDN</td>
+              <td class="tf">Tài khoản Doanh nghiệp</td>
+              <td class="tn">—</td>
+            </tr>
+            <tr>
+              <td class="ta">TKCN</td>
+              <td class="tf">Tài khoản Cá nhân</td>
+              <td class="tn">—</td>
+            </tr>
+            <tr>
+              <td class="ta">HKD</td>
+              <td class="tf">Hộ kinh doanh</td>
+              <td class="tn">—</td>
+            </tr>
+            <tr>
+              <td class="ta">CBB</td>
+              <td class="tf">Cán bộ bán</td>
+              <td class="tn">Nhân viên ngân hàng phụ trách</td>
+            </tr>
+            <tr>
+              <td class="ta">KH</td>
+              <td class="tf">Khách hàng</td>
+              <td class="tn">—</td>
+            </tr>
+            <tr>
+              <td class="ta">STK</td>
+              <td class="tf">Số tài khoản</td>
+              <td class="tn">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ═══ 1. VIETINBANK ═══ -->
+      <div class="bank-card" id="vtb" style="border-left-color: #1a5276">
+        <div class="bank-hdr">
+          <div class="bank-num">1</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/VietinBank_logo.svg/200px-VietinBank_logo.svg.png"
+              alt="Vietinbank"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #1a5276; display: none"
+            >
+              VTB
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>Vietinbank</h2>
+            <span class="bank-code">NH TMCP Công Thương Việt Nam · VTB</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản cá nhân</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Hộ kinh doanh</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản hộ kinh doanh</strong>, nhập các
+                      thông tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Doanh nghiệp</span>
+              <span class="tag tag-heno">Qua HENO</span>
+              <span class="tag tag-time">3–5 ngày</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">
+                      KH liên hệ CBB – Ký hợp đồng cấu hình TKDN
+                    </div>
+                    <div class="sd">
+                      KH liên hệ CBB phụ trách tại Ngân hàng hỗ trợ ký hợp đồng
+                      cấu hình TKDN theo hướng dẫn trong
+                      <strong>công văn 3156</strong>.<br />Mẫu công văn: Liên hệ
+                      CBB
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Nộp hồ sơ – Gửi đầu mối VTB</div>
+                    <div class="sd">
+                      Sau khi hoàn thiện hồ sơ, KH gửi hồ sơ tới các địa chỉ
+                      dưới đây hoặc liên hệ CBB hỗ trợ xử lý hộ:
+                      <div class="c-label">Đầu mối VTB</div>
+                      <div class="c-card">
+                        <div class="c-row">
+                          Mr. Lịch &nbsp;·&nbsp;
+                          <span>0973.451.789</span> &nbsp;·&nbsp;
+                          <span>LICHDT@vietinbank.vn</span>
+                        </div>
+                      </div>
+                      <div class="c-label">Đầu mối hỗ trợ bán</div>
+                      <div class="c-card">
+                        <div class="c-row">Các Ban KHDN Lớn / VVN / FDI</div>
+                      </div>
+                      <div class="c-label">
+                        Hỗ trợ triển khai &amp; giải pháp
+                      </div>
+                      <div class="c-card">
+                        <div class="c-row">
+                          <span>GPTC_Trienkhai@vietinbank.vn</span>
+                        </div>
+                        <div class="c-row">
+                          <span>GPTC_Phattrien@vietinbank.vn</span>
+                        </div>
+                      </div>
+                      <div style="margin-top: 8px">
+                        <span class="time"
+                          >Thời gian xử lý từ bank: 1–2 ngày</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">HENO cấu hình &amp; bàn giao</div>
+                    <div class="sd">
+                      Sau khi VTB cấu hình xong, HENO nhận thông tin qua email
+                      và tiến hành cấu hình trên hệ thống TINGEE.<br /><br />
+                      <strong>Thành công:</strong> HENO bàn giao thông tin tài
+                      khoản và hướng dẫn sử dụng tới CBB hoặc KH.<br />
+                      <strong>Không thành công:</strong> HENO trao đổi với bank
+                      để xác định nguyên nhân và xử lý khắc phục.<br /><br />
+                      <span class="time time-ok"
+                        >Thời gian xử lý cấu hình từ HENO: 1 ngày</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 2. BIDV ═══ -->
+      <div class="bank-card" id="bidv" style="border-left-color: #004f9e">
+        <div class="bank-hdr">
+          <div class="bank-num">2</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/BIDV_logo.svg/200px-BIDV_logo.svg.png"
+              alt="BIDV"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #004f9e; display: none"
+            >
+              BIDV
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>BIDV</h2>
+            <span class="bank-code">NH TMCP Đầu tư và Phát triển Việt Nam</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản cá nhân</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Hộ kinh doanh</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản hộ kinh doanh</strong>, nhập các
+                      thông tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Doanh nghiệp</span>
+              <span class="tag tag-heno">Qua HENO</span>
+              <span class="tag tag-time">3–5 ngày</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">
+                      Điền mẫu đăng ký thu hộ qua TK định danh
+                    </div>
+                    <div class="sd">
+                      KH liên hệ CBB phụ trách hỗ trợ điền mẫu đăng ký triển
+                      khai thu hộ qua TK định danh theo
+                      <strong>công văn 14521</strong>.<br />Mẫu công văn: Liên
+                      hệ CBB
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Nộp hồ sơ – Gửi đầu mối BIDV</div>
+                    <div class="sd">
+                      Sau khi hoàn thiện hồ sơ, KH gửi hồ sơ hoặc liên hệ CBB hỗ
+                      trợ xử lý hộ:
+                      <div class="c-label">Đầu mối BIDV</div>
+                      <div class="c-card">
+                        <div class="c-row">
+                          Ms. Hoa &nbsp;·&nbsp;
+                          <span>034.276.1512</span> &nbsp;·&nbsp;
+                          <span>hoalm1@bidv.com.vn</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">HENO cấu hình &amp; bàn giao</div>
+                    <div class="sd">
+                      Sau khi BIDV cấu hình xong, HENO nhận thông tin qua email
+                      và tiến hành cấu hình trên hệ thống TINGEE.<br /><br />
+                      <strong>Thành công:</strong> HENO bàn giao thông tin tài
+                      khoản và hướng dẫn sử dụng tới CBB hoặc KH.<br />
+                      <strong>Không thành công:</strong> HENO trao đổi với bank
+                      để xác định nguyên nhân và xử lý khắc phục.<br /><br />
+                      <span class="time time-ok"
+                        >Thời gian xử lý cấu hình từ HENO: 1 ngày</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 3. OCB ═══ -->
+      <div class="bank-card" id="ocb" style="border-left-color: #d32f2f">
+        <div class="bank-hdr">
+          <div class="bank-num">3</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/OCB_logo.svg/200px-OCB_logo.svg.png"
+              alt="OCB"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #d32f2f; display: none"
+            >
+              OCB
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>OCB – Ngân hàng Phương Đông</h2>
+            <span class="bank-code">Orient Commercial Joint Stock Bank</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản cá nhân</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title"
+                >Tài khoản Doanh nghiệp / Hộ kinh doanh</span
+              >
+              <span class="tag tag-heno">Qua HENO</span>
+              <span class="tag tag-time">2–3 ngày</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">CBB gửi thông tin &amp; ký hợp đồng</div>
+                    <div class="sd">
+                      CBB gửi thông tin cấu hình của KH qua luồng mail tới HENO.
+                      Bank và KH ký hợp đồng 2 bên.
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">HENO đăng ký trên API Portal OCB</div>
+                    <div class="sd">
+                      HENO tiếp nhận thông tin KH và hợp đồng, thực hiện đăng ký
+                      trên API Portal OCB. Sau khi nhận thông tin cấu hình và
+                      duyệt từ bank sẽ tiến hành cấu hình.<br /><span
+                        class="time"
+                        style="margin-top: 8px; display: inline-flex"
+                        >Thời gian xử lý: 1–2 ngày</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Bàn giao tài khoản</div>
+                    <div class="sd">
+                      <strong>Thành công:</strong> HENO bàn giao thông tin tài
+                      khoản và hướng dẫn sử dụng tới CBB hoặc KH.<br /><strong
+                        >Không thành công:</strong
+                      >
+                      HENO trao đổi với bank xác định nguyên nhân và xử lý khắc
+                      phục.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 4. MB BANK ═══ -->
+      <div class="bank-card" id="mbbank" style="border-left-color: #880e4f">
+        <div class="bank-hdr">
+          <div class="bank-num">4</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/MB_Bank_logo.svg/200px-MB_Bank_logo.svg.png"
+              alt="MB Bank"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #880e4f; display: none"
+            >
+              MB
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>MB Bank</h2>
+            <span class="bank-code">NH TMCP Quân Đội · MB</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản cá nhân</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Doanh nghiệp</span>
+              <span class="tag tag-heno">Qua HENO</span>
+              <span class="tag tag-time">1–3 giờ</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">KH cung cấp thông tin cho HENO</div>
+                    <div class="sd">
+                      <ul>
+                        <li>Tên doanh nghiệp</li>
+                        <li>Số tài khoản ngân hàng</li>
+                        <li>Số điện thoại (đăng ký với tài khoản ngân hàng)</li>
+                        <li>MST / Số giấy phép đăng ký kinh doanh</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">HENO cấu hình và bàn giao</div>
+                    <div class="sd">
+                      HENO cấu hình trên hệ thống và bàn giao cho khách hàng.<br /><span
+                        class="time"
+                        style="margin-top: 8px; display: inline-flex"
+                        >Thời gian xử lý: 1–3 giờ</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="note">
+                <div class="note-t">Lưu ý</div>
+                <div class="note-b">
+                  <ul>
+                    <li>
+                      Đối với TKDN có lượng giao dịch trung bình 1 ngày lớn, có
+                      thể bị miss thông tin một số giao dịch.
+                    </li>
+                    <li>
+                      KH cần ký hợp đồng 3 bên với Tingee và MB để nâng cao độ
+                      chịu tải, từ đó giảm tình trạng bị miss giao dịch.
+                    </li>
+                    <li>
+                      <strong>Mẫu hợp đồng 3 bên:</strong> Cập nhật sau...
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 5. ACB ═══ -->
+      <div class="bank-card" id="acb" style="border-left-color: #1565c0">
+        <div class="bank-hdr">
+          <div class="bank-num">5</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/ACB_Logo.svg/200px-ACB_Logo.svg.png"
+              alt="ACB"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #1565c0; display: none"
+            >
+              ACB
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>ACB</h2>
+            <span class="bank-code">NH TMCP Á Châu</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản cá nhân</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title"
+                >Tài khoản Doanh nghiệp / Hộ kinh doanh</span
+              >
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="ctag">Trường hợp 1 — Liên kết với tài khoản gốc</div>
+              <div style="margin-bottom: 12px">
+                <span class="tag tag-self">Tự thao tác</span>
+              </div>
+              <div class="steps" style="margin-bottom: 16px">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản doanh nghiệp</strong>, nhập các
+                      thông tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+              <div class="ctag">Trường hợp 2 — Liên kết tạo VA</div>
+              <div
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  margin-bottom: 12px;
+                "
+              >
+                <span class="tag tag-heno">Qua HENO</span>
+                <span class="tag tag-time">1–2 ngày</span>
+              </div>
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Ký hợp đồng đăng ký đầu số định danh</div>
+                    <div class="sd">
+                      KH liên hệ CBB phụ trách hỗ trợ điền mẫu ký hợp đồng đăng
+                      ký đầu số định danh (biểu mẫu
+                      <strong>QF-36, QF-37</strong>).
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Gửi hồ sơ tới ACB</div>
+                    <div class="sd">
+                      Sau khi hoàn thiện hồ sơ, cán bộ / KH soạn email và gửi
+                      theo luồng mail được chỉ định hoặc liên hệ CBB hỗ trợ xử
+                      lý.
+                      <div class="c-label">Đầu mối ACB</div>
+                      <div class="c-card">
+                        <div class="c-row">
+                          Mr. Khánh &nbsp;·&nbsp;
+                          <span>0908 969 269</span> &nbsp;·&nbsp;
+                          <span>khanhpn03@acb.com.vn</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">
+                      ACB cấu hình xong → KH tự thao tác liên kết
+                    </div>
+                    <div class="sd">
+                      Sau khi ACB cấu hình xong, KH có thể tự thao tác: đăng ký
+                      Tingee, liên kết ngân hàng, nhập OTP và liên kết thành
+                      công.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 6. VIETCOMBANK ═══ -->
+      <div class="bank-card" id="vcb" style="border-left-color: #1b5e20">
+        <div class="bank-hdr">
+          <div class="bank-num">6</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Vietcombank_logo.svg/200px-Vietcombank_logo.svg.png"
+              alt="Vietcombank"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #1b5e20; display: none"
+            >
+              VCB
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>Vietcombank</h2>
+            <span class="bank-code">NH TMCP Ngoại Thương Việt Nam · VCB</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">Nhập các thông tin yêu cầu</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Xác thực qua app Vietcombank</div>
+                    <div class="sd">
+                      Hệ thống tự động chuyển qua app Vietcombank để thực hiện
+                      liên kết
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">4</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title"
+                >Tài khoản Doanh nghiệp &amp; Hộ kinh doanh</span
+              >
+              <span class="tag tag-heno">Qua HENO</span>
+              <span class="tag tag-time">5–6 ngày</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">KH cung cấp thông tin</div>
+                    <div class="sd">
+                      <div class="ctag">KH liên hệ qua Tingee</div>
+                      KH cung cấp: Tên DN, STK gốc tại VCB, MST, Địa chỉ, Người
+                      đại diện, SĐT người đại diện. Tingee gửi thông tin KH cho
+                      đầu mối chi nhánh VCB gần nhất.
+                      <br /><br />
+                      <div class="ctag">KH liên hệ qua VCB</div>
+                      Chuyển tới Bước 2.
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">VCB ký hợp đồng &amp; cài đặt tham số</div>
+                    <div class="sd">
+                      Đầu mối CN VCB ký hợp đồng dịch vụ
+                      <strong>VCB OneQR</strong> với KH, sau đó cài đặt tham số
+                      BID, TID, MID để định danh tới đối tác Tingee.<br /><span
+                        class="time"
+                        style="margin-top: 8px; display: inline-flex"
+                        >Thời gian xử lý từ bank: 3–4 ngày</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Tingee cấu hình lên hệ thống</div>
+                    <div class="sd">
+                      Tingee nhận thông tin tham số BID, TID, MID và cấu hình
+                      lên hệ thống Tingee Merchant của KH.<br /><span
+                        class="time time-ok"
+                        style="margin-top: 8px; display: inline-flex"
+                        >Thời gian xử lý từ HENO: 1–2 ngày</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 7. VPBANK ═══ -->
+      <div class="bank-card" id="vpbank" style="border-left-color: #2e7d32">
+        <div class="bank-hdr">
+          <div class="bank-num">7</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/VPBank_logo.svg/200px-VPBank_logo.svg.png"
+              alt="VPBank"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #2e7d32; display: none"
+            >
+              VPB
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>VPBank</h2>
+            <span class="bank-code">NH TMCP Việt Nam Thịnh Vượng · VPB</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge br">TK gốc</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản cá nhân</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Hộ kinh doanh</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Lựa chọn Loại tài khoản
+                      <strong>Cá nhân – Liên kết STK ảo</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title"
+                >Tài khoản Doanh nghiệp (VPBank NeoBiz)</span
+              >
+              <span class="tag tag-self">Tự thao tác (có hướng dẫn)</span>
+              <span class="tag tag-time">1–2 ngày</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết trên Tingee Merchant</div>
+                    <div class="sd">
+                      KH đăng ký Tingee, liên kết ngân hàng, lựa chọn
+                      <strong>"Liên kết với STK gốc"</strong>. Hệ thống chuyển
+                      hướng qua <strong>VPBank NeoBiz</strong>. KH điền thông
+                      tin đăng nhập để đăng ký dịch vụ báo có cho TKDN. Hệ thống
+                      điều hướng về Tingee Merchant, KH lựa chọn TKDN muốn liên
+                      kết.<br /><br />
+                      Tài liệu:
+                      <em>Hướng dẫn liên kết TKDN VPBank trên Tingee</em>
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký kết nối trên VPBank NeoBiz</div>
+                    <div class="sd">
+                      KH truy cập
+                      <a
+                        href="https://online.vpbank.com.vn/neobiz/login"
+                        target="_blank"
+                        >online.vpbank.com.vn/neobiz/login</a
+                      >
+                      và đăng nhập. Thực hiện theo tài liệu hướng dẫn của
+                      VPBank.<br /><br />Tài liệu:
+                      <em
+                        >Hướng dẫn đăng ký kết nối với đối tác Tingee trên
+                        VPBank NeoBiz</em
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">
+                      Tiếp tục sử dụng dịch vụ trên Tingee Merchant
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="note">
+                <div class="note-t">Lưu ý quan trọng</div>
+                <div class="note-b">
+                  <ul>
+                    <li>
+                      Chỉ áp dụng với TKDN <strong>VPBank NeoBiz</strong>.
+                      VPBank NeoBiz Plus sẽ không liên kết được.
+                    </li>
+                    <li>
+                      KH đảm bảo có <strong>USB CKS Token</strong> đăng ký với
+                      TKDN VPBank NeoBiz.
+                    </li>
+                    <li>
+                      TKDN VPBank NeoBiz đăng ký trước tháng 7/2025 cần đăng ký
+                      bổ sung hình thức xác thực CKS theo biểu mẫu
+                      <strong>MB05 và MB31</strong>.
+                    </li>
+                    <li>
+                      Trong quá trình thao tác ở bước 2, luôn phải cắm USB CKS
+                      Token để xác thực và duyệt lệnh.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 8. SACOMBANK ═══ -->
+      <div class="bank-card" id="sacombank" style="border-left-color: #0d47a1">
+        <div class="bank-hdr">
+          <div class="bank-num">8</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Sacombank_logo.svg/200px-Sacombank_logo.svg.png"
+              alt="Sacombank"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #0d47a1; display: none"
+            >
+              STB
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>Sacombank</h2>
+            <span class="bank-code">NH TMCP Sài Gòn Thương Tín · STB</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản cá nhân</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Hộ kinh doanh</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản hộ kinh doanh</strong>, nhập các
+                      thông tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 9. VIB ═══ -->
+      <div class="bank-card" id="vib" style="border-left-color: #4a148c">
+        <div class="bank-hdr">
+          <div class="bank-num">9</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/VIB_logo.svg/200px-VIB_logo.svg.png"
+              alt="VIB"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #4a148c; display: none"
+            >
+              VIB
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>VIB</h2>
+            <span class="bank-code">NH TMCP Quốc Tế Việt Nam</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản cá nhân</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Doanh nghiệp</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản doanh nghiệp</strong>, nhập các
+                      thông tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Hộ kinh doanh</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản hộ kinh doanh</strong>, nhập các
+                      thông tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 10. PGBANK ═══ -->
+      <div class="bank-card" id="pgbank" style="border-left-color: #c62828">
+        <div class="bank-hdr">
+          <div class="bank-num">10</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/PGBank_logo.svg/200px-PGBank_logo.svg.png"
+              alt="PGBank"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #c62828; display: none"
+            >
+              PGB
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>PGBank</h2>
+            <span class="bank-code">NH TMCP Xăng Dầu Petrolimex · PGB</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge br">TK gốc</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge br">TK gốc</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge br">TK gốc</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản cá nhân</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Doanh nghiệp</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản doanh nghiệp</strong>, nhập các
+                      thông tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Hộ kinh doanh</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản hộ kinh doanh</strong>, nhập các
+                      thông tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 11. SHINHANBANK ═══ -->
+      <div class="bank-card" id="shinhan" style="border-left-color: #ce1126">
+        <div class="bank-hdr">
+          <div class="bank-num">11</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Shinhan_Bank_logo.svg/200px-Shinhan_Bank_logo.svg.png"
+              alt="ShinhanBank"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #ce1126; display: none"
+            >
+              Shinhan
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>ShinhanBank</h2>
+            <span class="bank-code">NH Shinhan Việt Nam</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="cs">
+            <p>Đang cập nhật</p>
+            <small
+              >Thông tin hướng dẫn cho ShinhanBank sẽ được cập nhật sớm</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 12. CO-OP BANK ═══ -->
+      <div class="bank-card" id="coopbank" style="border-left-color: #0277bd">
+        <div class="bank-hdr">
+          <div class="bank-num">12</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/vi/thumb/6/65/Logo_Co-opBank.png/200px-Logo_Co-opBank.png"
+              alt="Co-op Bank"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #0277bd; display: none"
+            >
+              Co-op
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>Co-op Bank</h2>
+            <span class="bank-code">NH Hợp tác xã Việt Nam</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge br">TK gốc</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge br">TK gốc</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản cá nhân</strong>, nhập các thông
+                      tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Hộ kinh doanh</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st">Liên kết ngân hàng</div>
+                    <div class="sd">
+                      Chọn <strong>Tài khoản hộ kinh doanh</strong>, nhập các
+                      thông tin yêu cầu
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st">Nhập mã OTP và liên kết thành công</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ 13. MSB ═══ -->
+      <div class="bank-card" id="msb" style="border-left-color: #b71c1c">
+        <div class="bank-hdr">
+          <div class="bank-num">13</div>
+          <div class="bank-logo-wrap">
+            <img
+              class="bank-logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/MSB_logo.svg/200px-MSB_logo.svg.png"
+              alt="MSB"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div
+              class="bank-logo-fb"
+              style="background: #b71c1c; display: none"
+            >
+              MSB
+            </div>
+          </div>
+          <div class="bank-hdr-info">
+            <h2>MSB</h2>
+            <span class="bank-code">NH TMCP Hàng Hải Việt Nam</span>
+          </div>
+        </div>
+        <div class="bank-body">
+          <div class="acct-section">
+            <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge bv">VA</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ia">
+            Các bước chi tiết cho MSB đang được cập nhật. Vui lòng liên hệ HENO
+            để được hỗ trợ.
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Cá nhân</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st" style="color: var(--tx3)">
+                      Bước 2 — Đang cập nhật
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st" style="color: var(--tx3)">
+                      Bước 3 — Đang cập nhật
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Hộ kinh doanh</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st" style="color: var(--tx3)">
+                      Bước 2 — Đang cập nhật
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st" style="color: var(--tx3)">
+                      Bước 3 — Đang cập nhật
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag">
+            <div class="ag-hdr" onclick="toggleAg(this)">
+              <span class="ag-title">Tài khoản Doanh nghiệp</span>
+              <span class="tag tag-self">Tự thao tác</span>
+              <span class="ag-toggle open">▾</span>
+            </div>
+            <div class="ag-body">
+              <div class="steps">
+                <div class="step">
+                  <div class="sn">1</div>
+                  <div class="sb2">
+                    <div class="st">Đăng ký tài khoản Tingee</div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">2</div>
+                  <div class="sb2">
+                    <div class="st" style="color: var(--tx3)">
+                      Bước 2 — Đang cập nhật
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="sn">3</div>
+                  <div class="sb2">
+                    <div class="st" style="color: var(--tx3)">
+                      Bước 3 — Đang cập nhật
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        © 2025 Công ty CP Công Nghệ HENO &nbsp;·&nbsp;
+        <a
+          href="https://tingee.vn"
+          style="color: #1d4ed8; text-decoration: none"
+          >tingee.vn</a
+        >
+        &nbsp;·&nbsp; 1900 255 567
+      </div>
+    </main>
+
+    <!-- BACK BUTTON -->
+    <button
+      class="back-btn"
+      id="backBtn"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      Lên đầu trang
+    </button>
+
+    <script>
+      // Toggle accordion
+      function toggleAg(hdr) {
+        const body = hdr.nextElementSibling;
+        const toggle = hdr.querySelector(".ag-toggle");
+        const isOpen = !body.classList.contains("collapsed");
+        body.classList.toggle("collapsed", isOpen);
+        toggle.classList.toggle("open", !isOpen);
+      }
+
+      // Sidebar search
+      const sbSearch = document.getElementById("sbSearch");
+      const sbBanks = document.querySelectorAll(".sb-bank");
+      sbSearch.addEventListener("input", function () {
+        const q = this.value.toLowerCase().trim();
+        sbBanks.forEach((item) => {
+          const match = !q || item.dataset.name.includes(q);
+          item.classList.toggle("hidden", !match);
+        });
+      });
+
+      // Scroll spy + back button
+      const sections = document.querySelectorAll("[id]");
+      const sbLinks = document.querySelectorAll(".sb-link");
+      const backBtn = document.getElementById("backBtn");
+
+      window.addEventListener(
+        "scroll",
+        function () {
+          // Back button
+          backBtn.classList.toggle("visible", window.scrollY > 300);
+          // Active sidebar item
+          const y = window.scrollY + 80;
+          let cur = "";
+          sections.forEach((s) => {
+            if (s.offsetTop <= y) cur = s.id;
+          });
+          sbLinks.forEach((l) => {
+            const href = l.getAttribute("href");
+            l.classList.toggle("active", href === "#" + cur);
+          });
+        },
+        { passive: true },
+      );
+    </script>
+  </body>
+</html>
