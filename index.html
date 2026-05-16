@@ -6,7 +6,7 @@
     <title>Quy Trình Liên Kết Ngân Hàng | Tingee × HENO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -18,23 +18,31 @@
         padding: 0;
       }
       :root {
-        --bg: #f5f7fa;
+        --bg: #f0f4f8;
         --white: #ffffff;
-        --bdr: #e8ecf0;
-        --bdr2: #d0d7de;
-        --tx: #111827;
-        --tx2: #4b5563;
-        --tx3: #9ca3af;
+        --bdr: #dde3ec;
+        --bdr2: #c1cadc;
+        --tx: #0d1526;
+        --tx2: #3d4f6b;
+        --tx3: #8a97b0;
+        --primary: #f1416c;
+        --primary-light: #fff0f3;
+        --primary-mid: #ffc0ce;
+        --primary-dark: #c0133a;
+        --accent: #f1416c;
         --sw: 260px;
         --sh: 56px;
         --r: 12px;
-        --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.06);
+        --shadow:
+          0 1px 3px rgba(241, 65, 108, 0.06),
+          0 4px 12px rgba(241, 65, 108, 0.08);
       }
       html {
         scroll-behavior: smooth;
       }
       body {
         font-family:
+          "Plus Jakarta Sans",
           "Inter",
           -apple-system,
           sans-serif;
@@ -72,6 +80,7 @@
         font-size: 14px;
         font-weight: 700;
         color: var(--tx);
+        letter-spacing: -0.2px;
       }
       .hdr-s {
         font-size: 12px;
@@ -91,14 +100,10 @@
         background: var(--white);
         z-index: 201;
       }
-      .hdr-brand {
-        font-size: 15px;
-        font-weight: 800;
-        color: var(--tx);
-        letter-spacing: -0.3px;
-      }
-      .hdr-brand span {
-        color: #16a34a;
+      .hdr-logo-img {
+        height: 30px;
+        object-fit: contain;
+        display: block;
       }
 
       /* ── SIDEBAR ── */
@@ -179,12 +184,12 @@
         color: var(--tx);
       }
       .sb-link.active {
-        background: #eff6ff;
-        color: #1d4ed8;
+        background: var(--primary-light);
+        color: var(--primary);
         font-weight: 600;
       }
       .sb-link.active .sb-num {
-        background: #1d4ed8;
+        background: var(--primary);
         color: #fff;
       }
       .sb-link.hidden {
@@ -237,6 +242,13 @@
         margin-left: var(--sw);
         margin-top: var(--sh);
         padding: 28px 32px 64px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: calc(100vh - var(--sh));
+      }
+      .main > * {
+        width: 100%;
         max-width: 960px;
       }
 
@@ -255,8 +267,8 @@
         width: 44px;
         height: 44px;
         border-radius: 10px;
-        background: #f0fdf4;
-        border: 1px solid #bbf7d0;
+        background: var(--primary-light);
+        border: 1px solid var(--primary-mid);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -267,6 +279,7 @@
         font-weight: 800;
         color: var(--tx);
         margin-bottom: 4px;
+        letter-spacing: -0.4px;
       }
       .intro-body p {
         font-size: 13px;
@@ -288,7 +301,7 @@
       .stat-n {
         font-size: 18px;
         font-weight: 800;
-        color: var(--tx);
+        color: var(--primary);
       }
       .stat-l {
         font-size: 11px;
@@ -314,6 +327,8 @@
       .section-hdr-t {
         font-size: 14px;
         font-weight: 700;
+        letter-spacing: -0.2px;
+        color: var(--tx);
       }
       .section-hdr-s {
         font-size: 12px;
@@ -408,6 +423,7 @@
         font-weight: 800;
         color: var(--tx);
         line-height: 1.2;
+        letter-spacing: -0.3px;
       }
       .bank-hdr-info .bank-code {
         font-size: 12px;
@@ -480,8 +496,8 @@
         font-weight: 600;
       }
       .bb {
-        background: #eff6ff;
-        color: #1d4ed8;
+        background: var(--primary-light);
+        color: var(--primary);
       }
       .bv {
         background: #f0fdf4;
@@ -621,7 +637,7 @@
         margin-bottom: 3px;
       }
       .sd a {
-        color: #1d4ed8;
+        color: var(--primary);
       }
 
       /* ── CONTACT CARD ── */
@@ -683,12 +699,12 @@
 
       /* ── INFO ── */
       .ia {
-        background: #eff6ff;
-        border: 1px solid #bfdbfe;
+        background: var(--primary-light);
+        border: 1px solid var(--primary-mid);
         border-radius: 8px;
         padding: 10px 14px;
         font-size: 12.5px;
-        color: #1e40af;
+        color: var(--primary-dark);
         margin-bottom: 12px;
       }
 
@@ -802,6 +818,10 @@
         .main {
           margin-left: 0;
           padding: 16px 14px 48px;
+          align-items: stretch;
+        }
+        .main > * {
+          max-width: 100%;
         }
         .hdr {
           padding-left: 16px;
@@ -819,7 +839,49 @@
   <body>
     <!-- HEADER LEFT (Brand) -->
     <div class="hdr-left">
-      <div class="hdr-brand">tingee <span>×</span> HENO</div>
+      <img
+        class="hdr-logo-img"
+        src="https://developers.tingee.vn/img/logo_heno.png"
+        alt="HENO"
+        onerror="
+          this.style.display = 'none';
+          this.nextElementSibling.style.display = 'flex';
+        "
+      />
+      <div style="display: none; align-items: center; gap: 8px">
+        <div
+          style="
+            width: 28px;
+            height: 28px;
+            background: #f1416c;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2.5"
+          >
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+        </div>
+        <span
+          style="
+            font-size: 16px;
+            font-weight: 800;
+            color: #0d1526;
+            letter-spacing: -0.5px;
+          "
+          >HENO</span
+        >
+      </div>
     </div>
 
     <!-- HEADER RIGHT -->
@@ -3226,7 +3288,7 @@
         © 2025 Công ty CP Công Nghệ HENO &nbsp;·&nbsp;
         <a
           href="https://tingee.vn"
-          style="color: #1d4ed8; text-decoration: none"
+          style="color: var(--primary); text-decoration: none"
           >tingee.vn</a
         >
         &nbsp;·&nbsp; 1900 255 567
