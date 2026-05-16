@@ -180,7 +180,7 @@
         text-align: left;
       }
       .sb-link:hover {
-        background: #f3f4f6;
+        background: #fff0f3;
         color: var(--tx);
       }
       .sb-link.active {
@@ -455,11 +455,17 @@
       /* ── BODY ── */
       .bank-body {
         padding: 18px 22px;
+        background: var(--bg);
       }
 
       /* ── ACCOUNT TABLE ── */
       .acct-section {
         margin-bottom: 18px;
+        background: var(--white);
+        border: 1px solid var(--bdr);
+        border-radius: 10px;
+        padding: 12px;
+        overflow: hidden;
       }
       .tbl-label {
         font-size: 11px;
@@ -527,6 +533,7 @@
         border-radius: 10px;
         overflow: hidden;
         margin-bottom: 12px;
+        background: var(--white);
       }
       .ag:last-child {
         margin-bottom: 0;
@@ -537,12 +544,13 @@
         align-items: center;
         gap: 10px;
         border-bottom: 1px solid var(--bdr);
-        background: #fafafa;
+        background: #f7f8fa;
         cursor: pointer;
         user-select: none;
+        transition: background 0.15s;
       }
       .ag-hdr:hover {
-        background: #f3f4f6;
+        background: #fff0f3;
       }
       .ag-title {
         font-size: 13px;
@@ -582,6 +590,7 @@
       }
       .ag-body {
         padding: 16px;
+        background: #fafbfd;
       }
       .ag-body.collapsed {
         display: none;
@@ -605,7 +614,7 @@
         top: 32px;
         bottom: -4px;
         width: 1px;
-        background: var(--bdr);
+        background: linear-gradient(to bottom, var(--primary-mid), var(--bdr));
       }
       .sn {
         width: 28px;
@@ -620,9 +629,9 @@
         position: relative;
         z-index: 1;
         margin-top: 2px;
-        border: 1.5px solid var(--bdr2);
+        border: 1.5px solid var(--primary-mid);
         background: var(--white);
-        color: var(--tx2);
+        color: var(--primary);
       }
       .sb2 {
         flex: 1;
@@ -663,8 +672,9 @@
         margin: 10px 0 5px;
       }
       .c-card {
-        background: #f9fafb;
+        background: var(--white);
         border: 1px solid var(--bdr);
+        border-left: 3px solid var(--primary-mid);
         border-radius: 7px;
         padding: 8px 12px;
       }
@@ -794,7 +804,7 @@
         transition: 0.2s;
       }
       .back-btn:hover {
-        background: #f3f4f6;
+        background: #fff0f3;
         color: var(--tx);
       }
       .back-btn.visible {
@@ -843,7 +853,7 @@
         transition: 0.15s;
       }
       .mob-menu-btn:hover {
-        background: #f3f4f6;
+        background: #fff0f3;
         color: var(--tx);
       }
 
@@ -900,7 +910,7 @@
           gap: 10px;
         }
         .bank-body {
-          padding: 14px 14px;
+          padding: 12px 12px;
         }
         .bank-logo-wrap {
           width: 52px;
@@ -1397,7 +1407,7 @@
             line-height: 1.6;
           "
         >
-          © 2025 HENO &nbsp;·&nbsp; tingee.vn<br />1900 255 567
+          © 2026 HENO &nbsp;·&nbsp; tingee.vn<br />1900 255 567
         </div>
       </div>
     </aside>
@@ -3497,7 +3507,7 @@
       </div>
 
       <div class="footer">
-        © 2025 Công ty CP Công Nghệ HENO &nbsp;·&nbsp;
+        © 2026 Công ty CP Công Nghệ HENO &nbsp;·&nbsp;
         <a
           href="https://tingee.vn"
           style="color: var(--primary); text-decoration: none"
