@@ -186,7 +186,8 @@
       .sb-link.active {
         background: var(--primary-light);
         color: var(--primary);
-        font-weight: 600;
+        font-weight: 700;
+        box-shadow: inset 3px 0 0 var(--primary);
       }
       .sb-link.active .sb-num {
         background: var(--primary);
@@ -196,21 +197,22 @@
         display: none;
       }
       .sb-logo-wrap {
-        width: 28px;
-        height: 22px;
+        width: 32px;
+        height: 24px;
         flex-shrink: 0;
         display: flex;
         align-items: center;
         justify-content: center;
       }
       .sb-logo {
-        width: 28px;
-        height: 22px;
+        width: 32px;
+        height: 24px;
         object-fit: contain;
+        object-position: center;
       }
       .sb-fallback {
-        width: 28px;
-        height: 22px;
+        width: 32px;
+        height: 24px;
         border-radius: 4px;
         display: flex;
         align-items: center;
@@ -392,7 +394,7 @@
         background: var(--white);
       }
       .bank-logo-wrap {
-        width: 64px;
+        width: 72px;
         height: 36px;
         flex-shrink: 0;
         display: flex;
@@ -400,12 +402,15 @@
         justify-content: center;
       }
       .bank-logo {
-        width: 64px;
-        height: 36px;
+        max-width: 72px;
+        max-height: 36px;
+        width: auto;
+        height: auto;
         object-fit: contain;
+        object-position: left center;
       }
       .bank-logo-fb {
-        width: 64px;
+        width: 72px;
         height: 36px;
         border-radius: 6px;
         display: flex;
@@ -464,13 +469,21 @@
         letter-spacing: 0.8px;
         margin-bottom: 8px;
       }
+      .acct-tbl-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+        border: 1px solid var(--bdr);
+      }
       .acct-tbl {
         width: 100%;
         border-collapse: collapse;
-        border: 1px solid var(--bdr);
-        border-radius: 8px;
         overflow: hidden;
         font-size: 13px;
+        min-width: 300px;
+      }
+      .acct-tbl-wrap .acct-tbl {
+        border: none;
       }
       .acct-tbl th {
         background: #f9fafb;
@@ -810,33 +823,206 @@
         border-radius: 3px;
       }
 
+      /* ── MOB MENU BUTTON ── */
+      .mob-menu-btn {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+        border: 1px solid var(--bdr);
+        background: var(--white);
+        cursor: pointer;
+        flex-shrink: 0;
+        position: fixed;
+        top: 9px;
+        left: 12px;
+        z-index: 202;
+        color: var(--tx2);
+        transition: 0.15s;
+      }
+      .mob-menu-btn:hover {
+        background: #f3f4f6;
+        color: var(--tx);
+      }
+
+      /* ── SIDEBAR OVERLAY (mobile) ── */
+      .sb-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 98;
+        backdrop-filter: blur(2px);
+      }
+      .sb-overlay.open {
+        display: block;
+      }
+
       /* ── RESPONSIVE ── */
       @media (max-width: 768px) {
+        /* Sidebar: hidden off-screen → slides in */
         .sb {
+          transform: translateX(-100%);
+          transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 99;
+          top: 0;
+        }
+        .sb.open {
+          transform: translateX(0);
+        }
+
+        /* Header */
+        .hdr {
+          padding-left: 60px;
+        }
+        .hdr-left {
           display: none;
         }
+        .mob-menu-btn {
+          display: flex;
+        }
+
+        /* Main content */
         .main {
           margin-left: 0;
-          padding: 16px 14px 48px;
+          padding: 16px 12px 80px;
           align-items: stretch;
         }
         .main > * {
           max-width: 100%;
         }
-        .hdr {
-          padding-left: 16px;
+
+        /* Bank card adjustments */
+        .bank-hdr {
+          padding: 14px 14px;
+          gap: 10px;
         }
-        .hdr-left {
-          display: none;
+        .bank-body {
+          padding: 14px 14px;
         }
+        .bank-logo-wrap {
+          width: 52px;
+          height: 30px;
+        }
+        .bank-logo {
+          width: 52px;
+          height: 30px;
+        }
+        .bank-hdr-info h2 {
+          font-size: 14px;
+        }
+        .bank-hdr-info .bank-code {
+          font-size: 11px;
+        }
+
+        /* Scrollable tables on mobile */
+        .acct-tbl-wrap,
+        .term-tbl-wrap {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          border-radius: 8px;
+        }
+        .acct-tbl,
+        .term-table {
+          min-width: 360px;
+        }
+
+        /* Accordion header */
+        .ag-hdr {
+          padding: 10px 12px;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+        .ag-body {
+          padding: 12px;
+        }
+
+        /* Intro stats */
+        .intro-stats {
+          gap: 8px;
+        }
+        .stat {
+          padding: 6px 12px;
+        }
+        .stat-n {
+          font-size: 16px;
+        }
+
+        /* Step connector */
+        .step:not(:last-child)::before {
+          left: 12px;
+        }
+        .sn {
+          width: 24px;
+          height: 24px;
+          font-size: 11px;
+        }
+
+        /* Back button */
         .back-btn {
           bottom: 16px;
           right: 16px;
+          font-size: 12px;
+          padding: 7px 12px;
+        }
+
+        /* Section card padding */
+        .section-hdr {
+          padding: 12px 14px;
+        }
+        .term-table th,
+        .term-table td {
+          padding: 8px 12px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .hdr-t {
+          font-size: 13px;
+        }
+        .hdr-s {
+          display: none;
+        }
+        .bank-hdr {
+          gap: 8px;
+        }
+        .bank-logo-wrap {
+          width: 44px;
+          height: 26px;
+        }
+        .bank-logo {
+          width: 44px;
+          height: 26px;
+        }
+        .ag-title {
+          font-size: 12px;
         }
       }
     </style>
   </head>
   <body>
+    <!-- MOBILE SIDEBAR OVERLAY -->
+    <div class="sb-overlay" id="sbOverlay"></div>
+
+    <!-- MOBILE HAMBURGER BUTTON -->
+    <button class="mob-menu-btn" id="mobMenuBtn" aria-label="Mở menu">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+      >
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+
     <!-- HEADER LEFT (Brand) -->
     <div class="hdr-left">
       <img
@@ -947,7 +1133,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/VietinBank_logo.svg/200px-VietinBank_logo.svg.png"
+            src="https://api.vietqr.io/img/ICB.png"
             alt="VTB"
             onerror="
               this.style.display = 'none';
@@ -966,7 +1152,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/BIDV_logo.svg/200px-BIDV_logo.svg.png"
+            src="https://api.vietqr.io/img/BIDV.png"
             alt="BIDV"
             onerror="
               this.style.display = 'none';
@@ -985,7 +1171,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/OCB_logo.svg/200px-OCB_logo.svg.png"
+            src="https://api.vietqr.io/img/OCB.png"
             alt="OCB"
             onerror="
               this.style.display = 'none';
@@ -1004,7 +1190,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/MB_Bank_logo.svg/200px-MB_Bank_logo.svg.png"
+            src="https://api.vietqr.io/img/MB.png"
             alt="MB"
             onerror="
               this.style.display = 'none';
@@ -1023,7 +1209,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/ACB_Logo.svg/200px-ACB_Logo.svg.png"
+            src="https://api.vietqr.io/img/ACB.png"
             alt="ACB"
             onerror="
               this.style.display = 'none';
@@ -1046,7 +1232,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Vietcombank_logo.svg/200px-Vietcombank_logo.svg.png"
+            src="https://api.vietqr.io/img/VCB.png"
             alt="VCB"
             onerror="
               this.style.display = 'none';
@@ -1065,7 +1251,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/VPBank_logo.svg/200px-VPBank_logo.svg.png"
+            src="https://api.vietqr.io/img/VPB.png"
             alt="VPB"
             onerror="
               this.style.display = 'none';
@@ -1084,7 +1270,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Sacombank_logo.svg/200px-Sacombank_logo.svg.png"
+            src="https://api.vietqr.io/img/STB.png"
             alt="STB"
             onerror="
               this.style.display = 'none';
@@ -1103,7 +1289,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/VIB_logo.svg/200px-VIB_logo.svg.png"
+            src="https://api.vietqr.io/img/VIB.png"
             alt="VIB"
             onerror="
               this.style.display = 'none';
@@ -1122,7 +1308,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/PGBank_logo.svg/200px-PGBank_logo.svg.png"
+            src="https://api.vietqr.io/img/PGB.png"
             alt="PGB"
             onerror="
               this.style.display = 'none';
@@ -1145,7 +1331,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Shinhan_Bank_logo.svg/200px-Shinhan_Bank_logo.svg.png"
+            src="https://api.vietqr.io/img/SHBVN.png"
             alt="Shinhan"
             onerror="
               this.style.display = 'none';
@@ -1168,7 +1354,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/vi/thumb/6/65/Logo_Co-opBank.png/200px-Logo_Co-opBank.png"
+            src="https://api.vietqr.io/img/COOPBANK.png"
             alt="Co-op"
             onerror="
               this.style.display = 'none';
@@ -1187,7 +1373,7 @@
         <div class="sb-logo-wrap">
           <img
             class="sb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/MSB_logo.svg/200px-MSB_logo.svg.png"
+            src="https://api.vietqr.io/img/MSB.png"
             alt="MSB"
             onerror="
               this.style.display = 'none';
@@ -1268,52 +1454,54 @@
             </div>
           </div>
         </div>
-        <table class="term-table">
-          <thead>
-            <tr>
-              <th style="width: 80px">Viết tắt</th>
-              <th style="width: 190px">Thuật ngữ đầy đủ</th>
-              <th>Ghi chú</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="ta">VA</td>
-              <td class="tf">Tài khoản định danh</td>
-              <td class="tn">Sử dụng STK hoặc QR tạo từ hệ thống Tingee</td>
-            </tr>
-            <tr>
-              <td class="ta">TKDN</td>
-              <td class="tf">Tài khoản Doanh nghiệp</td>
-              <td class="tn">—</td>
-            </tr>
-            <tr>
-              <td class="ta">TKCN</td>
-              <td class="tf">Tài khoản Cá nhân</td>
-              <td class="tn">—</td>
-            </tr>
-            <tr>
-              <td class="ta">HKD</td>
-              <td class="tf">Hộ kinh doanh</td>
-              <td class="tn">—</td>
-            </tr>
-            <tr>
-              <td class="ta">CBB</td>
-              <td class="tf">Cán bộ bán</td>
-              <td class="tn">Nhân viên ngân hàng phụ trách</td>
-            </tr>
-            <tr>
-              <td class="ta">KH</td>
-              <td class="tf">Khách hàng</td>
-              <td class="tn">—</td>
-            </tr>
-            <tr>
-              <td class="ta">STK</td>
-              <td class="tf">Số tài khoản</td>
-              <td class="tn">—</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="term-tbl-wrap">
+          <table class="term-table">
+            <thead>
+              <tr>
+                <th style="width: 80px">Viết tắt</th>
+                <th style="width: 190px">Thuật ngữ đầy đủ</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ta">VA</td>
+                <td class="tf">Tài khoản định danh</td>
+                <td class="tn">Sử dụng STK hoặc QR tạo từ hệ thống Tingee</td>
+              </tr>
+              <tr>
+                <td class="ta">TKDN</td>
+                <td class="tf">Tài khoản Doanh nghiệp</td>
+                <td class="tn">—</td>
+              </tr>
+              <tr>
+                <td class="ta">TKCN</td>
+                <td class="tf">Tài khoản Cá nhân</td>
+                <td class="tn">—</td>
+              </tr>
+              <tr>
+                <td class="ta">HKD</td>
+                <td class="tf">Hộ kinh doanh</td>
+                <td class="tn">—</td>
+              </tr>
+              <tr>
+                <td class="ta">CBB</td>
+                <td class="tf">Cán bộ bán</td>
+                <td class="tn">Nhân viên ngân hàng phụ trách</td>
+              </tr>
+              <tr>
+                <td class="ta">KH</td>
+                <td class="tf">Khách hàng</td>
+                <td class="tn">—</td>
+              </tr>
+              <tr>
+                <td class="ta">STK</td>
+                <td class="tf">Số tài khoản</td>
+                <td class="tn">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- ═══ 1. VIETINBANK ═══ -->
@@ -1323,7 +1511,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/VietinBank_logo.svg/200px-VietinBank_logo.svg.png"
+              src="https://api.vietqr.io/img/ICB.png"
               alt="Vietinbank"
               onerror="
                 this.style.display = 'none';
@@ -1345,28 +1533,30 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Doanh nghiệp</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Hộ kinh doanh</td>
-                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Doanh nghiệp</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Hộ kinh doanh</td>
+                    <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -1528,7 +1718,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/BIDV_logo.svg/200px-BIDV_logo.svg.png"
+              src="https://api.vietqr.io/img/BIDV.png"
               alt="BIDV"
               onerror="
                 this.style.display = 'none';
@@ -1550,28 +1740,30 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Doanh nghiệp</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Hộ kinh doanh</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Doanh nghiệp</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Hộ kinh doanh</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -1713,7 +1905,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/OCB_logo.svg/200px-OCB_logo.svg.png"
+              src="https://api.vietqr.io/img/OCB.png"
               alt="OCB"
               onerror="
                 this.style.display = 'none';
@@ -1735,28 +1927,30 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Doanh nghiệp</td>
-                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Hộ kinh doanh</td>
-                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Doanh nghiệp</td>
+                    <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Hộ kinh doanh</td>
+                    <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -1856,7 +2050,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/MB_Bank_logo.svg/200px-MB_Bank_logo.svg.png"
+              src="https://api.vietqr.io/img/MB.png"
               alt="MB Bank"
               onerror="
                 this.style.display = 'none';
@@ -1878,24 +2072,26 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Doanh nghiệp</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Doanh nghiệp</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -1999,7 +2195,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/ACB_Logo.svg/200px-ACB_Logo.svg.png"
+              src="https://api.vietqr.io/img/ACB.png"
               alt="ACB"
               onerror="
                 this.style.display = 'none';
@@ -2021,28 +2217,30 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Doanh nghiệp</td>
-                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Hộ kinh doanh</td>
-                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Doanh nghiệp</td>
+                    <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Hộ kinh doanh</td>
+                    <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -2184,7 +2382,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Vietcombank_logo.svg/200px-Vietcombank_logo.svg.png"
+              src="https://api.vietqr.io/img/VCB.png"
               alt="Vietcombank"
               onerror="
                 this.style.display = 'none';
@@ -2206,28 +2404,30 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Doanh nghiệp</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Hộ kinh doanh</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Doanh nghiệp</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Hộ kinh doanh</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -2339,7 +2539,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/VPBank_logo.svg/200px-VPBank_logo.svg.png"
+              src="https://api.vietqr.io/img/VPB.png"
               alt="VPBank"
               onerror="
                 this.style.display = 'none';
@@ -2361,24 +2561,26 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Doanh nghiệp</td>
-                  <td><span class="badge br">TK gốc</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Doanh nghiệp</td>
+                    <td><span class="badge br">TK gốc</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -2542,7 +2744,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Sacombank_logo.svg/200px-Sacombank_logo.svg.png"
+              src="https://api.vietqr.io/img/STB.png"
               alt="Sacombank"
               onerror="
                 this.style.display = 'none';
@@ -2564,24 +2766,26 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Hộ kinh doanh</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Hộ kinh doanh</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -2661,7 +2865,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/VIB_logo.svg/200px-VIB_logo.svg.png"
+              src="https://api.vietqr.io/img/VIB.png"
               alt="VIB"
               onerror="
                 this.style.display = 'none';
@@ -2683,28 +2887,30 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Doanh nghiệp</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Hộ kinh doanh</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Doanh nghiệp</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Hộ kinh doanh</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -2818,7 +3024,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/PGBank_logo.svg/200px-PGBank_logo.svg.png"
+              src="https://api.vietqr.io/img/PGB.png"
               alt="PGBank"
               onerror="
                 this.style.display = 'none';
@@ -2840,28 +3046,30 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge br">TK gốc</span></td>
-                </tr>
-                <tr>
-                  <td>TK Doanh nghiệp</td>
-                  <td><span class="badge br">TK gốc</span></td>
-                </tr>
-                <tr>
-                  <td>TK Hộ kinh doanh</td>
-                  <td><span class="badge br">TK gốc</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge br">TK gốc</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Doanh nghiệp</td>
+                    <td><span class="badge br">TK gốc</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Hộ kinh doanh</td>
+                    <td><span class="badge br">TK gốc</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -2975,7 +3183,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Shinhan_Bank_logo.svg/200px-Shinhan_Bank_logo.svg.png"
+              src="https://api.vietqr.io/img/SHBVN.png"
               alt="ShinhanBank"
               onerror="
                 this.style.display = 'none';
@@ -3011,7 +3219,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/vi/thumb/6/65/Logo_Co-opBank.png/200px-Logo_Co-opBank.png"
+              src="https://api.vietqr.io/img/COOPBANK.png"
               alt="Co-op Bank"
               onerror="
                 this.style.display = 'none';
@@ -3033,24 +3241,26 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge br">TK gốc</span></td>
-                </tr>
-                <tr>
-                  <td>TK Hộ kinh doanh</td>
-                  <td><span class="badge br">TK gốc</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge br">TK gốc</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Hộ kinh doanh</td>
+                    <td><span class="badge br">TK gốc</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div class="ag">
@@ -3130,7 +3340,7 @@
           <div class="bank-logo-wrap">
             <img
               class="bank-logo"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/MSB_logo.svg/200px-MSB_logo.svg.png"
+              src="https://api.vietqr.io/img/MSB.png"
               alt="MSB"
               onerror="
                 this.style.display = 'none';
@@ -3152,28 +3362,30 @@
         <div class="bank-body">
           <div class="acct-section">
             <div class="tbl-label">Loại tài khoản hỗ trợ</div>
-            <table class="acct-tbl">
-              <thead>
-                <tr>
-                  <th>Loại tài khoản</th>
-                  <th>Định dạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>TK Cá nhân</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Doanh nghiệp</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-                <tr>
-                  <td>TK Hộ kinh doanh</td>
-                  <td><span class="badge bv">VA</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="acct-tbl-wrap">
+              <table class="acct-tbl">
+                <thead>
+                  <tr>
+                    <th>Loại tài khoản</th>
+                    <th>Định dạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TK Cá nhân</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Doanh nghiệp</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                  <tr>
+                    <td>TK Hộ kinh doanh</td>
+                    <td><span class="badge bv">VA</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="ia">
             Các bước chi tiết cho MSB đang được cập nhật. Vui lòng liên hệ HENO
@@ -3285,7 +3497,7 @@
       </div>
 
       <div class="footer">
-        © 2025 Công ty CP Công Nghệ HENO &nbsp;·&nbsp;
+        © 2026 Công ty CP Công Nghệ HENO &nbsp;·&nbsp;
         <a
           href="https://tingee.vn"
           style="color: var(--primary); text-decoration: none"
@@ -3348,6 +3560,45 @@
         },
         { passive: true },
       );
+
+      // ── MOBILE SIDEBAR TOGGLE ──
+      const sidebar = document.getElementById("sidebar");
+      const sbOverlay = document.getElementById("sbOverlay");
+      const mobMenuBtn = document.getElementById("mobMenuBtn");
+
+      function openSidebar() {
+        sidebar.classList.add("open");
+        sbOverlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeSidebar() {
+        sidebar.classList.remove("open");
+        sbOverlay.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      mobMenuBtn.addEventListener("click", () => {
+        sidebar.classList.contains("open") ? closeSidebar() : openSidebar();
+      });
+      sbOverlay.addEventListener("click", closeSidebar);
+
+      // Close sidebar + immediate active when clicking any sidebar link on mobile
+      sbLinks.forEach((link) => {
+        link.addEventListener("click", function () {
+          // Immediate active highlight
+          sbLinks.forEach((l) => l.classList.remove("active"));
+          this.classList.add("active");
+          // Close on mobile
+          if (window.innerWidth <= 768) {
+            setTimeout(closeSidebar, 80);
+          }
+        });
+      });
+
+      // Close sidebar on resize to desktop
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 768) closeSidebar();
+      });
     </script>
   </body>
 </html>
