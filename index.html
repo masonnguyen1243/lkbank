@@ -3497,7 +3497,7 @@
       </div>
 
       <div class="footer">
-        © 2026 Công ty CP Công Nghệ HENO &nbsp;·&nbsp;
+        © 2025 Công ty CP Công Nghệ HENO &nbsp;·&nbsp;
         <a
           href="https://tingee.vn"
           style="color: var(--primary); text-decoration: none"
@@ -3538,28 +3538,50 @@
       });
 
       // Scroll spy + back button
-      const sections = document.querySelectorAll("[id]");
+      // Chỉ theo dõi các bank-card và section chính (không lấy toàn bộ [id])
+      const watchedSections = Array.from(
+        document.querySelectorAll(".bank-card[id], #intro, #terminology"),
+      );
       const sbLinks = document.querySelectorAll(".sb-link");
       const backBtn = document.getElementById("backBtn");
+      const HEADER_H = 56 + 24; // chiều cao header + padding
 
-      window.addEventListener(
-        "scroll",
-        function () {
-          // Back button
-          backBtn.classList.toggle("visible", window.scrollY > 300);
-          // Active sidebar item
-          const y = window.scrollY + 80;
-          let cur = "";
-          sections.forEach((s) => {
-            if (s.offsetTop <= y) cur = s.id;
-          });
-          sbLinks.forEach((l) => {
-            const href = l.getAttribute("href");
-            l.classList.toggle("active", href === "#" + cur);
-          });
-        },
-        { passive: true },
-      );
+      let spyEnabled = true;
+      let spyTimer = null;
+
+      function setActiveLink(id) {
+        sbLinks.forEach((l) => {
+          const href = l.getAttribute("href");
+          l.classList.toggle("active", href === "#" + id);
+        });
+        // Tự cuộn sidebar để hiện link đang active
+        if (id) {
+          const activeLink = document.querySelector(`.sb-link[href="#${id}"]`);
+          if (activeLink) {
+            const sb = document.getElementById("sidebar");
+            const sbRect = sb.getBoundingClientRect();
+            const lRect = activeLink.getBoundingClientRect();
+            if (lRect.bottom > sbRect.bottom || lRect.top < sbRect.top + 50) {
+              activeLink.scrollIntoView({ block: "nearest" });
+            }
+          }
+        }
+      }
+
+      function updateScrollSpy() {
+        if (!spyEnabled) return;
+        backBtn.classList.toggle("visible", window.scrollY > 300);
+        const y = window.scrollY + HEADER_H;
+        let cur = "";
+        watchedSections.forEach((s) => {
+          if (s.offsetTop <= y) cur = s.id;
+        });
+        setActiveLink(cur);
+      }
+
+      window.addEventListener("scroll", updateScrollSpy, { passive: true });
+      // Cập nhật ngay khi tải trang
+      updateScrollSpy();
 
       // ── MOBILE SIDEBAR TOGGLE ──
       const sidebar = document.getElementById("sidebar");
@@ -3582,13 +3604,24 @@
       });
       sbOverlay.addEventListener("click", closeSidebar);
 
-      // Close sidebar + immediate active when clicking any sidebar link on mobile
+      // Click sidebar link: giữ active và tạm dừng scroll spy trong lúc cuộn mượt
       sbLinks.forEach((link) => {
         link.addEventListener("click", function () {
-          // Immediate active highlight
+          // Tạm dừng scroll spy để active không bị ghi đè
+          spyEnabled = false;
+          clearTimeout(spyTimer);
+
+          // Đặt active ngay lập tức
           sbLinks.forEach((l) => l.classList.remove("active"));
           this.classList.add("active");
-          // Close on mobile
+
+          // Bật lại scroll spy sau khi cuộn mượt hoàn tất (~700ms)
+          spyTimer = setTimeout(() => {
+            spyEnabled = true;
+            updateScrollSpy();
+          }, 700);
+
+          // Đóng sidebar trên mobile
           if (window.innerWidth <= 768) {
             setTimeout(closeSidebar, 80);
           }
