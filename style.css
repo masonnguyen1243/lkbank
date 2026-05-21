@@ -1106,3 +1106,321 @@ body {
     font-size: 12px;
   }
 }
+
+/* ================================================================
+   TÀI LIỆU ĐÍNH KÈM
+   ================================================================ */
+
+.doc-section {
+  margin: 0 20px 20px;
+  border: 1px solid var(--bdr);
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--white);
+}
+
+.doc-section-hdr {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tx2);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  background: #f7f9fc;
+  border-bottom: 1px solid var(--bdr);
+}
+
+.doc-list {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Trạng thái trống ── */
+.doc-list-empty {
+  padding: 0;
+}
+
+.doc-empty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 16px;
+  color: var(--tx3);
+  font-size: 12.5px;
+  font-style: italic;
+}
+
+/* ── Một dòng tài liệu ── */
+.doc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.doc-item:hover {
+  background: #f7f9fc;
+}
+
+/* Icon loại file */
+.doc-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.doc-icon-pdf {
+  background: #fff0f3;
+  color: var(--primary);
+  border: 1px solid #ffc0ce;
+}
+
+.doc-icon-doc {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.doc-icon-xls {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.doc-icon-img {
+  background: #fefce8;
+  color: #a16207;
+  border: 1px solid #fde68a;
+}
+
+/* Thông tin tên tài liệu */
+.doc-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.doc-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tx);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.doc-meta {
+  font-size: 11.5px;
+  color: var(--tx3);
+  margin-top: 2px;
+}
+
+/* Nút hành động */
+.doc-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.doc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  font-family: inherit;
+}
+
+.doc-btn-view {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border: 1px solid var(--primary-mid);
+}
+
+.doc-btn-view:hover {
+  background: var(--primary-mid);
+  color: var(--primary-dark);
+}
+
+.doc-btn-dl {
+  background: #f1f5f9;
+  color: var(--tx2);
+  border: 1px solid #dde3ec;
+}
+
+.doc-btn-dl:hover {
+  background: #e2e8f0;
+  color: var(--tx);
+}
+
+/* ================================================================
+   PDF MODAL
+   ================================================================ */
+
+.pdf-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 21, 38, 0.55);
+  z-index: 900;
+  backdrop-filter: blur(2px);
+}
+
+.pdf-modal-overlay.open {
+  display: block;
+}
+
+.pdf-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.97);
+  width: min(92vw, 920px);
+  height: min(88vh, 780px);
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow:
+    0 24px 60px rgba(13, 21, 38, 0.22),
+    0 6px 20px rgba(13, 21, 38, 0.12);
+  z-index: 910;
+  overflow: hidden;
+  flex-direction: column;
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease;
+  opacity: 0;
+}
+
+.pdf-modal.open {
+  display: flex;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.pdf-modal-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--bdr);
+  flex-shrink: 0;
+  background: var(--white);
+}
+
+.pdf-modal-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--tx);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 140px);
+}
+
+.pdf-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.pdf-modal-dl {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border: 1px solid var(--primary-mid);
+  border-radius: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.pdf-modal-dl:hover {
+  background: var(--primary-mid);
+}
+
+.pdf-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  border: 1px solid var(--bdr);
+  background: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tx2);
+  transition: background 0.15s;
+}
+
+.pdf-modal-close:hover {
+  background: #f1f5f9;
+  color: var(--tx);
+}
+
+.pdf-modal-body {
+  flex: 1;
+  overflow: hidden;
+  background: #f0f4f8;
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #f0f4f8;
+}
+
+/* ── Responsive modal ── */
+@media (max-width: 768px) {
+  .pdf-modal {
+    width: 100vw;
+    height: 100dvh;
+    top: 0;
+    left: 0;
+    transform: translateY(20px);
+    border-radius: 0;
+  }
+
+  .pdf-modal.open {
+    transform: translateY(0);
+  }
+
+  .doc-actions {
+    gap: 4px;
+  }
+  .doc-btn {
+    padding: 5px 8px;
+    font-size: 11.5px;
+  }
+  .doc-name {
+    font-size: 12.5px;
+  }
+}

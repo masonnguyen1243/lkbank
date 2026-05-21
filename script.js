@@ -137,6 +137,55 @@ window.addEventListener("resize", () => {
 });
 
 /* ================================================================
+   PDF VIEWER MODAL — XEM TÀI LIỆU ĐÍNH KÈM
+   ================================================================ */
+
+const pdfModal = document.getElementById("pdfModal");
+const pdfModalOverlay = document.getElementById("pdfModalOverlay");
+const pdfModalTitle = document.getElementById("pdfModalTitle");
+const pdfModalDl = document.getElementById("pdfModalDl");
+const pdfFrame = document.getElementById("pdfFrame");
+
+/**
+ * Mở modal xem PDF / tài liệu.
+ * @param {string} url   - Đường dẫn tới file (vd: 'docs/vtb/cong-van-3156.pdf')
+ * @param {string} title - Tiêu đề hiển thị trong modal
+ */
+function openDocViewer(url, title) {
+  pdfModalTitle.textContent = title || "Xem tài liệu";
+  pdfModalDl.href = url;
+  pdfModalDl.download = url.split("/").pop();
+
+  // Với PDF: dùng iframe trực tiếp; trình duyệt hiện đại tự hiển thị
+  pdfFrame.src = url;
+
+  pdfModal.classList.add("open");
+  pdfModalOverlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+/**
+ * Đóng modal và xoá nguồn iframe để dừng tải file.
+ */
+function closeDocViewer() {
+  pdfModal.classList.remove("open");
+  pdfModalOverlay.classList.remove("open");
+  document.body.style.overflow = "";
+
+  // Đặt lại sau khi animation đóng hoàn tất
+  setTimeout(() => {
+    pdfFrame.src = "";
+  }, 200);
+}
+
+// Đóng modal khi nhấn phím Escape
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && pdfModal.classList.contains("open")) {
+    closeDocViewer();
+  }
+});
+
+/* ================================================================
    SIDEBAR LINKS — CLICK ĐỂ ĐIỀU HƯỚNG
    ================================================================ */
 
