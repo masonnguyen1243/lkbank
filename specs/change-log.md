@@ -19,6 +19,8 @@ All notable changes to the Bank Linking Portal project are documented here.
 - **Documentation**:
   - Initialized project specs directory with `product-spec.md`, `implementation-plan.md`, and `change-log.md`.
   - Generated `RULES.md` and `README.md` in the project root.
+- **TPBank Integration**:
+  - Added TPBank (14th bank) with detailed guidelines for Individual and Business/Corporate accounts, styled accordions, and custom note details.
 
 ### Fixed
 - Fixed styling consistency for accordion containers on dark theme.
