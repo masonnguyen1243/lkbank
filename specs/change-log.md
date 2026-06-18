@@ -26,6 +26,11 @@ All notable changes to the Bank Linking Portal project are documented here.
 
 ### Fixed
 - Fixed styling consistency for accordion containers on dark theme.
+- **Homepage Responsiveness**:
+  - Implemented responsive media queries for tablets (`max-width: 768px`) and mobile screens (`max-width: 480px`) in `css/home.css`.
+  - Added adaptive layouts to prevent horizontal scrolling and layout overflow on small display widths.
+  - Repositioned the theme toggle button and added padding to the homepage header to prevent text overlap on mobile devices.
+  - Added responsive theme variables for card icons and integrated a smooth card-arrow hover translation transition.
 
 ---
 
