@@ -6,7 +6,7 @@ Hệ thống tài liệu hướng dẫn quy trình liên kết tài khoản ngâ
 
 Cổng thông tin được xây dựng dưới dạng ứng dụng trang tĩnh (Static Web App) tối ưu hóa cao về hiệu năng và trải nghiệm người dùng:
 - **Trang chủ (`home.html`)**: Điều hướng người dùng truy cập các danh mục tài liệu.
-- **Trang quy trình (`bank.html`)**: Trình bày chi tiết hướng dẫn của 13 ngân hàng thương mại tại Việt Nam.
+- **Trang quy trình (`bank.html`)**: Trình bày chi tiết hướng dẫn của 14 ngân hàng thương mại tại Việt Nam.
 - **Tìm kiếm thông minh**: Lọc danh sách ngân hàng ở sidebar theo thời gian thực và tự động đánh dấu (Highlight) từ khóa khớp.
 - **Dark Mode**: Hỗ trợ chuyển đổi nhanh chủ đề Sáng / Tối và lưu trạng thái ưu tiên.
 - **Xem tài liệu trực tiếp**: Hỗ trợ Modal xem biểu mẫu PDF tích hợp không cần rời trang hoặc mở tab mới.
@@ -33,7 +33,7 @@ Vì đây là dự án trang tĩnh thuần túy (Static Web Portal), bạn chỉ
 ## Cấu trúc thư mục
 
 - `pages/home.html` — Trang đích chính.
-- `pages/bank.html` — Hướng dẫn chi tiết liên kết 13 ngân hàng.
+- `pages/bank.html` — Hướng dẫn chi tiết liên kết 14 ngân hàng.
 - `css/home.css` — CSS trang chủ.
 - `css/bank.css` — CSS cốt lõi trang hướng dẫn và các tiện ích (Dark Mode, Modal, Scroll Spy).
 - `js/home.js` — JavaScript điều hướng và đổi chủ đề trang chủ.

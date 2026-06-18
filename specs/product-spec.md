@@ -3,7 +3,7 @@
 ## 1. Overview & Goals
 The **Bank Linking Guideline Portal** is a static web application developed to guide HENO sales staff (CBB), customer support agents, and merchants on how to connect bank accounts to the Tingee payment collection gateway. 
 
-The primary goal is to provide a single, unified reference point that simplifies the linking procedures for 13 Vietnamese commercial banks, detailing the required steps, documents, and contacts.
+The primary goal is to provide a single, unified reference point that simplifies the linking procedures for 14 Vietnamese commercial banks, detailing the required steps, documents, and contacts.
 
 ## 2. Target Users & Personas
 - **HENO Sales / Customer Care Agents**: Need a quick lookup tool during support calls or sales pitches.
@@ -34,3 +34,4 @@ The primary goal is to provide a single, unified reference point that simplifies
 11. ShinhanBank
 12. Co-op Bank
 13. MSB
+14. TPBank

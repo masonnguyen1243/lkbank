@@ -77,7 +77,7 @@
       <div>
         <div class="hdr-t">Quy Trình Liên Kết Ngân Hàng</div>
       </div>
-      <span class="hdr-s">— 13 ngân hàng</span>
+      <span class="hdr-s">— 14 ngân hàng</span>
     </div>
     <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Đổi giao diện">
       <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -307,6 +307,20 @@
       <span class="sb-num">13</span>
     </a>
 
+    <a class="sb-link sb-bank" href="#tpbank" data-name="tpbank tpb tiên phong">
+      <div class="sb-logo-wrap">
+        <img class="sb-logo" src="https://api.vietqr.io/img/TPB.png" alt="TPBank" onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            " />
+        <div class="sb-fallback" style="background: #54208a; display: none">
+          TPB
+        </div>
+      </div>
+      <span>TPBank</span>
+      <span class="sb-num">14</span>
+    </a>
+
     <div style="padding: 12px; margin-top: auto">
       <div style="
             font-size: 11px;
@@ -339,7 +353,7 @@
           </p>
           <div class="intro-stats">
             <div class="stat">
-              <div class="stat-n">13</div>
+              <div class="stat-n">14</div>
               <div class="stat-l">Ngân hàng</div>
             </div>
             <div class="stat">
@@ -2794,6 +2808,165 @@
         </div>
 
         <!-- TÀI LIỆU ĐÍNH KÈM — MSB -->
+        <div class="doc-section">
+          <div class="doc-section-hdr">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            Tài liệu đính kèm
+          </div>
+          <div class="doc-list doc-list-empty">
+            <div class="doc-empty">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                opacity=".35">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="9" y1="13" x2="15" y2="13" />
+                <line x1="9" y1="17" x2="12" y2="17" />
+              </svg>
+              <span>Chưa có tài liệu — sẽ cập nhật sau</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ 14. TPBANK ═══ -->
+    <div class="bank-card" id="tpbank" style="border-left-color: #54208a">
+      <div class="bank-hdr">
+        <div class="bank-num">14</div>
+        <div class="bank-logo-wrap">
+          <img class="bank-logo" src="https://api.vietqr.io/img/TPB.png" alt="TPBank" onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              " />
+          <div class="bank-logo-fb" style="background: #54208a; display: none">
+            TPB
+          </div>
+        </div>
+        <div class="bank-hdr-info">
+          <h2>TPBank</h2>
+          <span class="bank-code">NH TMCP Tiên Phong · TPB</span>
+        </div>
+      </div>
+      <div class="bank-body">
+        <div class="acct-section">
+          <div class="tbl-label">Loại tài khoản hỗ trợ</div>
+          <div class="acct-tbl-wrap">
+            <table class="acct-tbl">
+              <thead>
+                <tr>
+                  <th>Loại tài khoản</th>
+                  <th>Định dạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TK Cá nhân</td>
+                  <td><span class="badge br">TK gốc</span></td>
+                </tr>
+                <tr>
+                  <td>TK Doanh nghiệp</td>
+                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                </tr>
+                <tr>
+                  <td>TK Hộ kinh doanh</td>
+                  <td><span class="badge bb">TK gốc &amp; VA</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="ag">
+          <div class="ag-hdr" onclick="toggleAg(this)">
+            <span class="ag-title">Tài khoản Cá nhân</span>
+            <span class="tag tag-self">Tự thao tác</span>
+            <span class="ag-toggle open">▾</span>
+          </div>
+          <div class="ag-body">
+            <div class="steps">
+              <div class="step">
+                <div class="sn">1</div>
+                <div class="sb2">
+                  <div class="st">Khởi động trên Tingee</div>
+                  <div class="sd">Đăng ký hoặc đăng nhập tài khoản Tingee Merchant của bạn.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="sn">2</div>
+                <div class="sb2">
+                  <div class="st">Chọn liên kết ngân hàng</div>
+                  <div class="sd">Lựa chọn liên kết <strong>Tài khoản cá nhân</strong> và chọn ngân hàng <strong>TPBank</strong>. Hệ thống sẽ tự động điều hướng sang cổng đăng nhập dịch vụ của <strong>TPBank Connect</strong>.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="sn">3</div>
+                <div class="sb2">
+                  <div class="st">Đăng nhập &amp; Chọn tài khoản chia sẻ</div>
+                  <div class="sd">Đăng nhập tài khoản TPBank Connect cá nhân. Nhấp chọn <strong>"Cho Phép"</strong> chia sẻ thông tin biến động số dư, sau đó chọn số tài khoản (STK) gốc muốn kết nối.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="sn">4</div>
+                <div class="sb2">
+                  <div class="st">Xác thực OTP &amp; Hoàn tất</div>
+                  <div class="sd">Xác nhận và nhập mã OTP. Sau khi xác thực thành công, hệ thống sẽ tự động chuyển hướng quay trở lại Tingee và hoàn thành liên kết.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ag">
+          <div class="ag-hdr" onclick="toggleAg(this)">
+            <span class="ag-title">Tài khoản Hộ kinh doanh / Doanh nghiệp</span>
+            <span class="tag tag-self">Tự thao tác</span>
+            <span class="ag-toggle open">▾</span>
+          </div>
+          <div class="ag-body">
+            <div class="steps">
+              <div class="step">
+                <div class="sn">1</div>
+                <div class="sb2">
+                  <div class="st">Khởi động trên Tingee</div>
+                  <div class="sd">Đăng ký hoặc đăng nhập tài khoản Tingee Merchant của bạn.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="sn">2</div>
+                <div class="sb2">
+                  <div class="st">Chọn liên kết ngân hàng</div>
+                  <div class="sd">Lựa chọn liên kết <strong>Tài khoản doanh nghiệp</strong> hoặc <strong>Tài khoản hộ kinh doanh</strong>, sau đó chọn ngân hàng <strong>TPBank</strong>. Hệ thống sẽ điều hướng sang cổng đăng nhập <strong>TPBank Connect</strong>.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="sn">3</div>
+                <div class="sb2">
+                  <div class="st">Đăng nhập &amp; Lựa chọn tài khoản</div>
+                  <div class="sd">Đăng nhập tài khoản TPBank Connect dành cho doanh nghiệp/hộ kinh doanh. Nhấp chọn <strong>"Cho Phép"</strong> kết nối, sau đó lựa chọn tài khoản muốn liên kết: <strong>Số tài khoản gốc</strong> hoặc <strong>VA (Tài khoản định danh)</strong>.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="sn">4</div>
+                <div class="sb2">
+                  <div class="st">Xác thực OTP &amp; Hoàn tất</div>
+                  <div class="sd">Xác nhận và nhập mã OTP để duyệt liên kết. Khi hoàn thành, hệ thống sẽ chuyển hướng về Tingee và kích hoạt trạng thái liên kết thành công.</div>
+                </div>
+              </div>
+            </div>
+            <div class="note">
+              <div class="note-t">LƯU Ý QUAN TRỌNG</div>
+              <div class="note-b">
+                Đối với hệ thống TPBank, <strong>Tài khoản định danh (VA)</strong> được hiển thị và quản lý dưới dạng các <strong>Tiểu khoản</strong> của số tài khoản chính.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TÀI LIỆU ĐÍNH KÈM — TPBANK -->
         <div class="doc-section">
           <div class="doc-section-hdr">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
