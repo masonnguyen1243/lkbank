@@ -21,6 +21,8 @@ All notable changes to the Bank Linking Portal project are documented here.
   - Generated `RULES.md` and `README.md` in the project root.
 - **TPBank Integration**:
   - Added TPBank (14th bank) with detailed guidelines for Individual and Business/Corporate accounts, styled accordions, and custom note details.
+- **MSB Corporate Guidelines Update**:
+  - Appended specific instructions detailing MSB Merchant service registration paths (via counter or bank staff) and HO processing times (1-3 business days) under the MSB section.
 
 ### Fixed
 - Fixed styling consistency for accordion containers on dark theme.
