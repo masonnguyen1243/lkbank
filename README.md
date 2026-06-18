@@ -5,7 +5,7 @@ Hệ thống tài liệu hướng dẫn quy trình liên kết tài khoản ngâ
 ## Tổng quan
 
 Cổng thông tin được xây dựng dưới dạng ứng dụng trang tĩnh (Static Web App) tối ưu hóa cao về hiệu năng và trải nghiệm người dùng:
-- **Trang chủ (`home.html`)**: Điều hướng người dùng truy cập các danh mục tài liệu.
+- **Trang chủ (`index.html`)**: Điều hướng người dùng truy cập các danh mục tài liệu.
 - **Trang quy trình (`bank.html`)**: Trình bày chi tiết hướng dẫn của 14 ngân hàng thương mại tại Việt Nam.
 - **Tìm kiếm thông minh**: Lọc danh sách ngân hàng ở sidebar theo thời gian thực và tự động đánh dấu (Highlight) từ khóa khớp.
 - **Dark Mode**: Hỗ trợ chuyển đổi nhanh chủ đề Sáng / Tối và lưu trạng thái ưu tiên.
@@ -22,17 +22,17 @@ Cổng thông tin được xây dựng dưới dạng ứng dụng trang tĩnh (
 Vì đây là dự án trang tĩnh thuần túy (Static Web Portal), bạn chỉ cần:
 
 1. Clone dự án về máy tính cá nhân.
-2. Mở trực tiếp file `pages/home.html` bằng trình duyệt web bất kỳ (Chrome, Edge, Safari, Firefox).
+2. Mở trực tiếp file `index.html` bằng trình duyệt web bất kỳ (Chrome, Edge, Safari, Firefox).
 3. Hoặc chạy máy chủ tĩnh đơn giản trên cổng 8080:
    ```bash
    # Nếu bạn có Python cài sẵn
    python -m http.server 8080
    ```
-   Sau đó truy cập: `http://localhost:8080/pages/home.html`
+   Sau đó truy cập: `http://localhost:8080/index.html`
 
 ## Cấu trúc thư mục
 
-- `pages/home.html` — Trang đích chính.
+- `index.html` — Trang đích chính.
 - `pages/bank.html` — Hướng dẫn chi tiết liên kết 14 ngân hàng.
 - `css/home.css` — CSS trang chủ.
 - `css/bank.css` — CSS cốt lõi trang hướng dẫn và các tiện ích (Dark Mode, Modal, Scroll Spy).
