@@ -10,7 +10,7 @@ The primary goal is to provide a single, unified reference point that simplifies
 - **Merchants / Business Owners**: Need step-by-step instructions to link their own bank accounts self-service.
 
 ## 3. Core Features
-- **Landing Page (`pages/home.html`)**: Entry point displaying different document catalogs.
+- **Landing Page (`index.html`)**: Entry point displaying different document catalogs.
 - **Responsive Guideline Layout (`pages/bank.html`)**:
   - **Navigation Sidebar**: Quick shortcuts to Overview, Terminology, and the 13 banks.
   - **Interactive Search**: Real-time filtering of banks in the sidebar with matching text highlight (`.sb-hl`).

@@ -5,7 +5,7 @@ Roadmap and developmental checklist for the HENO × Tingee Bank Linking Portal p
 ## Development Phases
 
 ### Phase 1: Base Portal & Content Structure (Completed)
-- Set up directory structure and initial pages `pages/home.html` and `pages/bank.html`.
+- Set up directory structure and initial pages `index.html` and `pages/bank.html`.
 - Populate standard guidelines and step-by-step lists for 14 Vietnamese banks.
 - Create static assets, CSS styles (`css/bank.css`, `css/home.css`), and icons.
 - Add document directory `docs/` and load actual bank documents (ACB, BIDV, VPBank, VTB).

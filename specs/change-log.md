@@ -6,7 +6,7 @@ All notable changes to the Bank Linking Portal project are documented here.
 ### Added
 - **Dark Mode Support**:
   - Implemented toggleable light/dark themes with persistent state via `localStorage`.
-  - Added theme toggle buttons to `pages/home.html` and `pages/bank.html`.
+  - Added theme toggle buttons to `index.html` and `pages/bank.html`.
   - Defined CSS custom properties under `[data-theme="dark"]` for colors, backgrounds, borders, shadows, and badges.
 - **Search Highlight**:
   - Added Javascript search matching text highlight inside the sidebar bank list using `<mark class="sb-hl">`.
@@ -31,7 +31,7 @@ All notable changes to the Bank Linking Portal project are documented here.
 
 ## [Initial Version]
 ### Added
-- Core static HTML templates `pages/home.html` and `pages/bank.html`.
+- Core static HTML templates `index.html` and `pages/bank.html`.
 - Custom CSS sheets `css/home.css` and `css/bank.css`.
 - Core JS files `js/home.js` and `js/bank.js` with search, scroll spy, accordion, and PDF modal features.
 - Structured document directory `docs/` with registration templates and PDF guides.
