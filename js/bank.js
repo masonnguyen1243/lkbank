@@ -1,6 +1,6 @@
 /* ================================================================
    HENO × Tingee — Quy Trình Liên Kết Ngân Hàng
-   Main Script
+   Main Script for bank.html
    ================================================================ */
 
 "use strict";
@@ -29,12 +29,38 @@ function toggleAg(hdr) {
 const sbSearch = document.getElementById("sbSearch");
 const sbBanks = document.querySelectorAll(".sb-bank");
 
+// Khởi tạo và lưu tên gốc của ngân hàng để tránh mất thẻ HTML khi tìm kiếm
+sbBanks.forEach((item) => {
+  const span = item.querySelector("span:not(.sb-num)");
+  if (span) {
+    item._originalText = span.textContent;
+  }
+});
+
 sbSearch.addEventListener("input", function () {
   const q = this.value.toLowerCase().trim();
 
   sbBanks.forEach((item) => {
     const match = !q || item.dataset.name.includes(q);
     item.classList.toggle("hidden", !match);
+
+    const span = item.querySelector("span:not(.sb-num)");
+    if (span && item._originalText) {
+      if (!q) {
+        span.innerHTML = item._originalText;
+      } else {
+        const text = item._originalText;
+        const index = text.toLowerCase().indexOf(q);
+        if (index !== -1) {
+          const before = text.substring(0, index);
+          const matched = text.substring(index, index + q.length);
+          const after = text.substring(index + q.length);
+          span.innerHTML = `${before}<mark class="sb-hl">${matched}</mark>${after}`;
+        } else {
+          span.innerHTML = text;
+        }
+      }
+    }
   });
 });
 
@@ -148,7 +174,7 @@ const pdfFrame = document.getElementById("pdfFrame");
 
 /**
  * Mở modal xem PDF / tài liệu.
- * @param {string} url   - Đường dẫn tới file (vd: 'docs/vtb/cong-van-3156.pdf')
+ * @param {string} url   - Đường dẫn tới file (vd: '../docs/vtb/cong-van-3156.pdf')
  * @param {string} title - Tiêu đề hiển thị trong modal
  */
 function openDocViewer(url, title) {
@@ -211,3 +237,27 @@ sbLinks.forEach((link) => {
     }
   });
 });
+
+/* ================================================================
+   THEME TOGGLE — ĐỔI GIAO DIỆN SÁNG / TỐI
+   ================================================================ */
+const themeToggleBtn = document.getElementById("themeToggleBtn");
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", () => {
+    const cur = document.documentElement.getAttribute("data-theme") || "light";
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
+}
+
+/* ================================================================
+   SCROLL PROGRESS BAR
+   ================================================================ */
+window.addEventListener("scroll", () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+  const pb = document.getElementById("scrollProgress");
+  if (pb) pb.style.width = scrolled + "%";
+}, { passive: true });
