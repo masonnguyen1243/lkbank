@@ -349,7 +349,7 @@ export const BankDetails: React.FC<BankDetailsProps> = ({ onNavigateHome }) => {
 
         {/* FOOTER */}
         <div className="footer">
-          © 2025 Công ty CP Công Nghệ HENO &nbsp;·&nbsp;
+          © 2026 Công ty CP Công Nghệ HENO &nbsp;·&nbsp;
           <a href="https://tingee.vn" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'none' }}>tingee.vn</a>
           &nbsp;·&nbsp; 1900 255 567
         </div>

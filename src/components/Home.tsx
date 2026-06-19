@@ -108,7 +108,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigateToBank }) => {
 
       <footer className="home-footer">
         <p>
-          © 2025 Công ty CP Công Nghệ HENO ·{' '}
+          © 2026 Công ty CP Công Nghệ HENO ·{' '}
           <a href="https://tingee.vn" target="_blank" rel="noopener noreferrer">tingee.vn</a>
         </p>
       </footer>
