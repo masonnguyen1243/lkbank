@@ -285,7 +285,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             lineHeight: '1.6',
           }}
         >
-          © 2025 HENO &nbsp;·&nbsp; tingee.vn
+          © 2026 HENO &nbsp;·&nbsp; tingee.vn
           <br />
           1900 255 567
         </div>
