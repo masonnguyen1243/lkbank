@@ -106,6 +106,11 @@ All notable changes to the Bank Linking Portal project are documented here.
   - Added filter segment controls (All, Individual, Household, Corporate) dynamically injected into the top of each bank guideline card.
   - Styled filter bars in `css/bank.css` with adaptive light/dark theme variables and click-toggle animations.
   - Added a supportive UX touch: automatically expands the single remaining accordion when filtered down to one result.
+- **Homepage Responsiveness**:
+  - Implemented responsive media queries for tablets (`max-width: 768px`) and mobile screens (`max-width: 480px`) in `css/home.css`.
+  - Added adaptive layouts to prevent horizontal scrolling and layout overflow on small display widths.
+  - Repositioned the theme toggle button and added padding to the homepage header to prevent text overlap on mobile devices.
+  - Added responsive theme variables for card icons and integrated a smooth card-arrow hover translation transition.
 
 ---
 
