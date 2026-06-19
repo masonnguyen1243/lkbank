@@ -64,7 +64,7 @@
   padding: 0;
 }
 
-body {
+.home-layout {
   font-family: "Plus Jakarta Sans", "Inter", sans-serif;
   background-color: var(--bg);
   background-image:
@@ -79,6 +79,7 @@ body {
   min-height: 100vh;
   padding: 40px 20px;
   line-height: 1.6;
+  width: 100%;
 }
 
 .home-header {

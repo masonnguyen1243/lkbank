@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="https://app.tingee.vn/assets/media/logo/logo-compact.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cổng thông tin | HENO</title>
   <script>
@@ -12,83 +13,14 @@
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="css/home.css" />
-  <link rel="icon" type="image/png" href="https://app.tingee.vn/assets/media/logo/logo-compact.png" />
 </head>
 
 <body>
-  <!-- Theme Toggle Button -->
-  <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Đổi giao diện">
-    <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="5"></circle>
-      <line x1="12" y1="1" x2="12" y2="3"></line>
-      <line x1="12" y1="21" x2="12" y2="23"></line>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-      <line x1="1" y1="12" x2="3" y2="12"></line>
-      <line x1="21" y1="12" x2="23" y2="12"></line>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-    <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-    </svg>
-  </button>
-  <header class="home-header">
-    <div class="logo-container">
-      <img class="logo" src="https://developers.tingee.vn/img/logo_heno.png" alt="HENO Logo" />
-      <h1>Cổng thông tin HENO</h1>
-    </div>
-    <p class="subtitle">Tài liệu, hướng dẫn và quy trình nghiệp vụ</p>
-  </header>
-
-  <main class="home-main">
-    <section class="category-grid">
-      <!-- Trỏ về bank.html chứa quy trình -->
-      <a href="pages/bank.html" class="category-card">
-        <div class="card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"></line>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-          </svg>
-        </div>
-        <h2 class="card-title">Quy trình Liên kết Ngân hàng</h2>
-        <p class="card-description">
-          Hướng dẫn chi tiết quy trình liên kết tài khoản ngân hàng với hệ
-          thống Tingee.
-        </p>
-        <span class="card-arrow">→</span>
-      </a>
-
-      <!-- Các thẻ chờ (Placeholder) cho tính năng tương lai -->
-      <div class="category-card placeholder">
-        <div class="card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-          </svg>
-        </div>
-        <h2 class="card-title">Các tài liệu khác</h2>
-        <p class="card-description">
-          Sắp ra mắt. Tài liệu kỹ thuật dành cho nhà phát triển.
-        </p>
-      </div>
-
-    </section>
-  </main>
-
-  <footer class="home-footer">
-    <p>
-      © 2025 Công ty CP Công Nghệ HENO ·
-      <a href="https://tingee.vn">tingee.vn</a>
-    </p>
-  </footer>
-  <script src="js/home.js" defer></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>
