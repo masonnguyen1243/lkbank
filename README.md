@@ -58,11 +58,17 @@ Yêu cầu máy tính đã cài đặt **Node.js** (khuyến nghị phiên bản
 ├── public/                # Thư mục chứa tài nguyên tĩnh không qua compile
 │   └── docs/              # Tài liệu, công văn, biểu mẫu đăng ký liên kết (.docx, .pdf)
 ├── src/                   # Thư mục mã nguồn chính (React)
-│   ├── components/        # Các React Components dùng chung
-│   ├── hooks/             # Custom React Hooks (như useScrollSpy, useSearchHighlight)
+│   ├── components/        # Các React Components chia theo nghiệp vụ
+│   │   ├── ui/            # Các component giao diện dùng chung (Accordion, PDFModal,...)
+│   │   ├── bank/          # Nghiệp vụ Liên kết Ngân hàng & Guideline chi tiết
+│   │   ├── disbursement/  # Nghiệp vụ Quy trình dịch vụ Chi hộ
+│   │   ├── autodebit/     # Nghiệp vụ Trích nợ tự động
+│   │   └── wallet/        # Nghiệp vụ tích hợp Ví điện tử
+│   ├── pages/             # Các trang (views) cấp cao điều hướng của ứng dụng (Home, BankDetails,...)
+│   ├── hooks/             # Custom React Hooks (như useScrollSpy)
 │   ├── context/           # React Context (quản lý Dark Mode, User state)
 │   ├── styles/            # Các file CSS định dạng giao diện
-│   ├── App.tsx            # Component gốc điều hướng và layout chính
+│   ├── App.tsx            # Component gốc điều phối định tuyến và layout chính
 │   ├── main.tsx           # Điểm khởi chạy (Entrypoint) gắn kết React với DOM
 │   └── index.css          # Tệp reset CSS toàn cục
 ├── index.html             # Tệp HTML khung của ứng dụng

@@ -2,6 +2,41 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
+## [2026-06-22] - Reorganize Directory Structure
+### Changed
+- **Folder Restructuring & Clean Up**:
+  - Moved top-level page components (`Home.tsx`, `BankDetails.tsx`, `DisbursementDetails.tsx`, `AutoDebitDetails.tsx`, `WalletDetails.tsx`) from `src/components/...` to a new `src/pages/` folder.
+  - Grouped reusable UI controls (`Accordion.tsx`, `CategoryCard.tsx`, `ContactCard.tsx`, `HighlightText.tsx`, `NoteBox.tsx`, `PDFModal.tsx`) into a new `src/components/ui/` folder.
+  - Grouped bank-specific layouts and templates (`BankSection.tsx`, `BankSidebar.tsx` [renamed from `Sidebar.tsx`], and `banks/` details) under `src/components/bank/`.
+  - Updated relative import statements in all modified `.tsx` files.
+  - Validated that the production build (`npm run build`) runs successfully with 0 TypeScript/Vite errors.
+
+## [2026-06-19] - Phase 5.2: Integrate BIDV Payout (Chi hộ) Service
+### Added
+- **BIDV Payout Content Integration**:
+  - Developed the `<BIDVDisbursementSection>` component inside `src/components/disbursement/DisbursementSections.tsx` incorporating the full step-by-step registration guidelines for BIDV Direct.
+  - Documented onboarding paths: Case 1 (E-form online registration via `https://www.bidv.com.vn/BIDVDirect` for Gói nâng cao ERP/Heno integration) and Case 2 (Way 1 via BM02 paper request and Way 2 via online configuration on BIDV Direct portal).
+  - Outlined the account verification redirect flow and internal authorization control roles (Maker and Checker).
+- **Wiring and Navigation Support**:
+  - Integrated `BIDVDisbursementSection` inside the main `<DisbursementDetails>` page.
+  - Registered the service item inside the `DISBURSEMENT_SERVICES` array in `src/components/DisbursementDetails.tsx` with customized theme color fallback (`#006B68`) and live search attributes.
+  - Linked file attachments (`HD_Dang_ky_bieu_mau_Eform.pdf`, `BM02_Thay_doi_thong_tin_dich_vu_Direct.doc`, and `HDSD_KH_Quan_ly_ket_noi_Direct_Link.docx`) inside the DocSection of the BIDV Payout view supporting online visualization and download triggers.
+
+## [2026-06-19] - Phase 5.1: Disbursement, Auto-debit, and E-wallet Frame & Routing
+### Added
+- **New Page Layout Components**:
+  - Developed `<DisbursementDetails>` (`src/components/DisbursementDetails.tsx`), `<AutoDebitDetails>` (`src/components/AutoDebitDetails.tsx`), and `<WalletDetails>` (`src/components/WalletDetails.tsx`) as the skeleton views for their respective services.
+  - Implemented identical layout styles (Header back navigation, Scroll Progress, Theme Toggles, Scroll Spy, Back-to-Top, PDFModal integration) to maintain uniform aesthetics and responsive behaviors across all views.
+  - Formatted generic overview/introductions and terminology definitions for each domain.
+- **Dedicated Sidebar Components**:
+  - Developed `<DisbursementSidebar>` (`src/components/DisbursementSidebar.tsx`), `<AutoDebitSidebar>` (`src/components/AutoDebitSidebar.tsx`), and `<WalletSidebar>` (`src/components/WalletSidebar.tsx`) to support dynamic item rendering, scrolling synchronizations, and keyword searches.
+- **Homepage & Router Integration**:
+  - Added new category cards for "Quy trình dịch vụ Chi hộ", "Trích nợ tự động", and "Ví điện tử" to the `<Home>` component in `src/components/Home.tsx` with dedicated custom SVG icons.
+  - Integrated routing and state machine handling for `'disbursement'`, `'autodebit'`, and `'wallet'` layouts inside `src/App.tsx`.
+- **Product Specification & Roadmap Updates**:
+  - Updated `specs/product-spec.md` with descriptions and components for the three new service classifications.
+  - Updated `specs/implementation-plan.md` to reflect Phase 5.1 extension details.
+
 ## [2026-06-18] - Port Document Viewer Modal
 ### Added
 - **PDFModal Component**:
