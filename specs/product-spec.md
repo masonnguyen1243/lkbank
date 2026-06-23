@@ -19,6 +19,7 @@ The primary goal is to provide a single, unified reference point that simplifies
   - **Document Attachment Manager (`PDFModal.tsx`)**: Premium inline PDF document viewer modal supporting smooth scale/opacity entry/exit transitions, keyboard `Escape` closing, and body scroll-locking.
   - **Theme Toggle (`ThemeContext.tsx`)**: Persistence-enabled Sáng/Tối (Light/Dark) theme mode, loaded early in HTML to prevent initial rendering flash.
   - **Scroll Progress & Back Navigation**: Responsive top gradient progress bar and navigation triggers routing from home to guideline viewports.
+  - **Hash-based Routing & Deep-Linking**: Load and display specific bank details page based on URL hash (e.g., `#/bank/vtb`). Automatically sync the browser address bar's URL hash with the currently active bank section on screen as the user scrolls or navigates, utilizing lightweight history state replacement.
 
 ## 4. Supported Banks
 1. Vietinbank (VTB)
