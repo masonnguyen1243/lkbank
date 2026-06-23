@@ -106,6 +106,39 @@ export const BankDetails: React.FC<BankDetailsProps> = ({ onNavigateHome }) => {
     }
   };
 
+  // Sync active section to URL hash using replaceState (to avoid history bloating)
+  useEffect(() => {
+    if (activeId) {
+      const path = activeId === 'intro' ? '#/bank' : `#/bank/${activeId}`;
+      if (window.location.hash !== path) {
+        window.history.replaceState(null, '', path);
+      }
+    }
+  }, [activeId]);
+
+  // Handle deep-linking on mount and hash changes
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      const match = hash.match(/^#\/bank\/([^/]+)$/);
+      if (match) {
+        const bankId = match[1];
+        if (watchedIds.includes(bankId)) {
+          handleLinkClick(bankId);
+        }
+      }
+    };
+
+    // Run once on mount
+    const timer = setTimeout(handleHashScroll, 200);
+
+    window.addEventListener('hashchange', handleHashScroll);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('hashchange', handleHashScroll);
+    };
+  }, [watchedIds]);
+
   const handleViewPDF = (url: string, title: string) => {
     setPdfModalState({
       isOpen: true,
