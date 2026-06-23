@@ -63,6 +63,9 @@ export const BankDetails: React.FC<BankDetailsProps> = ({ onNavigateHome }) => {
   ], []);
 
   const activeId = useScrollSpy(watchedIds, 56 + 24);
+  const isInitialScrollActive = React.useRef(
+    /^#\/bank\/([^/]+)$/.test(window.location.hash)
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -108,6 +111,9 @@ export const BankDetails: React.FC<BankDetailsProps> = ({ onNavigateHome }) => {
 
   // Sync active section to URL hash using replaceState (to avoid history bloating)
   useEffect(() => {
+    if (isInitialScrollActive.current) {
+      return;
+    }
     if (activeId) {
       const path = activeId === 'intro' ? '#/bank' : `#/bank/${activeId}`;
       if (window.location.hash !== path) {
@@ -116,21 +122,48 @@ export const BankDetails: React.FC<BankDetailsProps> = ({ onNavigateHome }) => {
     }
   }, [activeId]);
 
-  // Handle deep-linking on mount and hash changes
+  // Handle deep-linking on mount and hash changes with layout shift resilience
   useEffect(() => {
+    let scrollAttempts = 0;
+    const maxAttempts = 6;
+
     const handleHashScroll = () => {
       const hash = window.location.hash;
       const match = hash.match(/^#\/bank\/([^/]+)$/);
       if (match) {
         const bankId = match[1];
         if (watchedIds.includes(bankId)) {
-          handleLinkClick(bankId);
+          isInitialScrollActive.current = true; // Lock scroll spy sync
+          const el = document.getElementById(bankId);
+          if (el) {
+            handleLinkClick(bankId);
+            
+            // Retry a few times to counteract layout shifts as images load
+            if (scrollAttempts < maxAttempts) {
+              scrollAttempts++;
+              setTimeout(handleHashScroll, 200 * scrollAttempts);
+            } else {
+              isInitialScrollActive.current = false; // Unlock when finished
+            }
+          } else {
+            // Retry if element is not in DOM yet
+            if (scrollAttempts < maxAttempts) {
+              scrollAttempts++;
+              setTimeout(handleHashScroll, 100);
+            } else {
+              isInitialScrollActive.current = false;
+            }
+          }
+        } else {
+          isInitialScrollActive.current = false;
         }
+      } else {
+        isInitialScrollActive.current = false;
       }
     };
 
     // Run once on mount
-    const timer = setTimeout(handleHashScroll, 200);
+    const timer = setTimeout(handleHashScroll, 100);
 
     window.addEventListener('hashchange', handleHashScroll);
     return () => {
