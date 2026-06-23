@@ -30,6 +30,7 @@ The primary goal is to provide a single, unified reference point that simplifies
   - Structured view detailing registration procedures, API connection endpoints, and guidelines for auto-debit accounts.
 - **E-wallet Component (`WalletDetails.tsx`)**:
   - Guidelines and specs covering API integration flows, sandbox credentials, and operation instructions for third-party e-wallets.
+  - **Baokim E-Wallet integration**: Includes a modular `<BaokimWalletSection>` (`src/components/wallet/WalletSections.tsx`) detailing the 5-step onboarding guide, money transfer limit policies, attached PDF files for download/visualization, and extensive FAQ accordion questions.
 
 
 
