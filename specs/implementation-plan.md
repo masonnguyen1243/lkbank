@@ -43,6 +43,8 @@ Roadmap and developmental checklist for the HENO × Tingee Bank Linking Portal p
   - **Task 4.3.5: Viết Custom React Hooks cho Search và Scroll Spy** (Hoàn thành)
   - **Task 4.3.6: Porting Modal xem tài liệu PDF** (Hoàn thành)
   - **Task 4.3.7: Biên dịch Production và Kiểm thử** (Hoàn thành - Biên dịch thành công với 0 lỗi tsc/Vite)
+  - **Task 4.3.8: Tích hợp định tuyến URL qua Hash (Hash-based Routing)** (Đang thực hiện)
+
 
 ### Phase 5: Mở rộng phân loại "Quy trình dịch vụ Chi hộ", "Trích nợ tự động" và "Ví điện tử"
 

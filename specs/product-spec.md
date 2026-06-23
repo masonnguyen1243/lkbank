@@ -33,6 +33,7 @@ The primary goal is to provide a single, unified reference point that simplifies
   - **Baokim E-Wallet integration**: Includes a modular `<BaokimWalletSection>` (`src/components/wallet/WalletSections.tsx`) detailing the 5-step onboarding guide, money transfer limit policies, attached PDF files for download/visualization, and extensive FAQ accordion questions.
 
 
+  - **Hash-based Routing & Deep-Linking**: Load and display specific bank details page based on URL hash (e.g., `#/bank/vtb`). Automatically sync the browser address bar's URL hash with the currently active bank section on screen as the user scrolls or navigates, utilizing lightweight history state replacement.
 
 ## 4. Supported Banks
 1. Vietinbank (VTB)

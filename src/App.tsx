@@ -8,7 +8,32 @@ import { WalletDetails } from './pages/WalletDetails';
 type Page = 'home' | 'bank' | 'disbursement' | 'autodebit' | 'wallet';
 
 function App() {
-  const [page, setPage] = useState<Page>('home');
+  const [page, setPage] = useState<Page>(() => {
+    const hash = window.location.hash;
+    return hash.startsWith('#/bank') ? 'bank' : 'home';
+  });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#/bank')) {
+        setPage('bank');
+      } else {
+        setPage('home');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleNavigateToBank = () => {
+    window.location.hash = '#/bank';
+  };
+
+  const handleNavigateHome = () => {
+    window.location.hash = '#/';
+  };
 
   return (
     <>
