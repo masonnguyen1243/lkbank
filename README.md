@@ -13,6 +13,7 @@ Hệ thống tài liệu hướng dẫn quy trình liên kết tài khoản ngâ
 - **Tìm kiếm thông minh**: Lọc danh sách ngân hàng ở sidebar theo thời gian thực và tự động đánh dấu (Highlight) từ khóa khớp.
 - **Dark Mode**: Hỗ trợ chuyển đổi nhanh chủ đề Sáng / Tối và lưu trạng thái ưu tiên qua React Context.
 - **Xem tài liệu trực tiếp**: Hỗ trợ Modal xem biểu mẫu PDF tích hợp không cần rời trang hoặc mở tab mới.
+- **FAQs Pay By Bank (FAQs Help Center)**: Trang giải đáp 16 câu hỏi thường gặp về tích hợp API, môi trường giả lập (Sandbox), quy trình đối soát vận hành và chính sách phí dịch vụ. Tích hợp thanh tìm kiếm tiếng Việt không dấu (accents-insensitive), highlight từ khóa khớp, nút xóa nhanh từ khóa (Clear search), lưới logo 14 ngân hàng với vòng tròn fallback theo đúng màu sắc thương hiệu, và cơ chế tự động đồng bộ theme từ trang cha qua Iframe message listener (`THEME_CHANGE`).
 
 ---
 

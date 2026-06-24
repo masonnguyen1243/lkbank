@@ -73,3 +73,28 @@ Roadmap and developmental checklist for the HENO × Tingee Bank Linking Portal p
 2. **Bước 2**: Thực thi **Giai đoạn 5.1** để hoàn thiện khung giao diện (Skeleton), cấu trúc định tuyến (Routing) và kết nối sự kiện trên Trang chủ cho tất cả các phân loại mới (Chi hộ, Trích nợ tự động, Ví điện tử).
 3. **Bước 3**: Tiếp nhận dữ liệu thực tế từ prompt của USER. Thực hiện **Giai đoạn 5.2** để hoàn thiện giao diện nội dung cho các trang dịch vụ tương ứng.
 4. **Bước 4**: Kiểm thử tổng thể (Desktop/Mobile, Light/Dark Mode, Search, Sidebar Navigation), chạy build production (`npm run build`) để kiểm tra lỗi, sau đó cập nhật [change-log.md](file:///d:/Code/lkbank/specs/change-log.md).
+
+### Phase 6: FAQs Pay By Bank (Completed & Revised)
+- **Task 6.1: Cấu hình định tuyến & Nút điều hướng** (Hoàn thành)
+  - Đăng ký trang `faqs` và hash route `#/faqs` trong `src/App.tsx`.
+  - Thay thế card CategoryCard giữ chỗ tại trang chủ thành "FAQs Pay By Bank" trỏ sang trang FAQs mới.
+- **Task 6.2: Triển khai Giao diện & CSS cho FAQs** (Hoàn thành)
+  - Tạo tệp `src/styles/faqs.css` định dạng giao diện tương thích responsive và Dark/Light mode.
+  - Tạo tệp `src/pages/FaqsDetails.tsx` hiển thị bộ 16 câu hỏi phân nhóm rõ ràng.
+- **Task 6.3: Tích hợp logic Tìm kiếm tiếng Việt & Highlights** (Hoàn thành)
+  - Viết hàm `removeAccents` loại bỏ dấu tiếng Việt hỗ trợ tìm kiếm không dấu.
+  - Thiết kế `FaqHighlightText` highlight từ khóa khớp, tự động mở rộng accordion và hiển thị thông báo liên hệ khi không có kết quả.
+- **Task 6.4: Tích hợp lưới logo ngân hàng VietQR API** (Hoàn thành)
+  - Tạo lưới 14 ngân hàng hỗ trợ tại câu hỏi số 5 gọi API `api.vietqr.io`.
+  - Xử lý sự kiện `onError` fallback sang vòng tròn chữ viết tắt.
+- **Task 6.5: Hỗ trợ Deep-linking & Kiểm thử** (Hoàn thành)
+  - Theo dõi hash trên mount để tự động mở rộng và cuộn đến câu hỏi được chỉ định (vd: `#/faqs/faq-1`).
+  - Kiểm thử biên dịch thành công 0 lỗi.
+- **Task 6.6: Tích hợp cơ chế đồng bộ chủ đề Iframe (Theme Message Sync)** (Hoàn thành)
+  - Đăng ký bộ lắng nghe sự kiện `message` để nhận lệnh đổi theme từ trang cha và đồng bộ với context.
+- **Task 6.7: Nút xóa nhanh nội dung tìm kiếm (Search Input Clear Button)** (Hoàn thành)
+  - Thiết kế và CSS nút clear `✕` trên thanh tìm kiếm để reset nhanh từ khóa.
+- **Task 6.8: Cập nhật màu sắc thương hiệu fallback cho 14 logo ngân hàng** (Hoàn thành)
+  - Đồng bộ mã màu HEX thương hiệu chính thức cho 14 vòng tròn fallback logo.
+- **Task 6.9: Điều chỉnh bộ câu hỏi chuẩn hóa FAQs v1 (Câu 4, 8, 9, 10, 13, 16)** (Hoàn thành)
+  - Cập nhật nội dung câu hỏi và câu trả lời tương ứng theo PRD sửa đổi mới nhất.

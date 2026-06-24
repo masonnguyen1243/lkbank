@@ -4,14 +4,16 @@ import { BankDetails } from './pages/BankDetails';
 import { DisbursementDetails } from './pages/DisbursementDetails';
 import { AutoDebitDetails } from './pages/AutoDebitDetails';
 import { WalletDetails } from './pages/WalletDetails';
+import { FaqsDetails } from './pages/FaqsDetails';
 
-type Page = 'home' | 'bank' | 'disbursement' | 'autodebit' | 'wallet';
+type Page = 'home' | 'bank' | 'disbursement' | 'autodebit' | 'wallet' | 'faqs';
 
 const getPageFromHash = (hash: string): Page => {
   if (hash.startsWith('#/bank')) return 'bank';
   if (hash.startsWith('#/disbursement')) return 'disbursement';
   if (hash.startsWith('#/autodebit')) return 'autodebit';
   if (hash.startsWith('#/wallet')) return 'wallet';
+  if (hash.startsWith('#/faqs')) return 'faqs';
   return 'home';
 };
 
@@ -43,6 +45,10 @@ function App() {
     window.location.hash = '#/wallet';
   };
 
+  const handleNavigateToFaqs = () => {
+    window.location.hash = '#/faqs';
+  };
+
   const handleNavigateHome = () => {
     window.location.hash = '#/';
   };
@@ -55,6 +61,7 @@ function App() {
           onNavigateToDisbursement={handleNavigateToDisbursement}
           onNavigateToAutoDebit={handleNavigateToAutoDebit}
           onNavigateToWallet={handleNavigateToWallet}
+          onNavigateToFaqs={handleNavigateToFaqs}
         />
       )}
       {page === 'bank' && (
@@ -68,6 +75,9 @@ function App() {
       )}
       {page === 'wallet' && (
         <WalletDetails onNavigateHome={handleNavigateHome} />
+      )}
+      {page === 'faqs' && (
+        <FaqsDetails onNavigateHome={handleNavigateHome} />
       )}
     </>
   );

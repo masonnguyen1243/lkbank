@@ -2,6 +2,29 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
+## [2026-06-24] - Integrate FAQs Pay By Bank Self-Service Help Center (Revised)
+### Added
+- **FaqsDetails Page & Routing**:
+  - Developed the `<FaqsDetails>` page component (`src/pages/FaqsDetails.tsx`) displaying 16 standard FAQs across 4 categories (Technical, Onboarding, Operations, Business).
+  - Wired `#/faqs` hash routing in `src/App.tsx` and replaced the homepage placeholder CategoryCard in `src/pages/Home.tsx` to link to the new FAQs view.
+- **Accents-Insensitive Search, Highlighting & Clear Button**:
+  - Created a custom Vietnamese accents-insensitive search engine to filter FAQs dynamically.
+  - Implemented `FaqHighlightText` wrapping matched search terms in `<mark class="highlight">` elements.
+  - Configured automatic accordion expansions upon active search inputs, a custom "No results found" alert with direct Zalo / Telegram buttons.
+  - Integrated a clickable clear button `✕` inside the search bar to clear search input, with absolute positioning and hover transitions styled in `src/styles/faqs.css`.
+- **Dynamic VietQR Logo Grid & Brand-Specific Fallbacks**:
+  - Created a responsive grid for 14 banks in Q5 calling `api.vietqr.io`.
+  - Implemented `onError` fallback circles with bank abbreviations and custom background colors matching the official branding of the 14 commercial banks.
+- **Deep-linking & Iframe Theme Message Sync**:
+  - Added URL hash deep-linking (e.g., `#/faqs/faq-1`) which auto-scrolls to and expands designated questions on mount.
+  - Registered a message event listener inside `FaqsDetails.tsx` to handle `{ type: 'THEME_CHANGE', theme: 'dark' | 'light' }` from parent pages, synchronizing the theme automatically.
+- **FAQ Content Revisions & Updates**:
+  - Pointed the bank guideline link in Q5 to the precise URL `https://trienkhai.tingee.vn/#/bank`.
+  - Updated Q11 to state that "Doanh nghiệp" (instead of "Vận hành") should contact Tingee support for transaction verification.
+  - Refined Q15 support channel link text to display "Zalo OA - Tingee By Heno".
+- **System Specifications Updates**:
+  - Documented features in `specs/product-spec.md` and updated the roadmap in `specs/implementation-plan.md`.
+
 ## [2026-06-22] - Integrate Baokim E-Wallet Onboarding Guidelines
 ### Added
 - **Baokim E-Wallet Onboarding Guidelines**:
