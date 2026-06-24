@@ -31,9 +31,16 @@ The primary goal is to provide a single, unified reference point that simplifies
 - **E-wallet Component (`WalletDetails.tsx`)**:
   - Guidelines and specs covering API integration flows, sandbox credentials, and operation instructions for third-party e-wallets.
   - **Baokim E-Wallet integration**: Includes a modular `<BaokimWalletSection>` (`src/components/wallet/WalletSections.tsx`) detailing the 5-step onboarding guide, money transfer limit policies, attached PDF files for download/visualization, and extensive FAQ accordion questions.
+- **FAQs Pay By Bank Component (`FaqsDetails.tsx`)**:
+  - Displays 16 standard FAQs categorized into 4 groups: Technical, Onboarding, Operations, and Business (with revised content for Q4, Q8, Q9, Q10, Q13, and Q16).
+  - Toggles answers using customized `.ag` accordion wrappers.
+  - Implements real-time client-side filter searching both questions and answers with accents-insensitive Vietnamese matching, featuring a search input clear button (`✕`).
+  - Automatically highlights search keywords using `<mark class="highlight">` and expands all matching accordions on typing.
+  - Embedded dynamic grid of 14 bank logos from `api.vietqr.io` inside Question 5, with circular initials fallback backgrounds matched to official bank brand-specific hex colors.
+  - Supports deep-linking by listening to URL hash patterns such as `#/faqs/faq-1` to auto-expand and scroll to specific questions on load.
+  - Synchronizes page theme with global Light/Dark mode transitions, including an Iframe theme message sync listener to automatically update active theme via parent window communication (`THEME_CHANGE` event).
 
-
-  - **Hash-based Routing & Deep-Linking**: Load and display specific bank details page based on URL hash (e.g., `#/bank/vtb`). Automatically sync the browser address bar's URL hash with the currently active bank section on screen as the user scrolls or navigates, utilizing lightweight history state replacement.
+  - **Hash-based Routing & Deep-Linking**: Load and display specific bank details page based on URL hash (e.g., `#/bank/vtb`). Automatically sync the browser address bar's URL hash with the currently active bank section on screen as the user scrolls or navigates, utilizing lightweight history state replacement. Also supports `#/faqs` and subhash questions.
 
 ## 4. Supported Banks
 1. Vietinbank (VTB)

@@ -8,6 +8,7 @@ interface HomeProps {
   onNavigateToDisbursement: () => void;
   onNavigateToAutoDebit: () => void;
   onNavigateToWallet: () => void;
+  onNavigateToFaqs: () => void;
 }
 
 export const Home: React.FC<HomeProps> = ({
@@ -15,6 +16,7 @@ export const Home: React.FC<HomeProps> = ({
   onNavigateToDisbursement,
   onNavigateToAutoDebit,
   onNavigateToWallet,
+  onNavigateToFaqs,
 }) => {
   const { toggleTheme } = useTheme();
 
@@ -161,8 +163,8 @@ export const Home: React.FC<HomeProps> = ({
           />
 
           <CategoryCard
-            title="Các tài liệu khác"
-            description="Sắp ra mắt. Tài liệu kỹ thuật dành cho nhà phát triển."
+            title="FAQs Pay By Bank"
+            description="Tài liệu câu hỏi thường gặp phục vụ kỹ thuật và vận hành cho đối tác."
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -175,11 +177,12 @@ export const Home: React.FC<HomeProps> = ({
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
               </svg>
             }
-            placeholder={true}
+            onClick={onNavigateToFaqs}
           />
         </section>
       </main>

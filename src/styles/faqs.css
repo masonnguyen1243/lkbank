@@ -1,0 +1,297 @@
+/* ================================================================
+   HENO × Tingee — FAQs Pay By Bank
+   Stylesheet
+   ================================================================ */
+
+.faq-layout {
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.faq-header-section {
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.faq-header-section h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--tx);
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.faq-header-section p {
+  color: var(--tx3);
+  font-size: 14px;
+}
+
+/* ── SEARCH & CONTROLS ── */
+.faq-search-wrapper {
+  position: sticky;
+  top: var(--sh);
+  z-index: 10;
+  background: var(--bg);
+  padding: 12px 0 20px 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--bdr);
+}
+
+.faq-search-bar {
+  position: relative;
+  width: 100%;
+}
+
+.faq-search-input {
+  width: 100%;
+  padding: 14px 40px 14px 44px;
+  font-size: 15px;
+  border: 1px solid var(--bdr);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--tx);
+  outline: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.faq-search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(241, 65, 108, 0.08);
+}
+
+.faq-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--tx3);
+  pointer-events: none;
+}
+
+.faq-search-clear-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: var(--tx3);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.faq-search-clear-btn:hover {
+  color: var(--primary);
+  transform: translateY(-50%) scale(1.2);
+}
+
+.faq-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  justify-content: flex-end;
+}
+
+.faq-control-btn {
+  background: var(--white);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tx2);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.faq-control-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+/* ── FAQ GROUPS ── */
+.faq-group {
+  margin-bottom: 40px;
+  scroll-margin-top: 100px;
+}
+
+.faq-group-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 2px solid var(--primary-mid);
+  padding-bottom: 8px;
+}
+
+/* Accordion modifications inside FAQ */
+.faq-accordion {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+}
+
+.faq-accordion .ag-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+}
+
+.faq-accordion .ag-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.faq-accordion .ag-body {
+  padding: 24px;
+  line-height: 1.6;
+}
+
+/* Highlight style */
+mark.highlight {
+  background-color: #fff9c4 !important;
+  color: #0d1526 !important;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* ── BANK LOGO GRID (Q5) ── */
+.faq-bank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.faq-bank-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  padding: 12px 8px;
+  text-align: center;
+  transition: all 0.2s ease;
+  height: 90px;
+}
+
+.faq-bank-item:hover {
+  border-color: var(--primary);
+  background: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.faq-bank-logo {
+  height: 32px;
+  max-width: 85%;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.faq-bank-fallback {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 11px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.faq-bank-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--tx2);
+}
+
+/* ── NO RESULTS STATE ── */
+.faq-no-results {
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--white);
+  border: 1px solid var(--bdr);
+  border-radius: var(--r);
+  margin-top: 24px;
+}
+
+.faq-no-results p {
+  color: var(--tx2);
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.faq-contact-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.faq-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.faq-contact-btn.zalo {
+  background: #0068ff;
+  color: white;
+}
+
+.faq-contact-btn.zalo:hover {
+  background: #0056d6;
+  transform: translateY(-1px);
+}
+
+.faq-contact-btn.telegram {
+  background: #229ed9;
+  color: white;
+}
+
+.faq-contact-btn.telegram:hover {
+  background: #1c85b7;
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .faq-controls {
+    justify-content: space-between;
+  }
+  
+  .faq-control-btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .faq-bank-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
