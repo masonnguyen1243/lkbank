@@ -60,6 +60,8 @@ All notable changes to the Bank Linking Portal project are documented here.
 - **Specifications & Documentation Updates**:
   - Updated `specs/product-spec.md` with Hash-based routing definitions.
   - Updated `specs/implementation-plan.md` to declare Phase 4 Task 4.3.8.
+- **Terminology Table Synchronization**:
+  - Updated terminology definitions inside `DisbursementDetails.tsx` (adding `ERP`, `Maker`, `Checker`) and `WalletDetails.tsx` (adding `KYC`, `NFC`, `ĐDPL`, `ĐKKD`, `SMS OTP`) to match actual onboarding content.
 
 ## [2026-06-18] - Port Document Viewer Modal
 ### Added
