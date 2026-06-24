@@ -44,6 +44,9 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
   }, []);
 
   const activeId = useScrollSpy(watchedIds, 56 + 24);
+  const isInitialScrollActive = React.useRef(
+    /^#\/disbursement\/([^/]+)$/.test(window.location.hash)
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,6 +85,69 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
       });
     }
   };
+
+  // Sync active section to URL hash using replaceState
+  useEffect(() => {
+    if (isInitialScrollActive.current) {
+      return;
+    }
+    if (activeId) {
+      const path = activeId === 'intro' ? '#/disbursement' : `#/disbursement/${activeId}`;
+      if (window.location.hash !== path) {
+        window.history.replaceState(null, '', path);
+      }
+    }
+  }, [activeId]);
+
+  // Handle deep-linking on mount and hash changes with layout shift resilience
+  useEffect(() => {
+    let scrollAttempts = 0;
+    const maxAttempts = 6;
+
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      const match = hash.match(/^#\/disbursement\/([^/]+)$/);
+      if (match) {
+        const serviceId = match[1];
+        if (watchedIds.includes(serviceId)) {
+          isInitialScrollActive.current = true; // Lock scroll spy sync
+          const el = document.getElementById(serviceId);
+          if (el) {
+            handleLinkClick(serviceId);
+            
+            // Retry a few times to counteract layout shifts as images load
+            if (scrollAttempts < maxAttempts) {
+              scrollAttempts++;
+              setTimeout(handleHashScroll, 200 * scrollAttempts);
+            } else {
+              isInitialScrollActive.current = false; // Unlock when finished
+            }
+          } else {
+            // Retry if element is not in DOM yet
+            if (scrollAttempts < maxAttempts) {
+              scrollAttempts++;
+              setTimeout(handleHashScroll, 100);
+            } else {
+              isInitialScrollActive.current = false;
+            }
+          }
+        } else {
+          isInitialScrollActive.current = false;
+        }
+      } else {
+        isInitialScrollActive.current = false;
+      }
+    };
+
+    // Run once on mount
+    const timer = setTimeout(handleHashScroll, 100);
+
+    window.addEventListener('hashchange', handleHashScroll);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('hashchange', handleHashScroll);
+    };
+  }, [watchedIds]);
 
   const handleClosePDF = () => {
     setPdfModalState((prev) => ({ ...prev, isOpen: false }));
@@ -287,6 +353,21 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
                   <td className="ta">Reconciliation</td>
                   <td className="tf">Đối soát giao dịch</td>
                   <td className="tn">Quy trình so khớp dữ liệu giao dịch chi hộ định kỳ giữa Tingee và Merchant</td>
+                </tr>
+                <tr>
+                  <td className="ta">ERP</td>
+                  <td className="tf">Enterprise Resource Planning</td>
+                  <td className="tn">Hệ thống hoạch định tài nguyên doanh nghiệp, dùng tích hợp kết nối API trực tiếp</td>
+                </tr>
+                <tr>
+                  <td className="ta">Maker</td>
+                  <td className="tf">Người tạo lệnh</td>
+                  <td className="tn">Tài khoản khởi tạo và đẩy yêu cầu giao dịch chi hộ lên hệ thống</td>
+                </tr>
+                <tr>
+                  <td className="ta">Checker</td>
+                  <td className="tf">Người duyệt lệnh</td>
+                  <td className="tn">Tài khoản kiểm tra và thực hiện phê duyệt giao dịch chi hộ cuối cùng</td>
                 </tr>
               </tbody>
             </table>

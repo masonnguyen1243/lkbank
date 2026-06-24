@@ -2,6 +2,20 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
+## [2026-06-22] - Integrate Baokim E-Wallet Onboarding Guidelines
+### Added
+- **Baokim E-Wallet Onboarding Guidelines**:
+  - Converted the PDF guide `public/docs/baokim/Hướng dẫn Onboard VĐT Baokim.pdf` into a structural markdown guide.
+  - Created a new component `src/components/wallet/WalletSections.tsx` that exports `<BaokimWalletSection>`.
+  - Implemented details for the 5 onboarding steps on the Baokim app side (App download, account registration, KYC/NFC verification, bank link transfer, and electronic signature authorization activation).
+  - Designed the transfer limit tables for Individual, New Business, and Established Business/Corporate accounts.
+  - Configured 11 FAQ items via nested `<Accordion>` elements to address common merchant errors.
+  - Linked the guide to the online PDF viewer using the modular `<DocSection>` and `<DocItem>` tools.
+- **Wallet Page Wiring and Registration**:
+  - Registered `baokim_wallet` in the `WALLET_SERVICES` array in `src/pages/WalletDetails.tsx`.
+  - Mounted the `<BaokimWalletSection>` inside the main viewport of `WalletDetails.tsx` to display active statistics and connect the search query and the `handleViewPDF` trigger.
+  - Verified the changes build successfully without compilation or TypeScript errors.
+
 ## [2026-06-22] - Reorganize Directory Structure
 ### Changed
 - **Folder Restructuring & Clean Up**:
@@ -36,6 +50,18 @@ All notable changes to the Bank Linking Portal project are documented here.
 - **Product Specification & Roadmap Updates**:
   - Updated `specs/product-spec.md` with descriptions and components for the three new service classifications.
   - Updated `specs/implementation-plan.md` to reflect Phase 5.1 extension details.
+
+## [2026-06-23] - Hash-based Routing & Deep Linking
+### Added
+- **Hash-based URL routing**:
+  - Configured state and listeners in `src/App.tsx` using `window.location.hash` and `hashchange` to handle seamless transitioning between the Homepage (`#/` or empty) and Bank Details page (`#/bank`).
+  - Added URL hash synchronization in `src/components/BankDetails.tsx` utilizing `window.history.replaceState` when `activeId` changes, updating the URL in real-time as the user scrolls (e.g. to `#/bank/bidv`) without polluting browser navigation history.
+  - Implemented client-side deep linking on mount and manual url changes in `src/components/BankDetails.tsx`, automatically scrolling to the requested bank's anchor block (e.g., `acb` if hash is `#/bank/acb`) after loading. Added layout shift resilience by polling the scroll position multiple times during asset loading.
+- **Specifications & Documentation Updates**:
+  - Updated `specs/product-spec.md` with Hash-based routing definitions.
+  - Updated `specs/implementation-plan.md` to declare Phase 4 Task 4.3.8.
+- **Terminology Table Synchronization**:
+  - Updated terminology definitions inside `DisbursementDetails.tsx` (adding `ERP`, `Maker`, `Checker`) and `WalletDetails.tsx` (adding `KYC`, `NFC`, `ĐDPL`, `ĐKKD`, `SMS OTP`) to match actual onboarding content.
 
 ## [2026-06-18] - Port Document Viewer Modal
 ### Added

@@ -3,14 +3,25 @@ import { useTheme } from '../context/ThemeContext';
 import { WalletSidebar, WalletServiceInfo } from '../components/wallet/WalletSidebar';
 import { PDFModal } from '../components/ui/PDFModal';
 import { useScrollSpy } from '../hooks/useScrollSpy';
+import { BaokimWalletSection } from '../components/wallet/WalletSections';
 import '../styles/bank.css';
 
 interface WalletDetailsProps {
   onNavigateHome: () => void;
 }
 
-// Danh sách các ví điện tử trống (sẽ bổ sung sau)
-const WALLET_SERVICES: WalletServiceInfo[] = [];
+// Danh sách các ví điện tử hoạt động
+const WALLET_SERVICES: WalletServiceInfo[] = [
+  {
+    id: 'baokim_wallet',
+    name: 'Ví điện tử Bảo Kim',
+    fullName: 'Công ty Cổ phần Thương mại Điện tử Bảo Kim · Baokim E-Wallet',
+    logoUrl: '/public/logo/Logo-Bao-Kim.png',
+    fallbackText: 'BaoKim',
+    searchNames: 'baokim bao kim vi dien tu e-wallet wallet onboard kyc nfc',
+    fallbackBg: '#FF6B00',
+  }
+];
 
 export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) => {
   const { theme, toggleTheme } = useTheme();
@@ -33,6 +44,9 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
   }, []);
 
   const activeId = useScrollSpy(watchedIds, 56 + 24);
+  const isInitialScrollActive = React.useRef(
+    /^#\/wallet\/([^/]+)$/.test(window.location.hash)
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,6 +84,77 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
         behavior: 'smooth',
       });
     }
+  };
+
+  // Sync active section to URL hash using replaceState
+  useEffect(() => {
+    if (isInitialScrollActive.current) {
+      return;
+    }
+    if (activeId) {
+      const path = activeId === 'intro' ? '#/wallet' : `#/wallet/${activeId}`;
+      if (window.location.hash !== path) {
+        window.history.replaceState(null, '', path);
+      }
+    }
+  }, [activeId]);
+
+  // Handle deep-linking on mount and hash changes with layout shift resilience
+  useEffect(() => {
+    let scrollAttempts = 0;
+    const maxAttempts = 6;
+
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      const match = hash.match(/^#\/wallet\/([^/]+)$/);
+      if (match) {
+        const serviceId = match[1];
+        if (watchedIds.includes(serviceId)) {
+          isInitialScrollActive.current = true; // Lock scroll spy sync
+          const el = document.getElementById(serviceId);
+          if (el) {
+            handleLinkClick(serviceId);
+            
+            // Retry a few times to counteract layout shifts as images load
+            if (scrollAttempts < maxAttempts) {
+              scrollAttempts++;
+              setTimeout(handleHashScroll, 200 * scrollAttempts);
+            } else {
+              isInitialScrollActive.current = false; // Unlock when finished
+            }
+          } else {
+            // Retry if element is not in DOM yet
+            if (scrollAttempts < maxAttempts) {
+              scrollAttempts++;
+              setTimeout(handleHashScroll, 100);
+            } else {
+              isInitialScrollActive.current = false;
+            }
+          }
+        } else {
+          isInitialScrollActive.current = false;
+        }
+      } else {
+        isInitialScrollActive.current = false;
+      }
+    };
+
+    // Run once on mount
+    const timer = setTimeout(handleHashScroll, 100);
+
+    window.addEventListener('hashchange', handleHashScroll);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('hashchange', handleHashScroll);
+    };
+  }, [watchedIds]);
+
+  const handleViewPDF = (url: string, title: string) => {
+    setPdfModalState({
+      isOpen: true,
+      url,
+      title,
+    });
   };
 
   const handleClosePDF = () => {
@@ -212,7 +297,7 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
               </p>
               <div className="intro-stats">
                 <div className="stat">
-                  <div className="stat-n">0</div>
+                  <div className="stat-n">{WALLET_SERVICES.length}</div>
                   <div className="stat-l">Ví hỗ trợ hiện tại</div>
                 </div>
                 <div className="stat">
@@ -264,37 +349,38 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
                   <td className="tf">Chữ ký số bảo mật</td>
                   <td className="tn">Chuỗi băm (HMAC-SHA256, v.v.) dùng để kiểm tra tính toàn vẹn của dữ liệu truyền đi giữa các hệ thống</td>
                 </tr>
+                <tr>
+                  <td className="ta">KYC</td>
+                  <td className="tf">Định danh khách hàng</td>
+                  <td className="tn">Quy trình xác minh danh tính người dùng ví (Know Your Customer)</td>
+                </tr>
+                <tr>
+                  <td className="ta">NFC</td>
+                  <td className="tf">Kết nối cận trường</td>
+                  <td className="tn">Công nghệ truyền tin tầm ngắn quét chip CCCD bằng điện thoại để xác thực chính chủ</td>
+                </tr>
+                <tr>
+                  <td className="ta">ĐDPL</td>
+                  <td className="tf">Đại diện pháp luật</td>
+                  <td className="tn">Người đại diện hợp pháp đứng tên trên giấy tờ ĐKKD của doanh nghiệp</td>
+                </tr>
+                <tr>
+                  <td className="ta">ĐKKD</td>
+                  <td className="tf">Đăng ký kinh doanh</td>
+                  <td className="tn">Giấy chứng nhận đăng ký doanh nghiệp hoặc giấy phép đăng ký hộ kinh doanh</td>
+                </tr>
+                <tr>
+                  <td className="ta">SMS OTP</td>
+                  <td className="tf">Mã xác thực một lần</td>
+                  <td className="tn">Mã OTP bảo mật được gửi qua tin nhắn SMS tới số điện thoại đăng ký</td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* SKELETON / PLACEHOLDER FOR SERVICES */}
-        <div className="section-card" style={{ padding: '40px 24px', textAlign: 'center', borderStyle: 'dashed', borderWidth: '2px' }}>
-          <div style={{
-            width: '48px',
-            height: '48px',
-            background: 'var(--primary-light)',
-            borderRadius: '50%',
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '16px',
-            color: 'var(--primary)'
-          }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-              <line x1="12" y1="8" x2="12" y2="16"></line>
-              <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-          </div>
-          <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '6px', color: 'var(--tx)' }}>
-            Danh sách Ví điện tử tích hợp trống
-          </h3>
-          <p style={{ fontSize: '13px', color: 'var(--tx2)', maxWidth: '440px', margin: '0 auto', lineHeight: '1.5' }}>
-            Nội dung hướng dẫn kết nối của từng Ví điện tử cụ thể sẽ được cập nhật tại đây khi có tài liệu thực tế.
-          </p>
-        </div>
+        {/* WALLET SECTIONS CONTENT */}
+        <BaokimWalletSection onViewPDF={handleViewPDF} searchQuery={searchQuery} />
 
         {/* FOOTER */}
         <div className="footer">

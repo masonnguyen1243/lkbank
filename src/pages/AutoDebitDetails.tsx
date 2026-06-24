@@ -33,6 +33,9 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
   }, []);
 
   const activeId = useScrollSpy(watchedIds, 56 + 24);
+  const isInitialScrollActive = React.useRef(
+    /^#\/autodebit\/([^/]+)$/.test(window.location.hash)
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,6 +74,69 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
       });
     }
   };
+
+  // Sync active section to URL hash using replaceState
+  useEffect(() => {
+    if (isInitialScrollActive.current) {
+      return;
+    }
+    if (activeId) {
+      const path = activeId === 'intro' ? '#/autodebit' : `#/autodebit/${activeId}`;
+      if (window.location.hash !== path) {
+        window.history.replaceState(null, '', path);
+      }
+    }
+  }, [activeId]);
+
+  // Handle deep-linking on mount and hash changes with layout shift resilience
+  useEffect(() => {
+    let scrollAttempts = 0;
+    const maxAttempts = 6;
+
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      const match = hash.match(/^#\/autodebit\/([^/]+)$/);
+      if (match) {
+        const serviceId = match[1];
+        if (watchedIds.includes(serviceId)) {
+          isInitialScrollActive.current = true; // Lock scroll spy sync
+          const el = document.getElementById(serviceId);
+          if (el) {
+            handleLinkClick(serviceId);
+            
+            // Retry a few times to counteract layout shifts as images load
+            if (scrollAttempts < maxAttempts) {
+              scrollAttempts++;
+              setTimeout(handleHashScroll, 200 * scrollAttempts);
+            } else {
+              isInitialScrollActive.current = false; // Unlock when finished
+            }
+          } else {
+            // Retry if element is not in DOM yet
+            if (scrollAttempts < maxAttempts) {
+              scrollAttempts++;
+              setTimeout(handleHashScroll, 100);
+            } else {
+              isInitialScrollActive.current = false;
+            }
+          }
+        } else {
+          isInitialScrollActive.current = false;
+        }
+      } else {
+        isInitialScrollActive.current = false;
+      }
+    };
+
+    // Run once on mount
+    const timer = setTimeout(handleHashScroll, 100);
+
+    window.addEventListener('hashchange', handleHashScroll);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('hashchange', handleHashScroll);
+    };
+  }, [watchedIds]);
 
   const handleClosePDF = () => {
     setPdfModalState((prev) => ({ ...prev, isOpen: false }));
