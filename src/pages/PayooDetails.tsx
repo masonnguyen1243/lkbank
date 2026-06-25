@@ -1,29 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { DisbursementSidebar, DisbursementServiceInfo } from '../components/disbursement/DisbursementSidebar';
+import { PayooSidebar, PayooServiceInfo } from '../components/payoo/PayooSidebar';
 import { PDFModal } from '../components/ui/PDFModal';
 import { useScrollSpy } from '../hooks/useScrollSpy';
-import { BIDVDisbursementSection } from '../components/disbursement/DisbursementSections';
 import '../styles/bank.css';
 
-interface DisbursementDetailsProps {
+interface PayooDetailsProps {
   onNavigateHome: () => void;
 }
 
-// Danh sách các dịch vụ chi hộ của hệ thống
-const DISBURSEMENT_SERVICES: DisbursementServiceInfo[] = [
-  {
-    id: 'bidv_payout',
-    name: 'Chi hộ BIDV',
-    fullName: 'Ngân hàng TMCP Đầu tư và Phát triển Việt Nam · BIDV Direct Link',
-    logoUrl: 'https://api.vietqr.io/img/BIDV.png',
-    fallbackText: 'BIDV',
-    searchNames: 'bidv chi ho payout direct link maker checker heno erp',
-    fallbackBg: '#006B68',
-  }
-];
+const PAYOO_SERVICES: PayooServiceInfo[] = [];
 
-export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavigateHome }) => {
+export const PayooDetails: React.FC<PayooDetailsProps> = ({ onNavigateHome }) => {
   const { theme, toggleTheme } = useTheme();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [scrolledPercent, setScrolledPercent] = useState(0);
@@ -38,14 +26,14 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
   });
 
   const watchedIds = useMemo(() => {
-    const ids = ['intro', 'terminology'];
-    DISBURSEMENT_SERVICES.forEach((s) => ids.push(s.id));
+    const ids = ['intro'];
+    PAYOO_SERVICES.forEach((s) => ids.push(s.id));
     return ids;
   }, []);
 
   const activeId = useScrollSpy(watchedIds, 56 + 24);
   const isInitialScrollActive = React.useRef(
-    /^#\/disbursement\/([^/]+)$/.test(window.location.hash)
+    /^#\/payoo\/([^/]+)$/.test(window.location.hash)
   );
 
   useEffect(() => {
@@ -92,7 +80,7 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
       return;
     }
     if (activeId) {
-      const path = activeId === 'intro' ? '#/disbursement' : `#/disbursement/${activeId}`;
+      const path = activeId === 'intro' ? '#/payoo' : `#/payoo/${activeId}`;
       if (window.location.hash !== path) {
         window.history.replaceState(null, '', path);
       }
@@ -106,24 +94,21 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
 
     const handleHashScroll = () => {
       const hash = window.location.hash;
-      const match = hash.match(/^#\/disbursement\/([^/]+)$/);
+      const match = hash.match(/^#\/payoo\/([^/]+)$/);
       if (match) {
         const serviceId = match[1];
         if (watchedIds.includes(serviceId)) {
-          isInitialScrollActive.current = true; // Lock scroll spy sync
+          isInitialScrollActive.current = true;
           const el = document.getElementById(serviceId);
           if (el) {
             handleLinkClick(serviceId);
-            
-            // Retry a few times to counteract layout shifts as images load
             if (scrollAttempts < maxAttempts) {
               scrollAttempts++;
               setTimeout(handleHashScroll, 200 * scrollAttempts);
             } else {
-              isInitialScrollActive.current = false; // Unlock when finished
+              isInitialScrollActive.current = false;
             }
           } else {
-            // Retry if element is not in DOM yet
             if (scrollAttempts < maxAttempts) {
               scrollAttempts++;
               setTimeout(handleHashScroll, 100);
@@ -139,7 +124,6 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
       }
     };
 
-    // Run once on mount
     const timer = setTimeout(handleHashScroll, 100);
 
     window.addEventListener('hashchange', handleHashScroll);
@@ -153,13 +137,6 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
     setPdfModalState((prev) => ({ ...prev, isOpen: false }));
   };
 
-  const handleViewPDF = (url: string, title: string) => {
-    setPdfModalState({
-      isOpen: true,
-      url,
-      title,
-    });
-  };
 
   return (
     <div className="bank-layout">
@@ -242,9 +219,9 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
         </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: 0, flex: 1 }}>
           <div>
-            <div className="hdr-t">Quy Trình Dịch Vụ Chi Hộ</div>
+            <div className="hdr-t">Thanh toán thẻ, Payment Link, SmartPOS</div>
           </div>
-          <span className="hdr-s">— Hướng dẫn tích hợp &amp; vận hành</span>
+          <span className="hdr-s">— PAYOO</span>
         </div>
         <button
           className="theme-toggle-btn"
@@ -273,14 +250,14 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
       </header>
 
       {/* SIDEBAR */}
-      <DisbursementSidebar
+      <PayooSidebar
         activeId={activeId}
         onLinkClick={handleLinkClick}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        services={DISBURSEMENT_SERVICES}
+        services={PAYOO_SERVICES}
       />
 
       {/* MAIN CONTENT */}
@@ -290,92 +267,52 @@ export const DisbursementDetails: React.FC<DisbursementDetailsProps> = ({ onNavi
           <div style={{ padding: '22px 24px', display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
             <div style={{ flex: 1 }}>
               <h1 style={{ fontSize: '17px', fontWeight: 800, marginBottom: '6px' }}>
-                Tổng quan Quy trình Dịch vụ Chi hộ
+                Tổng quan Giải pháp Thanh toán Payoo
               </h1>
               <p style={{ fontSize: '13px', color: 'var(--tx2)', maxWidth: '640px' }}>
-                Hướng dẫn tích hợp kỹ thuật (API/Webhook) và quy trình vận hành dịch vụ Chi hộ (Disbursement) từ hệ thống cổng thanh toán Tingee dành cho doanh nghiệp và đối tác liên kết.
+                Tài liệu hướng dẫn đăng ký, tích hợp cổng thanh toán thẻ, tạo Payment Link gửi khách hàng thanh toán online, và hướng dẫn vận hành giải pháp máy quẹt thẻ cầm tay SmartPOS Payoo tại quầy.
               </p>
               <div className="intro-stats">
                 <div className="stat">
-                  <div className="stat-n">1</div>
-                  <div className="stat-l">Dịch vụ hiện tại</div>
+                  <div className="stat-n">{PAYOO_SERVICES.length}</div>
+                  <div className="stat-l">Giải pháp hỗ trợ</div>
                 </div>
                 <div className="stat">
-                  <div className="stat-n">API / ERP</div>
-                  <div className="stat-l">Phương thức kết nối</div>
+                  <div className="stat-n">Credit / POS</div>
+                  <div className="stat-l">Hình thức thanh toán</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* TERMINOLOGY */}
-        <div className="section-card" id="terminology" style={{ scrollMarginTop: 'calc(var(--sh) + 16px)' }}>
-          <div className="section-hdr">
-            <div>
-              <div className="section-hdr-t">Thuật ngữ &amp; Viết tắt</div>
-              <div className="section-hdr-s">
-                Giải thích các ký hiệu và thuật ngữ chuyên ngành trong quy trình Chi hộ
-              </div>
-            </div>
-          </div>
-          <div className="term-tbl-wrap">
-            <table className="term-table">
-              <thead>
-                <tr>
-                  <th style={{ width: '100px' }}>Viết tắt</th>
-                  <th style={{ width: '220px' }}>Thuật ngữ đầy đủ</th>
-                  <th>Ghi chú / Định nghĩa</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="ta">Disbursement</td>
-                  <td className="tf">Dịch vụ Chi hộ</td>
-                  <td className="tn">Quy trình Tingee chuyển tiền từ tài khoản nguồn sang tài khoản đích theo yêu cầu của đối tác</td>
-                </tr>
-                <tr>
-                  <td className="ta">Merchant</td>
-                  <td className="tf">Đơn vị chấp nhận thanh toán</td>
-                  <td className="tn">Doanh nghiệp sử dụng dịch vụ chi hộ của Tingee</td>
-                </tr>
-                <tr>
-                  <td className="ta">API Key</td>
-                  <td className="tf">Khóa tích hợp cổng kết nối</td>
-                  <td className="tn">Chuỗi ký tự dùng để xác thực các yêu cầu gọi API chuyển khoản từ hệ thống Merchant</td>
-                </tr>
-                <tr>
-                  <td className="ta">IPN</td>
-                  <td className="tf">Instant Payment Notification</td>
-                  <td className="tn">Cơ chế webhook gửi thông báo trạng thái giao dịch chi hộ tự động từ Tingee sang Merchant</td>
-                </tr>
-                <tr>
-                  <td className="ta">Reconciliation</td>
-                  <td className="tf">Đối soát giao dịch</td>
-                  <td className="tn">Quy trình so khớp dữ liệu giao dịch chi hộ định kỳ giữa Tingee và Merchant</td>
-                </tr>
-                <tr>
-                  <td className="ta">ERP</td>
-                  <td className="tf">Enterprise Resource Planning</td>
-                  <td className="tn">Hệ thống hoạch định tài nguyên doanh nghiệp, dùng tích hợp kết nối API trực tiếp</td>
-                </tr>
-                <tr>
-                  <td className="ta">Maker</td>
-                  <td className="tf">Người tạo lệnh</td>
-                  <td className="tn">Tài khoản khởi tạo và đẩy yêu cầu giao dịch chi hộ lên hệ thống</td>
-                </tr>
-                <tr>
-                  <td className="ta">Checker</td>
-                  <td className="tf">Người duyệt lệnh</td>
-                  <td className="tn">Tài khoản kiểm tra và thực hiện phê duyệt giao dịch chi hộ cuối cùng</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
 
-        {/* BIDV PAYOUT SERVICE */}
-        <BIDVDisbursementSection onViewPDF={handleViewPDF} searchQuery={searchQuery} />
+        {/* SKELETON / PLACEHOLDER FOR SERVICES */}
+        <div className="section-card" style={{ padding: '40px 24px', textAlign: 'center', borderStyle: 'dashed', borderWidth: '2px' }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            background: 'var(--primary-light)',
+            borderRadius: '50%',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '16px',
+            color: 'var(--primary)'
+          }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+          </div>
+          <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '6px', color: 'var(--tx)' }}>
+            Danh sách quy trình thanh toán Payoo trống
+          </h3>
+          <p style={{ fontSize: '13px', color: 'var(--tx2)', maxWidth: '440px', margin: '0 auto', lineHeight: '1.6' }}>
+            Nội dung chi tiết của các quy trình thanh toán thẻ, payment link và SmartPOS Payoo sẽ được cập nhật tại đây khi có thông tin thực tế.
+          </p>
+        </div>
 
         {/* FOOTER */}
         <div className="footer">

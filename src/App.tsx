@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Home } from './pages/Home';
 import { BankDetails } from './pages/BankDetails';
-import { DisbursementDetails } from './pages/DisbursementDetails';
-import { AutoDebitDetails } from './pages/AutoDebitDetails';
-import { WalletDetails } from './pages/WalletDetails';
+import { PayoutDetails } from './pages/PayoutDetails';
+import { OnepayDetails } from './pages/OnepayDetails';
+import { PayooDetails } from './pages/PayooDetails';
 import { FaqsDetails } from './pages/FaqsDetails';
 
-type Page = 'home' | 'bank' | 'disbursement' | 'autodebit' | 'wallet' | 'faqs';
+type Page = 'home' | 'bank' | 'payout' | 'onepay' | 'payoo' | 'faqs';
 
 const getPageFromHash = (hash: string): Page => {
   if (hash.startsWith('#/bank')) return 'bank';
-  if (hash.startsWith('#/disbursement')) return 'disbursement';
-  if (hash.startsWith('#/autodebit')) return 'autodebit';
-  if (hash.startsWith('#/wallet')) return 'wallet';
+  if (hash.startsWith('#/payout')) return 'payout';
+  if (hash.startsWith('#/onepay')) return 'onepay';
+  if (hash.startsWith('#/payoo')) return 'payoo';
   if (hash.startsWith('#/faqs')) return 'faqs';
   return 'home';
 };
@@ -33,16 +33,16 @@ function App() {
     window.location.hash = '#/bank';
   };
 
-  const handleNavigateToDisbursement = () => {
-    window.location.hash = '#/disbursement';
+  const handleNavigateToPayout = () => {
+    window.location.hash = '#/payout';
   };
 
-  const handleNavigateToAutoDebit = () => {
-    window.location.hash = '#/autodebit';
+  const handleNavigateToOnepay = () => {
+    window.location.hash = '#/onepay';
   };
 
-  const handleNavigateToWallet = () => {
-    window.location.hash = '#/wallet';
+  const handleNavigateToPayoo = () => {
+    window.location.hash = '#/payoo';
   };
 
   const handleNavigateToFaqs = () => {
@@ -58,23 +58,23 @@ function App() {
       {page === 'home' && (
         <Home
           onNavigateToBank={handleNavigateToBank}
-          onNavigateToDisbursement={handleNavigateToDisbursement}
-          onNavigateToAutoDebit={handleNavigateToAutoDebit}
-          onNavigateToWallet={handleNavigateToWallet}
+          onNavigateToDisbursement={handleNavigateToPayout}
+          onNavigateToAutoDebit={handleNavigateToOnepay}
+          onNavigateToWallet={handleNavigateToPayoo}
           onNavigateToFaqs={handleNavigateToFaqs}
         />
       )}
       {page === 'bank' && (
         <BankDetails onNavigateHome={handleNavigateHome} />
       )}
-      {page === 'disbursement' && (
-        <DisbursementDetails onNavigateHome={handleNavigateHome} />
+      {page === 'payout' && (
+        <PayoutDetails onNavigateHome={handleNavigateHome} />
       )}
-      {page === 'autodebit' && (
-        <AutoDebitDetails onNavigateHome={handleNavigateHome} />
+      {page === 'onepay' && (
+        <OnepayDetails onNavigateHome={handleNavigateHome} />
       )}
-      {page === 'wallet' && (
-        <WalletDetails onNavigateHome={handleNavigateHome} />
+      {page === 'payoo' && (
+        <PayooDetails onNavigateHome={handleNavigateHome} />
       )}
       {page === 'faqs' && (
         <FaqsDetails onNavigateHome={handleNavigateHome} />

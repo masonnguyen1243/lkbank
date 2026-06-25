@@ -2,6 +2,25 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
+## [2026-06-25] - Reorganize Service Classifications to Match Partners (Payoo, Baokim, Onepay)
+### Changed
+- **Payout / Disbursement Category ("Tính năng chi hộ (Payout)")**:
+  - Reorganized the "Quy trình dịch vụ Chi hộ" category to "Tính năng chi hộ (Payout)" under [PayoutDetails.tsx](file:///d:/Code/lkbank/src/pages/PayoutDetails.tsx).
+  - Merged the existing BIDV Direct Link guide and the Baokim E-wallet guide (now adapted for Payout) into [PayoutSections.tsx](file:///d:/Code/lkbank/src/components/payout/PayoutSections.tsx).
+  - Implemented [PayoutSidebar.tsx](file:///d:/Code/lkbank/src/components/payout/PayoutSidebar.tsx) to support unified searching and navigation for both BIDV and Baokim services.
+- **Payoo Category ("Tính năng thanh toán thẻ, payment link, smartpos")**:
+  - Renamed the former "Ví điện tử" category to "Tính năng thanh toán thẻ, payment link, smartpos" representing Payoo gateway.
+  - Developed [PayooDetails.tsx](file:///d:/Code/lkbank/src/pages/PayooDetails.tsx), [PayooSidebar.tsx](file:///d:/Code/lkbank/src/components/payoo/PayooSidebar.tsx), and [PayooSections.tsx](file:///d:/Code/lkbank/src/components/payoo/PayooSections.tsx) with detailed instructions for domestic/international card payment gates, Payment Link generation, and SmartPOS device operation (with 0% interest credit card installment instructions).
+  - *Note*: Temporarily set the Payoo services list to empty (`[]`), removed the Terminology section/link, and displayed a dotted placeholder card per user request.
+- **Onepay Category ("Trích nợ tự động (direct debit)")**:
+  - Renamed the former "Trích nợ tự động" category to "Trích nợ tự động (direct debit)" representing OnePay.
+  - Developed [OnepayDetails.tsx](file:///d:/Code/lkbank/src/pages/OnepayDetails.tsx), [OnepaySidebar.tsx](file:///d:/Code/lkbank/src/components/onepay/OnepaySidebar.tsx), and [OnepaySections.tsx](file:///d:/Code/lkbank/src/components/onepay/OnepaySections.tsx).
+  - *Note*: Temporarily set the Onepay services list to empty (`[]`), removed the Terminology section/link, and displayed a dotted placeholder card per user request.
+- **Cleanup and Routing Updates**:
+  - Removed outdated files and folders under `src/components/wallet/`, `src/components/disbursement/`, `src/components/autodebit/`, and outdated page files in `src/pages/`.
+  - Updated CategoryCard items in [Home.tsx](file:///d:/Code/lkbank/src/pages/Home.tsx) and path hash mapping in [App.tsx](file:///d:/Code/lkbank/src/App.tsx) (`#/payout`, `#/payoo`, `#/onepay`).
+  - Successfully compiled the project using `npm run build` with zero errors.
+
 ## [2026-06-24] - Integrate FAQs Pay By Bank Self-Service Help Center (Revised)
 ### Added
 - **FaqsDetails Page & Routing**:

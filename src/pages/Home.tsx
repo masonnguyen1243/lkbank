@@ -93,8 +93,8 @@ export const Home: React.FC<HomeProps> = ({
           />
 
           <CategoryCard
-            title="Quy trình dịch vụ Chi hộ"
-            description="Tài liệu nghiệp vụ, quy trình vận hành và tích hợp dịch vụ Chi hộ dành cho đối tác."
+            title="Tính năng chi hộ (Payout)"
+            description="Hướng dẫn tích hợp cổng API chi hộ tự động và đối soát giao dịch với đối tác BIDV và ví điện tử BAOKIM."
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -116,8 +116,8 @@ export const Home: React.FC<HomeProps> = ({
           />
 
           <CategoryCard
-            title="Trích nợ tự động"
-            description="Hướng dẫn đăng ký dịch vụ, kết nối cổng API và quản lý trích nợ tự động định kỳ."
+            title="Trích nợ tự động (direct debit)"
+            description="Tài liệu kỹ thuật và hướng dẫn ủy quyền trích nợ tự động định kỳ với đối tác ONEPAY."
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -140,8 +140,8 @@ export const Home: React.FC<HomeProps> = ({
           />
 
           <CategoryCard
-            title="Ví điện tử"
-            description="Tài liệu kỹ thuật tích hợp thanh toán, đối soát và kết nối với các hệ thống ví điện tử."
+            title="Tính năng thanh toán thẻ, payment link, smartpos"
+            description="Quy trình tích hợp cổng thanh toán thẻ, tạo Payment Link trực tuyến và vận hành thiết bị SmartPOS PAYOO."
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"

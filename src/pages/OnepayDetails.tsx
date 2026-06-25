@@ -1,29 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { WalletSidebar, WalletServiceInfo } from '../components/wallet/WalletSidebar';
+import { OnepaySidebar, OnepayServiceInfo } from '../components/onepay/OnepaySidebar';
 import { PDFModal } from '../components/ui/PDFModal';
 import { useScrollSpy } from '../hooks/useScrollSpy';
-import { BaokimWalletSection } from '../components/wallet/WalletSections';
 import '../styles/bank.css';
 
-interface WalletDetailsProps {
+interface OnepayDetailsProps {
   onNavigateHome: () => void;
 }
 
-// Danh sách các ví điện tử hoạt động
-const WALLET_SERVICES: WalletServiceInfo[] = [
-  {
-    id: 'baokim_wallet',
-    name: 'Ví điện tử Bảo Kim',
-    fullName: 'Công ty Cổ phần Thương mại Điện tử Bảo Kim · Baokim E-Wallet',
-    logoUrl: '/public/logo/Logo-Bao-Kim.png',
-    fallbackText: 'BaoKim',
-    searchNames: 'baokim bao kim vi dien tu e-wallet wallet onboard kyc nfc',
-    fallbackBg: '#FF6B00',
-  }
-];
+const ONEPAY_SERVICES: OnepayServiceInfo[] = [];
 
-export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) => {
+export const OnepayDetails: React.FC<OnepayDetailsProps> = ({ onNavigateHome }) => {
   const { theme, toggleTheme } = useTheme();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [scrolledPercent, setScrolledPercent] = useState(0);
@@ -38,14 +26,14 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
   });
 
   const watchedIds = useMemo(() => {
-    const ids = ['intro', 'terminology'];
-    WALLET_SERVICES.forEach((s) => ids.push(s.id));
+    const ids = ['intro'];
+    ONEPAY_SERVICES.forEach((s) => ids.push(s.id));
     return ids;
   }, []);
 
   const activeId = useScrollSpy(watchedIds, 56 + 24);
   const isInitialScrollActive = React.useRef(
-    /^#\/wallet\/([^/]+)$/.test(window.location.hash)
+    /^#\/onepay\/([^/]+)$/.test(window.location.hash)
   );
 
   useEffect(() => {
@@ -92,7 +80,7 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
       return;
     }
     if (activeId) {
-      const path = activeId === 'intro' ? '#/wallet' : `#/wallet/${activeId}`;
+      const path = activeId === 'intro' ? '#/onepay' : `#/onepay/${activeId}`;
       if (window.location.hash !== path) {
         window.history.replaceState(null, '', path);
       }
@@ -106,24 +94,21 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
 
     const handleHashScroll = () => {
       const hash = window.location.hash;
-      const match = hash.match(/^#\/wallet\/([^/]+)$/);
+      const match = hash.match(/^#\/onepay\/([^/]+)$/);
       if (match) {
         const serviceId = match[1];
         if (watchedIds.includes(serviceId)) {
-          isInitialScrollActive.current = true; // Lock scroll spy sync
+          isInitialScrollActive.current = true;
           const el = document.getElementById(serviceId);
           if (el) {
             handleLinkClick(serviceId);
-            
-            // Retry a few times to counteract layout shifts as images load
             if (scrollAttempts < maxAttempts) {
               scrollAttempts++;
               setTimeout(handleHashScroll, 200 * scrollAttempts);
             } else {
-              isInitialScrollActive.current = false; // Unlock when finished
+              isInitialScrollActive.current = false;
             }
           } else {
-            // Retry if element is not in DOM yet
             if (scrollAttempts < maxAttempts) {
               scrollAttempts++;
               setTimeout(handleHashScroll, 100);
@@ -139,7 +124,6 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
       }
     };
 
-    // Run once on mount
     const timer = setTimeout(handleHashScroll, 100);
 
     window.addEventListener('hashchange', handleHashScroll);
@@ -149,17 +133,10 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
     };
   }, [watchedIds]);
 
-  const handleViewPDF = (url: string, title: string) => {
-    setPdfModalState({
-      isOpen: true,
-      url,
-      title,
-    });
-  };
-
   const handleClosePDF = () => {
     setPdfModalState((prev) => ({ ...prev, isOpen: false }));
   };
+
 
   return (
     <div className="bank-layout">
@@ -242,9 +219,9 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
         </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: 0, flex: 1 }}>
           <div>
-            <div className="hdr-t">Quy Trình Tích Hợp Ví Điện Tử</div>
+            <div className="hdr-t">Trích nợ tự động (direct debit)</div>
           </div>
-          <span className="hdr-s">— Hướng dẫn kết nối &amp; đối soát</span>
+          <span className="hdr-s">— ONEPAY</span>
         </div>
         <button
           className="theme-toggle-btn"
@@ -273,14 +250,14 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
       </header>
 
       {/* SIDEBAR */}
-      <WalletSidebar
+      <OnepaySidebar
         activeId={activeId}
         onLinkClick={handleLinkClick}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        services={WALLET_SERVICES}
+        services={ONEPAY_SERVICES}
       />
 
       {/* MAIN CONTENT */}
@@ -290,97 +267,52 @@ export const WalletDetails: React.FC<WalletDetailsProps> = ({ onNavigateHome }) 
           <div style={{ padding: '22px 24px', display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
             <div style={{ flex: 1 }}>
               <h1 style={{ fontSize: '17px', fontWeight: 800, marginBottom: '6px' }}>
-                Tổng quan Quy trình Tích hợp Ví điện tử
+                Tổng quan Quy trình Trích nợ tự động OnePay
               </h1>
               <p style={{ fontSize: '13px', color: 'var(--tx2)', maxWidth: '640px' }}>
-                Tài liệu hướng dẫn kết nối cổng thanh toán, gọi API tạo giao dịch nạp/rút và thiết lập hệ thống đối soát dữ liệu với các đối tác Ví điện tử liên kết với Tingee.
+                Tài liệu hướng dẫn đăng ký liên kết ủy quyền trích nợ tự động giữa khách hàng và Tingee thông qua OnePay, cho phép thu phí tự động định kỳ nhanh chóng qua kết nối API trực tiếp từ hệ thống.
               </p>
               <div className="intro-stats">
                 <div className="stat">
-                  <div className="stat-n">{WALLET_SERVICES.length}</div>
-                  <div className="stat-l">Ví hỗ trợ hiện tại</div>
+                  <div className="stat-n">{ONEPAY_SERVICES.length}</div>
+                  <div className="stat-l">Dịch vụ trích nợ</div>
                 </div>
                 <div className="stat">
-                  <div className="stat-n">OAuth 2.0 / IPN</div>
-                  <div className="stat-l">Phương thức kết nối</div>
+                  <div className="stat-n">Tokenization</div>
+                  <div className="stat-l">Phương thức bảo mật</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* TERMINOLOGY */}
-        <div className="section-card" id="terminology" style={{ scrollMarginTop: 'calc(var(--sh) + 16px)' }}>
-          <div className="section-hdr">
-            <div>
-              <div className="section-hdr-t">Thuật ngữ &amp; Viết tắt</div>
-              <div className="section-hdr-s">
-                Giải thích các khái niệm trong quy trình kết nối Ví điện tử
-              </div>
-            </div>
-          </div>
-          <div className="term-tbl-wrap">
-            <table className="term-table">
-              <thead>
-                <tr>
-                  <th style={{ width: '100px' }}>Viết tắt</th>
-                  <th style={{ width: '220px' }}>Thuật ngữ đầy đủ</th>
-                  <th>Ghi chú / Định nghĩa</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="ta">E-Wallet</td>
-                  <td className="tf">Ví điện tử</td>
-                  <td className="tn">Tài khoản điện tử định danh chứa tiền của người dùng để thực hiện các giao dịch trực tuyến</td>
-                </tr>
-                <tr>
-                  <td className="ta">Sandbox</td>
-                  <td className="tf">Môi trường giả lập</td>
-                  <td className="tn">Hệ thống test tích hợp API với các tham số và số dư giả lập giúp lập trình viên phát triển thử nghiệm</td>
-                </tr>
-                <tr>
-                  <td className="ta">Production</td>
-                  <td className="tf">Môi trường thực tế</td>
-                  <td className="tn">Hệ thống thật xử lý tiền và giao dịch thực của người dùng sau khi đã nghiệm thu môi trường test</td>
-                </tr>
-                <tr>
-                  <td className="ta">Signature</td>
-                  <td className="tf">Chữ ký số bảo mật</td>
-                  <td className="tn">Chuỗi băm (HMAC-SHA256, v.v.) dùng để kiểm tra tính toàn vẹn của dữ liệu truyền đi giữa các hệ thống</td>
-                </tr>
-                <tr>
-                  <td className="ta">KYC</td>
-                  <td className="tf">Định danh khách hàng</td>
-                  <td className="tn">Quy trình xác minh danh tính người dùng ví (Know Your Customer)</td>
-                </tr>
-                <tr>
-                  <td className="ta">NFC</td>
-                  <td className="tf">Kết nối cận trường</td>
-                  <td className="tn">Công nghệ truyền tin tầm ngắn quét chip CCCD bằng điện thoại để xác thực chính chủ</td>
-                </tr>
-                <tr>
-                  <td className="ta">ĐDPL</td>
-                  <td className="tf">Đại diện pháp luật</td>
-                  <td className="tn">Người đại diện hợp pháp đứng tên trên giấy tờ ĐKKD của doanh nghiệp</td>
-                </tr>
-                <tr>
-                  <td className="ta">ĐKKD</td>
-                  <td className="tf">Đăng ký kinh doanh</td>
-                  <td className="tn">Giấy chứng nhận đăng ký doanh nghiệp hoặc giấy phép đăng ký hộ kinh doanh</td>
-                </tr>
-                <tr>
-                  <td className="ta">SMS OTP</td>
-                  <td className="tf">Mã xác thực một lần</td>
-                  <td className="tn">Mã OTP bảo mật được gửi qua tin nhắn SMS tới số điện thoại đăng ký</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
 
-        {/* WALLET SECTIONS CONTENT */}
-        <BaokimWalletSection onViewPDF={handleViewPDF} searchQuery={searchQuery} />
+        {/* SKELETON / PLACEHOLDER FOR SERVICES */}
+        <div className="section-card" style={{ padding: '40px 24px', textAlign: 'center', borderStyle: 'dashed', borderWidth: '2px' }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            background: 'var(--primary-light)',
+            borderRadius: '50%',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '16px',
+            color: 'var(--primary)'
+          }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+          </div>
+          <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '6px', color: 'var(--tx)' }}>
+            Danh sách quy trình Trích nợ tự động OnePay trống
+          </h3>
+          <p style={{ fontSize: '13px', color: 'var(--tx2)', maxWidth: '440px', margin: '0 auto', lineHeight: '1.6' }}>
+            Nội dung chi tiết của các quy trình đăng ký và kết nối trích nợ tự động qua OnePay sẽ được cập nhật tại đây khi có thông tin thực tế.
+          </p>
+        </div>
 
         {/* FOOTER */}
         <div className="footer">

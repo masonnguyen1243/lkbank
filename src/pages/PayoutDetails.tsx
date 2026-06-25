@@ -1,18 +1,38 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { AutoDebitSidebar, AutoDebitServiceInfo } from '../components/autodebit/AutoDebitSidebar';
+import { PayoutSidebar, PayoutServiceInfo } from '../components/payout/PayoutSidebar';
 import { PDFModal } from '../components/ui/PDFModal';
 import { useScrollSpy } from '../hooks/useScrollSpy';
+import { BIDVPayoutSection, BaokimPayoutSection } from '../components/payout/PayoutSections';
 import '../styles/bank.css';
 
-interface AutoDebitDetailsProps {
+interface PayoutDetailsProps {
   onNavigateHome: () => void;
 }
 
-// Danh sách các dịch vụ trích nợ tự động trống (sẽ bổ sung sau)
-const AUTODEBIT_SERVICES: AutoDebitServiceInfo[] = [];
+// Danh sách các dịch vụ chi hộ của hệ thống
+const PAYOUT_SERVICES: PayoutServiceInfo[] = [
+  {
+    id: 'bidv_payout',
+    name: 'Chi hộ BIDV',
+    fullName: 'Ngân hàng TMCP Đầu tư và Phát triển Việt Nam · BIDV Direct Link',
+    logoUrl: 'https://api.vietqr.io/img/BIDV.png',
+    fallbackText: 'BIDV',
+    searchNames: 'bidv chi ho payout direct link maker checker heno erp ngân hàng',
+    fallbackBg: '#006B68',
+  },
+  {
+    id: 'baokim_payout',
+    name: 'Chi hộ Bảo Kim',
+    fullName: 'Công ty Cổ phần Thương mại Điện tử Bảo Kim · Baokim E-Wallet Payout',
+    logoUrl: '/public/logo/Logo-Bao-Kim.png',
+    fallbackText: 'BaoKim',
+    searchNames: 'baokim bao kim vi dien tu e-wallet wallet payout chi ho ví điện tử onboarding kyc nfc',
+    fallbackBg: '#FF6B00',
+  }
+];
 
-export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHome }) => {
+export const PayoutDetails: React.FC<PayoutDetailsProps> = ({ onNavigateHome }) => {
   const { theme, toggleTheme } = useTheme();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [scrolledPercent, setScrolledPercent] = useState(0);
@@ -28,13 +48,13 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
 
   const watchedIds = useMemo(() => {
     const ids = ['intro', 'terminology'];
-    AUTODEBIT_SERVICES.forEach((s) => ids.push(s.id));
+    PAYOUT_SERVICES.forEach((s) => ids.push(s.id));
     return ids;
   }, []);
 
   const activeId = useScrollSpy(watchedIds, 56 + 24);
   const isInitialScrollActive = React.useRef(
-    /^#\/autodebit\/([^/]+)$/.test(window.location.hash)
+    /^#\/payout\/([^/]+)$/.test(window.location.hash)
   );
 
   useEffect(() => {
@@ -81,7 +101,7 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
       return;
     }
     if (activeId) {
-      const path = activeId === 'intro' ? '#/autodebit' : `#/autodebit/${activeId}`;
+      const path = activeId === 'intro' ? '#/payout' : `#/payout/${activeId}`;
       if (window.location.hash !== path) {
         window.history.replaceState(null, '', path);
       }
@@ -95,7 +115,7 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
 
     const handleHashScroll = () => {
       const hash = window.location.hash;
-      const match = hash.match(/^#\/autodebit\/([^/]+)$/);
+      const match = hash.match(/^#\/payout\/([^/]+)$/);
       if (match) {
         const serviceId = match[1];
         if (watchedIds.includes(serviceId)) {
@@ -140,6 +160,14 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
 
   const handleClosePDF = () => {
     setPdfModalState((prev) => ({ ...prev, isOpen: false }));
+  };
+
+  const handleViewPDF = (url: string, title: string) => {
+    setPdfModalState({
+      isOpen: true,
+      url,
+      title,
+    });
   };
 
   return (
@@ -223,9 +251,9 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
         </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: 0, flex: 1 }}>
           <div>
-            <div className="hdr-t">Quy Trình Trích Nợ Tự Động</div>
+            <div className="hdr-t">Tính năng chi hộ (Payout)</div>
           </div>
-          <span className="hdr-s">— Hướng dẫn đăng ký &amp; vận hành</span>
+          <span className="hdr-s">— BIDV &amp; BAOKIM</span>
         </div>
         <button
           className="theme-toggle-btn"
@@ -254,14 +282,14 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
       </header>
 
       {/* SIDEBAR */}
-      <AutoDebitSidebar
+      <PayoutSidebar
         activeId={activeId}
         onLinkClick={handleLinkClick}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        services={AUTODEBIT_SERVICES}
+        services={PAYOUT_SERVICES}
       />
 
       {/* MAIN CONTENT */}
@@ -271,19 +299,19 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
           <div style={{ padding: '22px 24px', display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
             <div style={{ flex: 1 }}>
               <h1 style={{ fontSize: '17px', fontWeight: 800, marginBottom: '6px' }}>
-                Quy trình Trích nợ tự động (Auto-debit / Direct Debit)
+                Tổng quan Tính năng chi hộ (Payout)
               </h1>
               <p style={{ fontSize: '13px', color: 'var(--tx2)', maxWidth: '640px' }}>
-                Tài liệu hướng dẫn đăng ký liên kết ủy quyền trích nợ tự động giữa khách hàng và Tingee, cho phép thu phí tự động định kỳ nhanh chóng qua kết nối API trực tiếp từ hệ thống.
+                Hướng dẫn tích hợp kỹ thuật (API/Webhook) và quy trình vận hành dịch vụ Chi hộ (Payout) từ hệ thống ngân hàng BIDV và ví điện tử Bảo Kim (BAOKIM) dành cho doanh nghiệp và đối tác liên kết.
               </p>
               <div className="intro-stats">
                 <div className="stat">
-                  <div className="stat-n">0</div>
-                  <div className="stat-l">Dịch vụ hiện tại</div>
+                  <div className="stat-n">{PAYOUT_SERVICES.length}</div>
+                  <div className="stat-l">Dịch vụ chi hộ</div>
                 </div>
                 <div className="stat">
-                  <div className="stat-n">Tokenization</div>
-                  <div className="stat-l">Phương thức bảo mật</div>
+                  <div className="stat-n">API / Webhook</div>
+                  <div className="stat-l">Phương thức kết nối</div>
                 </div>
               </div>
             </div>
@@ -296,7 +324,7 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
             <div>
               <div className="section-hdr-t">Thuật ngữ &amp; Viết tắt</div>
               <div className="section-hdr-s">
-                Giải thích các khái niệm trong quy trình Trích nợ tự động
+                Giải thích các ký hiệu và thuật ngữ chuyên ngành trong quy trình Chi hộ
               </div>
             </div>
           </div>
@@ -311,56 +339,48 @@ export const AutoDebitDetails: React.FC<AutoDebitDetailsProps> = ({ onNavigateHo
               </thead>
               <tbody>
                 <tr>
-                  <td className="ta">Direct Debit</td>
-                  <td className="tf">Trích nợ tự động</td>
-                  <td className="tn">Dịch vụ tự động trừ tiền từ tài khoản của khách hàng khi đến kỳ thanh toán sau khi đã có ủy quyền</td>
+                  <td className="ta">Payout / Disbursement</td>
+                  <td className="tf">Dịch vụ Chi hộ</td>
+                  <td className="tn">Quy trình chuyển tiền từ tài khoản nguồn (Ngân hàng/Ví) sang tài khoản đích theo yêu cầu của đối tác</td>
                 </tr>
                 <tr>
-                  <td className="ta">Mandate</td>
-                  <td className="tf">Ủy quyền trích nợ tự động</td>
-                  <td className="tn">Văn bản hoặc xác nhận số thỏa thuận cho phép trích nợ tài khoản được ngân hàng phê duyệt</td>
+                  <td className="ta">Merchant</td>
+                  <td className="tf">Đơn vị chấp nhận thanh toán</td>
+                  <td className="tn">Doanh nghiệp sử dụng dịch vụ chi hộ</td>
                 </tr>
                 <tr>
-                  <td className="ta">Tokenization</td>
-                  <td className="tf">Mã hóa thông tin tài khoản</td>
-                  <td className="tn">Quy trình thay thế số tài khoản bằng token an toàn để gọi giao dịch trích nợ tự động sau này</td>
+                  <td className="ta">API Key</td>
+                  <td className="tf">Khóa tích hợp cổng kết nối</td>
+                  <td className="tn">Chuỗi ký tự dùng để xác thực các yêu cầu gọi API từ hệ thống Merchant</td>
                 </tr>
                 <tr>
-                  <td className="ta">Recurring</td>
-                  <td className="tf">Thanh toán định kỳ</td>
-                  <td className="tn">Giao dịch được lập lịch thực hiện tự động vào mỗi chu kỳ (hàng tuần, hàng tháng, v.v.)</td>
+                  <td className="ta">IPN</td>
+                  <td className="tf">Instant Payment Notification</td>
+                  <td className="tn">Cơ chế webhook gửi thông báo trạng thái giao dịch tự động</td>
+                </tr>
+                <tr>
+                  <td className="ta">Reconciliation</td>
+                  <td className="tf">Đối soát giao dịch</td>
+                  <td className="tn">Quy trình so khớp dữ liệu giao dịch định kỳ</td>
+                </tr>
+                <tr>
+                  <td className="ta">Maker</td>
+                  <td className="tf">Người tạo lệnh</td>
+                  <td className="tn">Tài khoản khởi tạo và đẩy yêu cầu giao dịch chi hộ lên hệ thống</td>
+                </tr>
+                <tr>
+                  <td className="ta">Checker</td>
+                  <td className="tf">Người duyệt lệnh</td>
+                  <td className="tn">Tài khoản kiểm tra và thực hiện phê duyệt giao dịch chi hộ cuối cùng</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* SKELETON / PLACEHOLDER FOR SERVICES */}
-        <div className="section-card" style={{ padding: '40px 24px', textAlign: 'center', borderStyle: 'dashed', borderWidth: '2px' }}>
-          <div style={{
-            width: '48px',
-            height: '48px',
-            background: 'var(--primary-light)',
-            borderRadius: '50%',
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '16px',
-            color: 'var(--primary)'
-          }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-              <line x1="12" y1="8" x2="12" y2="16"></line>
-              <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-          </div>
-          <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '6px', color: 'var(--tx)' }}>
-            Danh sách quy trình Trích nợ tự động trống
-          </h3>
-          <p style={{ fontSize: '13px', color: 'var(--tx2)', maxWidth: '440px', margin: '0 auto', lineHeight: '1.5' }}>
-            Nội dung chi tiết của các quy trình trích nợ tự động ngân hàng sẽ được cập nhật tại đây khi có thông tin thực tế.
-          </p>
-        </div>
+        {/* SERVICES */}
+        <BIDVPayoutSection onViewPDF={handleViewPDF} searchQuery={searchQuery} />
+        <BaokimPayoutSection onViewPDF={handleViewPDF} searchQuery={searchQuery} />
 
         {/* FOOTER */}
         <div className="footer">
