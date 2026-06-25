@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HighlightText } from '../ui/HighlightText';
 
-export interface WalletServiceInfo {
+export interface PayooServiceInfo {
   id: string;
   name: string;
   fullName: string;
@@ -11,17 +11,17 @@ export interface WalletServiceInfo {
   fallbackBg: string;
 }
 
-interface WalletSidebarProps {
+interface PayooSidebarProps {
   activeId: string;
   onLinkClick: (id: string) => void;
   isOpen: boolean;
   onClose: () => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
-  services: WalletServiceInfo[];
+  services: PayooServiceInfo[];
 }
 
-export const WalletSidebar: React.FC<WalletSidebarProps> = ({
+export const PayooSidebar: React.FC<PayooSidebarProps> = ({
   activeId,
   onLinkClick,
   isOpen,
@@ -47,7 +47,7 @@ export const WalletSidebar: React.FC<WalletSidebarProps> = ({
           className="sb-search"
           id="sbSearch"
           type="text"
-          placeholder="Tìm kiếm ví..."
+          placeholder="Tìm kiếm dịch vụ Payoo..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -78,33 +78,11 @@ export const WalletSidebar: React.FC<WalletSidebarProps> = ({
         </svg>
         <span>Tổng quan</span>
       </a>
-      <a
-        className={`sb-link ${activeId === 'terminology' ? 'active' : ''}`}
-        href="#terminology"
-        onClick={(e) => {
-          e.preventDefault();
-          onLinkClick('terminology');
-          onClose();
-        }}
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          style={{ flexShrink: 0, color: '#6b7280' }}
-        >
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-        </svg>
-        <span>Thuật ngữ</span>
-      </a>
+
 
       {filteredServices.length > 0 && (
         <>
-          <div className="sb-section">Ví điện tử</div>
+          <div className="sb-section">Dịch vụ Payoo</div>
           {filteredServices.map((service, index) => (
             <a
               key={service.id}

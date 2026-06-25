@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HighlightText } from '../ui/HighlightText';
 
-export interface AutoDebitServiceInfo {
+export interface PayoutServiceInfo {
   id: string;
   name: string;
   fullName: string;
@@ -11,17 +11,17 @@ export interface AutoDebitServiceInfo {
   fallbackBg: string;
 }
 
-interface AutoDebitSidebarProps {
+interface PayoutSidebarProps {
   activeId: string;
   onLinkClick: (id: string) => void;
   isOpen: boolean;
   onClose: () => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
-  services: AutoDebitServiceInfo[];
+  services: PayoutServiceInfo[];
 }
 
-export const AutoDebitSidebar: React.FC<AutoDebitSidebarProps> = ({
+export const PayoutSidebar: React.FC<PayoutSidebarProps> = ({
   activeId,
   onLinkClick,
   isOpen,
@@ -47,7 +47,7 @@ export const AutoDebitSidebar: React.FC<AutoDebitSidebarProps> = ({
           className="sb-search"
           id="sbSearch"
           type="text"
-          placeholder="Tìm kiếm dịch vụ..."
+          placeholder="Tìm kiếm dịch vụ chi hộ..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -104,7 +104,7 @@ export const AutoDebitSidebar: React.FC<AutoDebitSidebarProps> = ({
 
       {filteredServices.length > 0 && (
         <>
-          <div className="sb-section">Dịch vụ Trích nợ</div>
+          <div className="sb-section">Dịch vụ Chi hộ</div>
           {filteredServices.map((service, index) => (
             <a
               key={service.id}
