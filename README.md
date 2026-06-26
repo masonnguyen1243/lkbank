@@ -13,6 +13,7 @@ Hệ thống tài liệu hướng dẫn quy trình liên kết tài khoản ngâ
 - **Tìm kiếm thông minh**: Lọc danh sách ngân hàng ở sidebar theo thời gian thực và tự động đánh dấu (Highlight) từ khóa khớp.
 - **Dark Mode**: Hỗ trợ chuyển đổi nhanh chủ đề Sáng / Tối và lưu trạng thái ưu tiên qua React Context.
 - **Xem tài liệu trực tiếp**: Hỗ trợ Modal xem biểu mẫu PDF tích hợp không cần rời trang hoặc mở tab mới.
+- **FAQs Pay By Bank (FAQs Help Center)**: Trang giải đáp 16 câu hỏi thường gặp về tích hợp API, môi trường giả lập (Sandbox), quy trình đối soát vận hành và chính sách phí dịch vụ. Tích hợp thanh tìm kiếm tiếng Việt không dấu (accents-insensitive), highlight từ khóa khớp, nút xóa nhanh từ khóa (Clear search), lưới logo 14 ngân hàng với vòng tròn fallback theo đúng màu sắc thương hiệu, và cơ chế tự động đồng bộ theme từ trang cha qua Iframe message listener (`THEME_CHANGE`).
 
 ---
 
@@ -58,11 +59,17 @@ Yêu cầu máy tính đã cài đặt **Node.js** (khuyến nghị phiên bản
 ├── public/                # Thư mục chứa tài nguyên tĩnh không qua compile
 │   └── docs/              # Tài liệu, công văn, biểu mẫu đăng ký liên kết (.docx, .pdf)
 ├── src/                   # Thư mục mã nguồn chính (React)
-│   ├── components/        # Các React Components dùng chung
-│   ├── hooks/             # Custom React Hooks (như useScrollSpy, useSearchHighlight)
+│   ├── components/        # Các React Components chia theo nghiệp vụ
+│   │   ├── ui/            # Các component giao diện dùng chung (Accordion, PDFModal,...)
+│   │   ├── bank/          # Nghiệp vụ Liên kết Ngân hàng & Guideline chi tiết
+│   │   ├── disbursement/  # Nghiệp vụ Quy trình dịch vụ Chi hộ
+│   │   ├── autodebit/     # Nghiệp vụ Trích nợ tự động
+│   │   └── wallet/        # Nghiệp vụ tích hợp Ví điện tử
+│   ├── pages/             # Các trang (views) cấp cao điều hướng của ứng dụng (Home, BankDetails,...)
+│   ├── hooks/             # Custom React Hooks (như useScrollSpy)
 │   ├── context/           # React Context (quản lý Dark Mode, User state)
 │   ├── styles/            # Các file CSS định dạng giao diện
-│   ├── App.tsx            # Component gốc điều hướng và layout chính
+│   ├── App.tsx            # Component gốc điều phối định tuyến và layout chính
 │   ├── main.tsx           # Điểm khởi chạy (Entrypoint) gắn kết React với DOM
 │   └── index.css          # Tệp reset CSS toàn cục
 ├── index.html             # Tệp HTML khung của ứng dụng

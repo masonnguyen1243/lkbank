@@ -2,6 +2,104 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
+## [2026-06-26] - Update Bao Kim Payout Content
+### Changed
+- **Bao Kim Payout Content ("Tính năng chi hộ (Payout)")**:
+  - Emphasized the collaborative payout service (Payout from e-wallet) between Tingee and Bao Kim.
+  - Replaced the direct API integration section with the wallet link & synchronization flow (obtaining Wallet ID from Bao Kim, configuring it on Tingee, and invoking the sync API on Tingee to leverage the Tingee x Bao Kim API suite).
+  - Completely removed the transfer limit policy section and the FAQs section for Bao Kim wallet.
+
+## [2026-06-25] - Reorganize Service Classifications to Match Partners (Payoo, Baokim, Onepay)
+### Changed
+- **Payout / Disbursement Category ("Tính năng chi hộ (Payout)")**:
+  - Reorganized the "Quy trình dịch vụ Chi hộ" category to "Tính năng chi hộ (Payout)" under [PayoutDetails.tsx](file:///d:/Code/lkbank/src/pages/PayoutDetails.tsx).
+  - Merged the existing BIDV Direct Link guide and the Baokim E-wallet guide (now adapted for Payout) into [PayoutSections.tsx](file:///d:/Code/lkbank/src/components/payout/PayoutSections.tsx).
+  - Implemented [PayoutSidebar.tsx](file:///d:/Code/lkbank/src/components/payout/PayoutSidebar.tsx) to support unified searching and navigation for both BIDV and Baokim services.
+- **Payoo Category ("Tính năng thanh toán thẻ, payment link, smartpos")**:
+  - Renamed the former "Ví điện tử" category to "Tính năng thanh toán thẻ, payment link, smartpos" representing Payoo gateway.
+  - Developed [PayooDetails.tsx](file:///d:/Code/lkbank/src/pages/PayooDetails.tsx), [PayooSidebar.tsx](file:///d:/Code/lkbank/src/components/payoo/PayooSidebar.tsx), and [PayooSections.tsx](file:///d:/Code/lkbank/src/components/payoo/PayooSections.tsx) with detailed instructions for domestic/international card payment gates, Payment Link generation, and SmartPOS device operation (with 0% interest credit card installment instructions).
+  - *Note*: Temporarily set the Payoo services list to empty (`[]`), removed the Terminology section/link, and displayed a dotted placeholder card per user request.
+- **Onepay Category ("Trích nợ tự động (direct debit)")**:
+  - Renamed the former "Trích nợ tự động" category to "Trích nợ tự động (direct debit)" representing OnePay.
+  - Developed [OnepayDetails.tsx](file:///d:/Code/lkbank/src/pages/OnepayDetails.tsx), [OnepaySidebar.tsx](file:///d:/Code/lkbank/src/components/onepay/OnepaySidebar.tsx), and [OnepaySections.tsx](file:///d:/Code/lkbank/src/components/onepay/OnepaySections.tsx).
+  - *Note*: Temporarily set the Onepay services list to empty (`[]`), removed the Terminology section/link, and displayed a dotted placeholder card per user request.
+- **Cleanup and Routing Updates**:
+  - Removed outdated files and folders under `src/components/wallet/`, `src/components/disbursement/`, `src/components/autodebit/`, and outdated page files in `src/pages/`.
+  - Updated CategoryCard items in [Home.tsx](file:///d:/Code/lkbank/src/pages/Home.tsx) and path hash mapping in [App.tsx](file:///d:/Code/lkbank/src/App.tsx) (`#/payout`, `#/payoo`, `#/onepay`).
+  - Successfully compiled the project using `npm run build` with zero errors.
+
+## [2026-06-24] - Integrate FAQs Pay By Bank Self-Service Help Center (Revised)
+### Added
+- **FaqsDetails Page & Routing**:
+  - Developed the `<FaqsDetails>` page component (`src/pages/FaqsDetails.tsx`) displaying 16 standard FAQs across 4 categories (Technical, Onboarding, Operations, Business).
+  - Wired `#/faqs` hash routing in `src/App.tsx` and replaced the homepage placeholder CategoryCard in `src/pages/Home.tsx` to link to the new FAQs view.
+- **Accents-Insensitive Search, Highlighting & Clear Button**:
+  - Created a custom Vietnamese accents-insensitive search engine to filter FAQs dynamically.
+  - Implemented `FaqHighlightText` wrapping matched search terms in `<mark class="highlight">` elements.
+  - Configured automatic accordion expansions upon active search inputs, a custom "No results found" alert with direct Zalo / Telegram buttons.
+  - Integrated a clickable clear button `✕` inside the search bar to clear search input, with absolute positioning and hover transitions styled in `src/styles/faqs.css`.
+- **Dynamic VietQR Logo Grid & Brand-Specific Fallbacks**:
+  - Created a responsive grid for 14 banks in Q5 calling `api.vietqr.io`.
+  - Implemented `onError` fallback circles with bank abbreviations and custom background colors matching the official branding of the 14 commercial banks.
+- **Deep-linking & Iframe Theme Message Sync**:
+  - Added URL hash deep-linking (e.g., `#/faqs/faq-1`) which auto-scrolls to and expands designated questions on mount.
+  - Registered a message event listener inside `FaqsDetails.tsx` to handle `{ type: 'THEME_CHANGE', theme: 'dark' | 'light' }` from parent pages, synchronizing the theme automatically.
+- **FAQ Content Revisions & Updates**:
+  - Pointed the bank guideline link in Q5 to the precise URL `https://trienkhai.tingee.vn/#/bank`.
+  - Updated Q11 to state that "Doanh nghiệp" (instead of "Vận hành") should contact Tingee support for transaction verification.
+  - Refined Q15 support channel link text to display "Zalo OA - Tingee By Heno".
+- **System Specifications Updates**:
+  - Documented features in `specs/product-spec.md` and updated the roadmap in `specs/implementation-plan.md`.
+
+## [2026-06-22] - Integrate Baokim E-Wallet Onboarding Guidelines
+### Added
+- **Baokim E-Wallet Onboarding Guidelines**:
+  - Converted the PDF guide `public/docs/baokim/Hướng dẫn Onboard VĐT Baokim.pdf` into a structural markdown guide.
+  - Created a new component `src/components/wallet/WalletSections.tsx` that exports `<BaokimWalletSection>`.
+  - Implemented details for the 5 onboarding steps on the Baokim app side (App download, account registration, KYC/NFC verification, bank link transfer, and electronic signature authorization activation).
+  - Designed the transfer limit tables for Individual, New Business, and Established Business/Corporate accounts.
+  - Configured 11 FAQ items via nested `<Accordion>` elements to address common merchant errors.
+  - Linked the guide to the online PDF viewer using the modular `<DocSection>` and `<DocItem>` tools.
+- **Wallet Page Wiring and Registration**:
+  - Registered `baokim_wallet` in the `WALLET_SERVICES` array in `src/pages/WalletDetails.tsx`.
+  - Mounted the `<BaokimWalletSection>` inside the main viewport of `WalletDetails.tsx` to display active statistics and connect the search query and the `handleViewPDF` trigger.
+  - Verified the changes build successfully without compilation or TypeScript errors.
+
+## [2026-06-22] - Reorganize Directory Structure
+### Changed
+- **Folder Restructuring & Clean Up**:
+  - Moved top-level page components (`Home.tsx`, `BankDetails.tsx`, `DisbursementDetails.tsx`, `AutoDebitDetails.tsx`, `WalletDetails.tsx`) from `src/components/...` to a new `src/pages/` folder.
+  - Grouped reusable UI controls (`Accordion.tsx`, `CategoryCard.tsx`, `ContactCard.tsx`, `HighlightText.tsx`, `NoteBox.tsx`, `PDFModal.tsx`) into a new `src/components/ui/` folder.
+  - Grouped bank-specific layouts and templates (`BankSection.tsx`, `BankSidebar.tsx` [renamed from `Sidebar.tsx`], and `banks/` details) under `src/components/bank/`.
+  - Updated relative import statements in all modified `.tsx` files.
+  - Validated that the production build (`npm run build`) runs successfully with 0 TypeScript/Vite errors.
+
+## [2026-06-19] - Phase 5.2: Integrate BIDV Payout (Chi hộ) Service
+### Added
+- **BIDV Payout Content Integration**:
+  - Developed the `<BIDVDisbursementSection>` component inside `src/components/disbursement/DisbursementSections.tsx` incorporating the full step-by-step registration guidelines for BIDV Direct.
+  - Documented onboarding paths: Case 1 (E-form online registration via `https://www.bidv.com.vn/BIDVDirect` for Gói nâng cao ERP/Heno integration) and Case 2 (Way 1 via BM02 paper request and Way 2 via online configuration on BIDV Direct portal).
+  - Outlined the account verification redirect flow and internal authorization control roles (Maker and Checker).
+- **Wiring and Navigation Support**:
+  - Integrated `BIDVDisbursementSection` inside the main `<DisbursementDetails>` page.
+  - Registered the service item inside the `DISBURSEMENT_SERVICES` array in `src/components/DisbursementDetails.tsx` with customized theme color fallback (`#006B68`) and live search attributes.
+  - Linked file attachments (`HD_Dang_ky_bieu_mau_Eform.pdf`, `BM02_Thay_doi_thong_tin_dich_vu_Direct.doc`, and `HDSD_KH_Quan_ly_ket_noi_Direct_Link.docx`) inside the DocSection of the BIDV Payout view supporting online visualization and download triggers.
+
+## [2026-06-19] - Phase 5.1: Disbursement, Auto-debit, and E-wallet Frame & Routing
+### Added
+- **New Page Layout Components**:
+  - Developed `<DisbursementDetails>` (`src/components/DisbursementDetails.tsx`), `<AutoDebitDetails>` (`src/components/AutoDebitDetails.tsx`), and `<WalletDetails>` (`src/components/WalletDetails.tsx`) as the skeleton views for their respective services.
+  - Implemented identical layout styles (Header back navigation, Scroll Progress, Theme Toggles, Scroll Spy, Back-to-Top, PDFModal integration) to maintain uniform aesthetics and responsive behaviors across all views.
+  - Formatted generic overview/introductions and terminology definitions for each domain.
+- **Dedicated Sidebar Components**:
+  - Developed `<DisbursementSidebar>` (`src/components/DisbursementSidebar.tsx`), `<AutoDebitSidebar>` (`src/components/AutoDebitSidebar.tsx`), and `<WalletSidebar>` (`src/components/WalletSidebar.tsx`) to support dynamic item rendering, scrolling synchronizations, and keyword searches.
+- **Homepage & Router Integration**:
+  - Added new category cards for "Quy trình dịch vụ Chi hộ", "Trích nợ tự động", and "Ví điện tử" to the `<Home>` component in `src/components/Home.tsx` with dedicated custom SVG icons.
+  - Integrated routing and state machine handling for `'disbursement'`, `'autodebit'`, and `'wallet'` layouts inside `src/App.tsx`.
+- **Product Specification & Roadmap Updates**:
+  - Updated `specs/product-spec.md` with descriptions and components for the three new service classifications.
+  - Updated `specs/implementation-plan.md` to reflect Phase 5.1 extension details.
+
 ## [2026-06-23] - Hash-based Routing & Deep Linking
 ### Added
 - **Hash-based URL routing**:
@@ -11,6 +109,8 @@ All notable changes to the Bank Linking Portal project are documented here.
 - **Specifications & Documentation Updates**:
   - Updated `specs/product-spec.md` with Hash-based routing definitions.
   - Updated `specs/implementation-plan.md` to declare Phase 4 Task 4.3.8.
+- **Terminology Table Synchronization**:
+  - Updated terminology definitions inside `DisbursementDetails.tsx` (adding `ERP`, `Maker`, `Checker`) and `WalletDetails.tsx` (adding `KYC`, `NFC`, `ĐDPL`, `ĐKKD`, `SMS OTP`) to match actual onboarding content.
 
 ## [2026-06-18] - Port Document Viewer Modal
 ### Added
