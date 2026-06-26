@@ -223,9 +223,9 @@ export const BaokimPayoutSection: React.FC<PayoutSectionProps> = ({ onViewPDF, s
         return (
           <>
             <div className="acct-section">
-              <div className="tbl-label">Quy trình đăng ký và kết nối Chi hộ Bảo Kim (Payout)</div>
+              <div className="tbl-label">Dịch vụ Chi hộ từ Ví điện tử Bảo Kim (Payout)</div>
               <p style={{ fontSize: '13px', color: 'var(--tx2)', marginBottom: '16px', lineHeight: '1.6' }}>
-                Hướng dẫn các bước Onboarding ví điện tử Bảo Kim, nạp tiền vào tài khoản nguồn và tích hợp bộ API Chi hộ (Payout) từ hệ thống Bảo Kim thông qua nền tảng Tingee để thực hiện thanh toán chi lương, chi hoa hồng hoặc giải ngân nhanh 24/7.
+                Tính năng/Dịch vụ chi hộ từ ví điện tử Bảo Kim (Payout) là dịch vụ hợp tác trọng tâm giữa Tingee và Bảo Kim. Quy trình bao gồm các bước Onboarding/mở ví điện tử Bảo Kim và thực hiện liên kết, đồng bộ tài khoản ví này sang cổng Tingee để thực hiện các lệnh chi hộ tự động.
               </p>
             </div>
 
@@ -306,138 +306,37 @@ export const BaokimPayoutSection: React.FC<PayoutSectionProps> = ({ onViewPDF, s
             </Accordion>
 
             <Accordion
-              title="Hướng dẫn tích hợp API Chi hộ (Payout)"
-              tags={<span className="tag tag-heno">Tích hợp API</span>}
+              title="Hướng dẫn liên kết và đồng bộ Ví điện tử Bảo Kim với Tingee"
+              tags={<span className="tag tag-heno">Liên kết &amp; Đồng bộ</span>}
             >
               <div className="steps">
                 <div className="step">
                   <div className="sn">1</div>
                   <div className="sb2">
-                    <div className="st">Thiết lập kết nối</div>
+                    <div className="st">Nhận mã định danh ví (Wallet ID)</div>
                     <div className="sd">
-                      Đăng nhập trang quản trị merchant Bảo Kim, lấy thông tin API Keys (Merchant ID, API Key, Signature Secret). Cấu hình endpoint nhận thông báo biến động số dư (Webhook IPN) trên hệ thống của bạn.
+                      Sau khi mở ví điện tử Bảo Kim thành công, phía Bảo Kim sẽ cung cấp cho bạn một mã định danh ví (<strong>Wallet ID</strong>).
                     </div>
                   </div>
                 </div>
                 <div className="step">
                   <div className="sn">2</div>
                   <div className="sb2">
-                    <div className="st">Gọi API Tạo giao dịch Chi hộ</div>
+                    <div className="st">Cấu hình mã ví trên hệ thống Tingee</div>
                     <div className="sd">
-                      Gọi API chi hộ Bảo Kim gửi danh sách tài khoản thụ hưởng, số tiền cần chuyển và nội dung chuyển khoản. Hệ thống thực hiện băm chữ ký (Signature) bằng thuật toán HMAC-SHA256 để đảm bảo an toàn.
+                      Người dùng thực hiện cấu hình mã <strong>Wallet ID</strong> đó lên hệ thống Tingee trong phần cài đặt kết nối tài khoản nguồn.
                     </div>
                   </div>
                 </div>
                 <div className="step">
                   <div className="sn">3</div>
                   <div className="sb2">
-                    <div className="st">Xử lý Webhook &amp; Đối soát</div>
+                    <div className="st">Đồng bộ ví và sử dụng trọn bộ API Tingee x Bảo Kim</div>
                     <div className="sd">
-                      Bảo Kim thực hiện lệnh chi sang NAPAS 24/7 và gửi kết quả thông qua cổng IPN về server đối tác. Đối tác thực hiện đối soát giao dịch định kỳ qua file báo cáo đối soát từ cổng quản trị.
+                      Khách hàng truy cập vào hệ thống Tingee để chọn và sử dụng ID của ví điện tử Bảo Kim vừa liên kết, thực hiện gọi API đồng bộ ví với hệ thống Tingee. Sau khi hoàn thành việc đồng bộ, khách hàng sẽ có thể sử dụng trọn bộ API tích hợp nâng cao của <strong>Tingee x Bảo Kim</strong> để vận hành dịch vụ chi hộ.
                     </div>
                   </div>
                 </div>
-              </div>
-            </Accordion>
-
-            <div className="acct-section" style={{ marginTop: '24px' }}>
-              <div className="tbl-label">Chính sách hạn mức chuyển tiền (Chi hộ)</div>
-              <div className="acct-tbl-wrap">
-                <table className="acct-tbl">
-                  <thead>
-                    <tr>
-                      <th style={{ width: '220px' }}>Nhóm khách hàng</th>
-                      <th style={{ width: '180px' }}>Điều kiện áp dụng</th>
-                      <th>Hạn mức giao dịch tối đa / Ngày</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Cá nhân</strong></td>
-                      <td>—</td>
-                      <td>
-                        Tối đa <strong>10.000.000 VNĐ</strong> / Giao dịch.<br />
-                        <span style={{ fontSize: '11px', color: 'var(--tx3)' }}>
-                          *Nếu tổng giao dịch &gt; 20.000.000 VNĐ/Ngày: Bắt buộc xác thực Sinh trắc học.
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>Doanh nghiệp / HKD mới</strong></td>
-                      <td>Hoạt động dưới 6 tháng</td>
-                      <td>
-                        <strong>5.000.000.000 VNĐ</strong> (5 tỷ đồng)<br />
-                        <span style={{ fontSize: '11px', color: 'var(--tx3)' }}>
-                          *Tính trên tổng các tài khoản ví của Doanh nghiệp.
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>Doanh nghiệp / HKD ổn định</strong></td>
-                      <td>Hoạt động từ đủ 6 tháng</td>
-                      <td>
-                        <strong>10.000.000.000 VNĐ</strong> (10 tỷ đồng)<br />
-                        <span style={{ fontSize: '11px', color: 'var(--tx3)' }}>
-                          *Tính trên tổng các tài khoản ví của Doanh nghiệp.
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <Accordion defaultOpen={false} title="Câu hỏi thường gặp về ví Bảo Kim">
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <Accordion title="Q: Vì sao liên kết ví Baokim với tài khoản ngân hàng thất bại dù tôi đã chuyển 10.000đ?">
-                  <div style={{ padding: '8px 12px', fontSize: '13px', lineHeight: '1.6', color: 'var(--tx2)' }}>
-                    Giao dịch liên kết 10.000đ chỉ hợp lệ khi được thực hiện từ tài khoản ngân hàng chính chủ (tên chủ tài khoản ngân hàng phải trùng khớp hoàn toàn với tên chủ ví điện tử Baokim).<br /><br />
-                    Trường hợp chuyển khoản từ tài khoản không chính chủ hoặc ví điện tử khác, Bảo Kim sẽ không thể xác thực thông tin. Quý khách vui lòng gửi thông tin tài khoản ngân hàng (số tài khoản, tên chủ tài khoản, tên ngân hàng) về email <strong>hotrokhachhang@baokim.vn</strong> để được hỗ trợ hoàn lại tiền.
-                  </div>
-                </Accordion>
-
-                <Accordion title="Q: Tại sao liên kết và thanh toán bằng tài khoản chính chủ nhưng vẫn báo thất bại?">
-                  <div style={{ padding: '8px 12px', fontSize: '13px', lineHeight: '1.6', color: 'var(--tx2)' }}>
-                    Một số trường hợp giao dịch có thể bị gián đoạn do lỗi đường truyền mạng hoặc phía ngân hàng đối tác. Các giao dịch liên kết lỗi sẽ được hệ thống tự động hoàn tiền trong tối đa <strong>2 ngày làm việc</strong>.
-                  </div>
-                </Accordion>
-
-                <Accordion title="Q: Bị trừ tiền ngân hàng nhưng trạng thái vẫn chưa liên kết, liên kết lại hiện 'Đang xử lý'?">
-                  <div style={{ padding: '8px 12px', fontSize: '13px', lineHeight: '1.6', color: 'var(--tx2)' }}>
-                    Nếu giao dịch được thực hiện từ tài khoản chính chủ, tiền sẽ được hoàn trong tối đa 2 ngày làm việc. Ở lần liên kết tiếp theo, Quý khách vẫn cần chuyển khoản lại 10.000đ từ tài khoản ngân hàng để liên kết lại.<br /><br />
-                    Trường hợp Quý khách chưa thực hiện chuyển tiền nhưng đã chọn nút "Tôi đã chuyển tiền" trên ứng dụng, hệ thống sẽ tự động hiển thị trạng thái "Đang xử lý".
-                  </div>
-                </Accordion>
-
-                <Accordion title="Q: Vì sao tôi chuyển tiền liên kết ví nhưng không được hoàn lại?">
-                  <div style={{ padding: '8px 12px', fontSize: '13px', lineHeight: '1.6', color: 'var(--tx2)' }}>
-                    Nếu thực hiện chuyển tiền từ ví điện tử của đơn vị khác, hệ thống Bảo Kim hiện tại chưa hỗ trợ cơ chế hoàn tiền tự động về ví của bên thứ ba. Quý khách vui lòng gửi ảnh sao kê giao dịch bị trừ tiền và thông tin tài khoản ngân hàng chính chủ về email <strong>hotrokhachhang@baokim.vn</strong> để đầu mối hỗ trợ đối soát hoàn tiền thủ công.
-                  </div>
-                </Accordion>
-
-                <Accordion title="Q: Liên kết thất bại và bị trừ tiền ngân hàng thì bao lâu nhận được tiền hoàn?">
-                  <div style={{ padding: '8px 12px', fontSize: '13px', lineHeight: '1.6', color: 'var(--tx2)' }}>
-                    Nếu giao dịch được thực hiện từ tài khoản ngân hàng chính chủ, số tiền sẽ được hoàn trả về tài khoản gốc trong tối đa <strong>2 ngày làm việc</strong>.
-                  </div>
-                </Accordion>
-
-                <Accordion title="Q: Thời gian duyệt tài khoản Doanh nghiệp là bao lâu?">
-                  <div style={{ padding: '8px 12px', fontSize: '13px', lineHeight: '1.6', color: 'var(--tx2)' }}>
-                    Thời gian phê duyệt tài khoản DN là từ <strong>2 - 3 ngày làm việc</strong> kể từ thời điểm doanh nghiệp hoàn tất ký số thỏa thuận mở và sử dụng dịch vụ.
-                  </div>
-                </Accordion>
-
-                <Accordion title="Q: Nếu tôi là người được ủy quyền đăng ký Ví Baokim, cần xác thực NFC CCCD của ai?">
-                  <div style={{ padding: '8px 12px', fontSize: '13px', lineHeight: '1.6', color: 'var(--tx2)' }}>
-                    Quý khách cần thực hiện xác thực và quét NFC CCCD gắn chip của <strong>cả hai người</strong>: Người đại diện theo pháp luật (trên ĐKKD) và Người được ủy quyền trực tiếp sử dụng ví điện tử Bảo Kim.
-                  </div>
-                </Accordion>
-
-                <Accordion title="Q: Vì sao tôi không thể thực hiện rút tiền về tài khoản liên kết ví Baokim?">
-                  <div style={{ padding: '8px 12px', fontSize: '13px', lineHeight: '1.6', color: 'var(--tx2)' }}>
-                    Hiện tại ứng dụng ví điện tử Bảo Kim chưa cung cấp tính năng rút trực tiếp về tài khoản liên kết. Quý khách vui lòng sử dụng tính năng <strong>Chuyển tiền đến ngân hàng</strong> trên ứng dụng để chuyển tiền về tài khoản ngân hàng chính chủ của mình.
-                  </div>
-                </Accordion>
               </div>
             </Accordion>
 
