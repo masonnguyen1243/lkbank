@@ -2,6 +2,13 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
+## [2026-06-26] - Update Bao Kim Payout Content
+### Changed
+- **Bao Kim Payout Content ("Tính năng chi hộ (Payout)")**:
+  - Emphasized the collaborative payout service (Payout from e-wallet) between Tingee and Bao Kim.
+  - Replaced the direct API integration section with the wallet link & synchronization flow (obtaining Wallet ID from Bao Kim, configuring it on Tingee, and invoking the sync API on Tingee to leverage the Tingee x Bao Kim API suite).
+  - Completely removed the transfer limit policy section and the FAQs section for Bao Kim wallet.
+
 ## [2026-06-25] - Reorganize Service Classifications to Match Partners (Payoo, Baokim, Onepay)
 ### Changed
 - **Payout / Disbursement Category ("Tính năng chi hộ (Payout)")**:
