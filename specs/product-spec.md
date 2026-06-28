@@ -63,7 +63,7 @@ The primary goal is to provide a single, unified reference point that simplifies
 4. MB Bank
 5. ACB
 6. Vietcombank (VCB)
-7. VPBank
+7. VPBank (Supports root account & VA. Features a dynamic 3-step offline-bank merchant registration flow for corporate/household VA accounts using official forms like Giấy đề nghị, Văn bản thỏa thuận, and Hợp đồng cung ứng dịch vụ MerchantQR).
 8. Sacombank
 9. VIB
 10. PGBank

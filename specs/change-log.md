@@ -2,6 +2,13 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
+## [2026-06-28] - Add VPBank VA Flow & Spacing Improvements
+### Added
+- **VPBank VA (Virtual Account) Flow (`Banks6to10.tsx`)**:
+  - Developed a new 3-step merchant linking flow for "Tài khoản Doanh nghiệp & Hộ kinh doanh (VPBank VA)" that guides users to coordinate with VPBank, submit legal paperwork (VNeID level 2, license, charter, photos, MCC parameter setup), sign official MerchantQR documents, obtain Merchant ID / Terminal ID, and contact HENO/Tingee developers for manual dashboard configurations.
+  - Linked three new downloadable Word documents under VPBank attachments: *Hợp đồng cung ứng dịch vụ MerchantQR*, *Giấy đề nghị sử dụng dịch vụ MerchantQR*, and *Văn bản thỏa thuận bảo vệ và xử lý dữ liệu cá nhân*.
+  - Updated the bank account support table badge for VPBank corporate accounts to indicate "TK gốc & VA" support.
+
 ## [2026-06-28] - Add Contact Information Section
 ### Added
 - **Contact Details Component (`ContactDetails.tsx` & `contact.css`)**:

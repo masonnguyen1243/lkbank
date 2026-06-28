@@ -118,3 +118,7 @@ Roadmap and developmental checklist for the HENO × Tingee Bank Linking Portal p
   - Loại bỏ các từ khóa mang tính chất độc quyền thương hiệu riêng tại hộp tìm kiếm nhanh để bảo đảm tính cạnh tranh công bằng.
 - **Task 7.7: Căn chỉnh nút Dark Mode và sửa lỗi giao diện phụ** (Hoàn thành)
   - Căn chỉnh vị trí hiển thị và bóng đổ của nút chuyển đổi Dark Mode trên các trang con.
+- **Task 7.8: Tích hợp luồng liên kết VPBank Virtual Account (VPBank VA) & Cung cấp tài liệu mẫu** (Hoàn thành)
+  - Tạo cấu trúc Accordion hướng dẫn tích hợp dịch vụ tài khoản ảo VPBank VA cho khách hàng doanh nghiệp & hộ kinh doanh.
+  - Hướng dẫn thu thập hồ sơ pháp lý, ảnh chụp văn phòng, tài khoản định danh VNeID mức 2.
+  - Tích hợp 3 tài liệu mẫu Word đính kèm: Hợp đồng cung ứng dịch vụ MerchantQR, Giấy đề nghị sử dụng dịch vụ, và Văn bản thỏa thuận bảo vệ dữ liệu cá nhân của VPBank.

@@ -93,8 +93,8 @@ export const VCBSection: React.FC<BankSectionCommonProps> = ({ searchQuery }) =>
             )}
 
             {showDN_HKD && (
-              <Accordion 
-                title="Tài khoản Doanh nghiệp &amp; Hộ kinh doanh" 
+              <Accordion
+                title="Tài khoản Doanh nghiệp &amp; Hộ kinh doanh"
                 tags={
                   <>
                     <span className="tag tag-heno">Qua HENO</span>
@@ -177,6 +177,7 @@ export const VPBankSection: React.FC<BankSectionCommonProps> = ({ onViewPDF, sea
         const showCN = filter === 'all' || filter === 'cn';
         const showHKD = filter === 'all' || filter === 'hkd';
         const showDN = filter === 'all' || filter === 'dn';
+        const showDN_HKD_VA = filter === 'all' || filter === 'dn' || filter === 'hkd';
 
         return (
           <>
@@ -197,7 +198,7 @@ export const VPBankSection: React.FC<BankSectionCommonProps> = ({ onViewPDF, sea
                     </tr>
                     <tr>
                       <td>TK Doanh nghiệp</td>
-                      <td><span className="badge br">TK gốc</span></td>
+                      <td><span className="badge br">TK gốc &amp; VA</span></td>
                     </tr>
                     <tr>
                       <td>TK Hộ kinh doanh</td>
@@ -237,7 +238,7 @@ export const VPBankSection: React.FC<BankSectionCommonProps> = ({ onViewPDF, sea
             )}
 
             {showHKD && (
-              <Accordion title="Tài khoản Hộ kinh doanh" tags={<span className="tag tag-self">Tự thao tác</span>}>
+              <Accordion title="Tài khoản Hộ kinh doanh - STK Gốc" tags={<span className="tag tag-self">Tự thao tác</span>}>
                 <div className="steps">
                   <div className="step">
                     <div className="sn">1</div>
@@ -266,8 +267,8 @@ export const VPBankSection: React.FC<BankSectionCommonProps> = ({ onViewPDF, sea
             )}
 
             {showDN && (
-              <Accordion 
-                title="Tài khoản Doanh nghiệp (VPBank NeoBiz)" 
+              <Accordion
+                title="Tài khoản Doanh nghiệp (VPBank NeoBiz)"
                 tags={
                   <>
                     <span className="tag tag-self">Tự thao tác (có hướng dẫn)</span>
@@ -316,6 +317,79 @@ export const VPBankSection: React.FC<BankSectionCommonProps> = ({ onViewPDF, sea
                 </NoteBox>
               </Accordion>
             )}
+            {showDN_HKD_VA && (
+              <Accordion
+                title="Tài khoản Doanh nghiệp &amp; Hộ kinh doanh (VPBank VA)"
+                tags={
+                  <>
+                    <span className="tag tag-heno">Qua HENO</span>
+                    <span className="tag tag-time">5–7 ngày</span>
+                  </>
+                }
+              >
+                <div className="steps">
+                  <div className="step">
+                    <div className="sn">1</div>
+                    <div className="sb2">
+                      <div className="st">KH cung cấp hồ sơ và hoàn thiện các biểu mẫu với VPBank</div>
+                      <div className="sd">
+                        KH chuẩn bị hồ sơ pháp lý và cung cấp các tài liệu đính kèm bên dưới cho ngân hàng VPBank để đăng ký kết nối:
+                        <br /><br />
+                        <strong style={{ color: 'var(--tx)' }}>B1: Tạo thông số MCC (Hồ sơ pháp lý cần thu thập):</strong>
+                        <ul style={{ marginTop: '6px', paddingLeft: '20px' }}>
+                          <li>CCCD người đại diện pháp luật.</li>
+                          <li>Giấy chứng nhận đăng ký doanh nghiệp - ĐKKD (đối với DN) hoặc Giấy chứng nhận đăng ký Hộ kinh doanh (đối với HKD).</li>
+                          <li>Điều lệ công ty (chỉ áp dụng đối với DN).</li>
+                          <li>05 ảnh chụp thực tế tại văn phòng/công ty.</li>
+                          <li>VNeID của người đại diện pháp luật (yêu cầu đã định danh mức 2, thể hiện rõ nội dung nơi ở,...).</li>
+                        </ul>
+                        <strong style={{ color: 'var(--tx)' }}>B2: Tạo thông số QR Payment (Các hồ sơ cần cung cấp bổ sung):</strong>
+                        <ul style={{ marginTop: '6px', paddingLeft: '20px' }}>
+                          <li>Hồ sơ pháp lý thu thập ở B1.</li>
+                          <li>Thông số MCC (được cấp sau B1).</li>
+                          <li><strong>Hợp đồng cung ứng dịch vụ MerchantQR</strong> (Biểu mẫu đính kèm ở dưới).</li>
+                          <li><strong>Giấy đề nghị sử dụng dịch vụ MerchantQR</strong> (Biểu mẫu đính kèm ở dưới).</li>
+                          <li><strong>Văn bản thỏa thuận bảo vệ và xử lý dữ liệu cá nhân</strong> (Biểu mẫu đính kèm ở dưới).</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="step">
+                    <div className="sn">2</div>
+                    <div className="sb2">
+                      <div className="st">VPBank phê duyệt và trả thông số QR Payment</div>
+                      <div className="sd">
+                        VPBank kiểm tra hồ sơ và phê duyệt liên kết. Ngân hàng sẽ gửi trả lại cho KH bộ thông số QR Payment bao gồm: <strong>Merchant ID</strong> (MID) và <strong>Terminal ID</strong> (TID).
+                        <br />
+                        <span className="time" style={{ marginTop: '8px', display: 'inline-flex' }}>Thời gian xử lý từ ngân hàng: 3–5 ngày</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="step">
+                    <div className="sn">3</div>
+                    <div className="sb2">
+                      <div className="st">Cấu hình tham số lên hệ thống Tingee</div>
+                      <div className="sd">
+                        KH gửi lại các thông số <strong>Merchant ID</strong> và <strong>Terminal ID</strong> nhận từ VPBank cho Tingee. Đội ngũ kỹ thuật HENO sẽ cấu hình lên hệ thống Tingee Merchant của KH để hoàn tất kết nối.
+                        <br /><br />
+                        <div className="c-label">Đầu mối HENO tiếp nhận thông số:</div>
+                        <ContactCard type="important">
+                          <div className="c-row">
+                            Mr. Nghĩa &nbsp;·&nbsp;
+                            <span>nghiatm@heno.com.vn</span>
+                          </div>
+                          <div className="c-row">
+                            Mr. Cường &nbsp;·&nbsp;
+                            <span>cuongnb@heno.com.vn</span>
+                          </div>
+                        </ContactCard>
+                        <span className="time time-ok" style={{ marginTop: '8px', display: 'inline-flex' }}>Thời gian xử lý từ HENO: 1–2 ngày</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Accordion>
+            )}
 
             <DocSection>
               <DocItem
@@ -331,6 +405,24 @@ export const VPBankSection: React.FC<BankSectionCommonProps> = ({ onViewPDF, sea
                 meta="VPBank · PDF"
                 url="/docs/vpbank/HD_Lien_Ket_Tai_Khoan_VPBank_Tingee.pdf"
                 onViewPDF={onViewPDF}
+              />
+              <DocItem
+                type="doc"
+                name="Giấy đề nghị sử dụng dịch vụ MerchantQR"
+                meta="VPBank · DOCX"
+                url="/docs/vpbank/MB01. PL02.HDM-PH.TT.PO01 Giấy đề nghị sử dụng dịch vụ MerchantQR_chung_clean.docx"
+              />
+              <DocItem
+                type="doc"
+                name="Văn bản thỏa thuận bảo vệ và xử lý dữ liệu cá nhân"
+                meta="VPBank · DOCX"
+                url="/docs/vpbank/MB01.HDM-DL.QT.N-A-01-Văn bản thỏa thuận bảo vệ và xử lý dữ liệu cá nhân 1.docx"
+              />
+              <DocItem
+                type="doc"
+                name="Hợp đồng cung ứng dịch vụ MerchantQR"
+                meta="VPBank · DOC"
+                url="/docs/vpbank/MB02.PL02.HDM-PH.TT.PO01-HỢP ĐỒNG CUNG ỨNG DỊCH VỤ MERCHANTQR 2.doc"
               />
             </DocSection>
           </>
