@@ -22,8 +22,13 @@ Cổng thông tin dạng tài liệu hướng dẫn (Single Page Application - S
 ## Conventions
 
 - Tên file & Thư mục: Đặt trong cấu trúc phân chia rõ ràng `src/pages/` (trang chính), `src/components/ui/` (UI dùng chung), `src/components/[feature]/` (cụm nghiệp vụ ngân hàng/chi hộ/trích nợ/ví), `src/hooks/`, `src/context/`, và `src/styles/`.
-- Bố cục CSS: Thiết kế Responsive sử dụng các biến định vị `--sw` (sidebar width) và `--sh` (header height).
+- Bố cục CSS & Tiêu chuẩn giao diện:
+  - Thiết kế Responsive sử dụng các biến định vị `--sw` (sidebar width = `260px` hoặc tùy biến) và `--sh` (header height = `56px` hoặc tùy biến).
+  - **Đồng bộ Hero Banners**: Khi xem trang tổng quan, dùng dải banner `.faq-hero-section` có `marginTop: 'var(--sh)'`. Đặt `marginTop: 0` trên `.main-layout-container` khi banner hiển thị và `marginTop: 'var(--sh)'` khi xem chi tiết (có Sidebar active).
+  - **Cân chỉnh Header & Padding**: Đặt `padding: 0 20px` mặc định trên `.hdr` trong `bank.css`. Dùng inline `style={{ paddingLeft: isActive ? 'calc(var(--sw) + 20px)' : '20px' }}` trong React để căn lề nút Back chuẩn sát lề trái 20px giống trang FAQs khi Sidebar ẩn.
+  - **Scroll Spacing Reset**: Bắt buộc thêm `window.scrollTo(0, 0)` trong handler chuyển đổi hash của `App.tsx` khi người dùng chuyển sang trang khác.
 - Giao diện: Dark Mode được điều khiển bằng thuộc tính `[data-theme="dark"]` trên phần tử `<html>` thông qua `ThemeContext` và lưu trữ trạng thái qua `localStorage`.
+- Tìm kiếm & Bình đẳng thương hiệu: Không sử dụng các từ khóa tìm kiếm nhanh mang tính độc quyền/cạnh tranh không lành mạnh cho các đối tác riêng biệt. Sử dụng bộ lọc accents-insensitive cho nội dung tiếng Việt.
 
 ## Security rules (non-negotiable)
 
@@ -47,10 +52,3 @@ Cổng thông tin dạng tài liệu hướng dẫn (Single Page Application - S
 | `src/styles/` | Thư mục chứa CSS định dạng giao diện (`home.css` và `bank.css`) |
 | `public/docs/` | Các biểu mẫu mẫu và quy trình đính kèm dạng file (.docx, .pdf) |
 
-## UI Updates (Recent)
-
-- Header is fixed with Back button aligned left 20px, always navigates to homepage.
-- Hero Banner gradient synchronized across all detail pages, placed outside `main-layout-container` for full-width.
-- Tingee logo inserted on all detail pages (Onepay, Payoo, etc.).
-- Tabs “Tổng quan” và “Thuật ngữ” removed from sidebar to simplify navigation.
-- Automatic scroll reset to top on page navigation (`window.scrollTo(0, 0)`).

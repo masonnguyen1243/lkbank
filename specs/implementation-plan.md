@@ -98,10 +98,23 @@ Roadmap and developmental checklist for the HENO × Tingee Bank Linking Portal p
   - Đồng bộ mã màu HEX thương hiệu chính thức cho 14 vòng tròn fallback logo.
 - **Task 6.9: Điều chỉnh bộ câu hỏi chuẩn hóa FAQs v1 (Câu 4, 8, 9, 10, 13, 16)** (Hoàn thành)
   - Cập nhật nội dung câu hỏi và câu trả lời tương ứng theo PRD sửa đổi mới nhất.
-## UI Updates (Recent)
 
-- Header is fixed with Back button aligned left 20px, always navigates to homepage.
-- Hero Banner gradient synchronized across all detail pages, placed outside `main‑layout‑container` for full‑width.
-- Tingee logo inserted on all detail pages (Onepay, Payoo, etc.).
-- Tabs “Tổng quan” và “Thuật ngữ” removed from sidebar to simplify navigation.
-- Automatic scroll reset to top on page navigation (`window.scrollTo(0, 0)`).
+### Phase 7: Cải cách Giao diện & Đồng bộ Banner các Trang chi tiết (Completed)
+- **Task 7.1: Đồng bộ thiết kế dải banner lớn (Hero Banner Sync)** (Hoàn thành)
+  - Di chuyển các khối tiêu đề `.db-hero` ra ngoài và thay thế bằng dải banner lớn `.faq-hero-section` với nền gradient từ xanh navy sang đỏ Tingee trên tất cả các trang con.
+  - Tích hợp ô tìm kiếm mờ kính (Glassmorphism Search Box) trên trang Ngân hàng (`BankDetails.tsx`) và Chi hộ (`PayoutDetails.tsx`).
+- **Task 7.2: Khắc phục lỗi vị trí cuộn trang (Scroll Position Reset)** (Hoàn thành)
+  - Thêm `window.scrollTo(0, 0)` khi có sự kiện thay đổi hash trong `App.tsx` để reset vị trí cuộn trang khi chuyển hướng.
+- **Task 7.3: Tích hợp Logo Tingee thu gọn** (Hoàn thành)
+  - Thêm logo Tingee thu gọn (`logo-compact.png`) bên cạnh nút quay lại ở Header của cả 6 trang chi tiết để đồng nhất nhận diện thương hiệu.
+- **Task 7.4: Căn chỉnh nút Quay lại và Reset Header Padding** (Hoàn thành)
+  - Sửa đổi padding mặc định của `.hdr` trong `bank.css` từ `padding: 0 20px 0 calc(var(--sw) + 20px)` sang `padding: 0 20px`.
+  - Thiết lập thuộc tính `paddingLeft` động trong React để nút quay lại tự động căn sát lề trái 20px khi Sidebar ẩn (màn hình danh sách tổng quan) và co giãn khi Sidebar hiển thị.
+- **Task 7.5: Tinh giản Sidebar và Bổ sung mô tả tổng quan** (Hoàn thành)
+  - Loại bỏ hoàn toàn liên kết "Tổng quan" và "Thuật ngữ" khỏi `BankSidebar` và `PayoutSidebar`.
+  - Di chuyển thông tin tổng quan giới thiệu và bảng thuật ngữ ra bên ngoài hiển thị trực tiếp trên trang danh sách tổng quan.
+- **Task 7.6: Cập nhật hình ảnh đối tác & Loại bỏ bộ lọc thương hiệu độc quyền** (Hoàn thành)
+  - Sửa lỗi đường dẫn logo Bảo Kim thành `/logo/Logo-Bao-Kim.png` và hiển thị logo thực tế trên grid chi hộ.
+  - Loại bỏ các từ khóa mang tính chất độc quyền thương hiệu riêng tại hộp tìm kiếm nhanh để bảo đảm tính cạnh tranh công bằng.
+- **Task 7.7: Căn chỉnh nút Dark Mode và sửa lỗi giao diện phụ** (Hoàn thành)
+  - Căn chỉnh vị trí hiển thị và bóng đổ của nút chuyển đổi Dark Mode trên các trang con.

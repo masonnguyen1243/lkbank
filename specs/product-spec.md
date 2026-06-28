@@ -39,13 +39,22 @@ The primary goal is to provide a single, unified reference point that simplifies
   - Embedded dynamic grid of 14 bank logos from `api.vietqr.io` inside Question 5, with circular initials fallback backgrounds matched to official bank brand-specific hex colors.
   - Supports deep-linking by listening to URL hash patterns such as `#/faqs/faq-1` to auto-expand and scroll to specific questions on load.
   - Synchronizes page theme with global Light/Dark mode transitions, including an Iframe theme message sync listener to automatically update active theme via parent window communication (`THEME_CHANGE` event).
-
-  - **Hash-based Routing & Deep-Linking**: Load and display specific bank details page based on URL hash (e.g., `#/bank/vtb`). Automatically sync the browser address bar's URL hash with the currently active bank section on screen as the user scrolls or navigates, utilizing lightweight history state replacement. Also supports `#/faqs` and subhash questions.
+- **Hash-based Routing & Deep-Linking**:
+  - Load and display specific bank details page based on URL hash (e.g., `#/bank/vtb`).
+  - Automatically sync the browser address bar's URL hash with the currently active bank section on screen as the user scrolls or navigates, utilizing lightweight history state replacement. Also supports `#/faqs` and subhash questions.
+  - **Scroll Position Reset**: Listen to hash changes in `App.tsx` and run `window.scrollTo(0, 0)` upon navigation to prevent the browser from maintaining scrolled scroll positions when switching views.
 - **Contact Details Component (`ContactDetails.tsx`)**:
   - Displays customer support contacts (Hotline, Zalo OA QR code, emails) and region-specific sales points.
-  - Features two support groups: Group 1 for announcement speaker (TingeeBox) and Group 2 for Open API (Pay by Bank) service (currently placeholder).
+  - Features support groups for announcement speaker (TingeeBox) and Open API (Pay by Bank) service.
   - Implements copy-to-clipboard functionality next to phone numbers and email addresses.
   - Fully responsive, styles adjusted for both Light and Dark mode.
+- **Unified Branding & Navigation Layout Rules**:
+  - **Tingee Logo Integration**: Compact Tingee logo (`https://developers.tingee.vn/img/logo-compact.png`) placed in the header of all subpages (`BankDetails`, `PayoutDetails`, `OnepayDetails`, `PayooDetails`, `FaqsDetails`, `ContactDetails`) next to the back button.
+  - **Synchronized Header Hero Banners**: All subpages share the full-width `.faq-hero-section` dark gradient banner styling when viewing their general overview lists. BankDetails and PayoutDetails feature search inputs with glassmorphism styling, while OnepayDetails, PayooDetails, and ContactDetails feature title/subtitle banners.
+  - **Corrected Top Spacing & Dynamic Margins**: Hero sections have `marginTop: 'var(--sh)'` to fit under the fixed header, while the main layout containers have dynamic `marginTop` values (set to `0` when the hero section is displayed, and `var(--sh)` when viewing detail content with the sidebar active) to prevent unwanted spacing gaps.
+  - **Back Button Alignment Reset**: Header selector `.hdr` padding reset to `padding: 0 20px` in `bank.css`. Left padding is controlled dynamically by React (`20px` when sidebar is hidden, `calc(var(--sw) + 20px)` when sidebar is shown) to keep the back button aligned perfectly to the left margin, matching the FAQs page layout.
+  - **Sidebar Cleanups**: Removed "Tổng quan" and "Thuật ngữ" navigation links from bank and payout sidebars. These sections are instead displayed directly on the main listing page, leaving the sidebar clean and dedicated solely to the bank/service guides list.
+  - **Brand Logo & Overview Improvements**: Payout list grid now renders actual service partner logos instead of text. Bao Kim partner logo asset path corrected to `/logo/Logo-Bao-Kim.png`. All sensitive/exclusive single-brand keyword filters in fast search queries removed to ensure fair partner representation.
 
 ## 4. Supported Banks
 1. Vietinbank (VTB)
@@ -62,12 +71,4 @@ The primary goal is to provide a single, unified reference point that simplifies
 12. Co-op Bank
 13. MSB
 14. TPBank
-
-## UI Updates (Recent)
-
-- Header is fixed with Back button aligned left 20px, always navigates to homepage.
-- Hero Banner gradient synchronized across all detail pages, placed outside `main‑layout‑container` for full‑width.
-- Tingee logo inserted on all detail pages (Onepay, Payoo, etc.).
-- Tabs “Tổng quan” và “Thuật ngữ” removed from sidebar to simplify navigation.
-- Automatic scroll reset to top on page navigation (`window.scrollTo(0, 0)`).
 
