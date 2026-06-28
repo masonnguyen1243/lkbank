@@ -9,6 +9,7 @@ interface HomeProps {
   onNavigateToAutoDebit: () => void;
   onNavigateToWallet: () => void;
   onNavigateToFaqs: () => void;
+  onNavigateToContact: () => void;
 }
 
 export const Home: React.FC<HomeProps> = ({
@@ -17,6 +18,7 @@ export const Home: React.FC<HomeProps> = ({
   onNavigateToAutoDebit,
   onNavigateToWallet,
   onNavigateToFaqs,
+  onNavigateToContact,
 }) => {
   const { toggleTheme } = useTheme();
 
@@ -59,7 +61,7 @@ export const Home: React.FC<HomeProps> = ({
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </button>
-
+ 
       <header className="home-header">
         <div className="logo-container">
           <img className="logo" src="https://developers.tingee.vn/img/logo_heno.png" alt="HENO Logo" />
@@ -183,6 +185,30 @@ export const Home: React.FC<HomeProps> = ({
               </svg>
             }
             onClick={onNavigateToFaqs}
+          />
+
+          <CategoryCard
+            title="Thông tin liên hệ"
+            description="Đầu mối liên hệ, thông tin hỗ trợ và hotline của nhân sự Sales và Vận hành."
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            }
+            onClick={onNavigateToContact}
           />
         </section>
       </main>

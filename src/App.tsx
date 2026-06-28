@@ -5,8 +5,9 @@ import { PayoutDetails } from './pages/PayoutDetails';
 import { OnepayDetails } from './pages/OnepayDetails';
 import { PayooDetails } from './pages/PayooDetails';
 import { FaqsDetails } from './pages/FaqsDetails';
+import { ContactDetails } from './pages/ContactDetails';
 
-type Page = 'home' | 'bank' | 'payout' | 'onepay' | 'payoo' | 'faqs';
+type Page = 'home' | 'bank' | 'payout' | 'onepay' | 'payoo' | 'faqs' | 'contact';
 
 const getPageFromHash = (hash: string): Page => {
   if (hash.startsWith('#/bank')) return 'bank';
@@ -14,6 +15,7 @@ const getPageFromHash = (hash: string): Page => {
   if (hash.startsWith('#/onepay')) return 'onepay';
   if (hash.startsWith('#/payoo')) return 'payoo';
   if (hash.startsWith('#/faqs')) return 'faqs';
+  if (hash.startsWith('#/contact')) return 'contact';
   return 'home';
 };
 
@@ -49,6 +51,10 @@ function App() {
     window.location.hash = '#/faqs';
   };
 
+  const handleNavigateToContact = () => {
+    window.location.hash = '#/contact';
+  };
+
   const handleNavigateHome = () => {
     window.location.hash = '#/';
   };
@@ -62,6 +68,7 @@ function App() {
           onNavigateToAutoDebit={handleNavigateToOnepay}
           onNavigateToWallet={handleNavigateToPayoo}
           onNavigateToFaqs={handleNavigateToFaqs}
+          onNavigateToContact={handleNavigateToContact}
         />
       )}
       {page === 'bank' && (
@@ -78,6 +85,9 @@ function App() {
       )}
       {page === 'faqs' && (
         <FaqsDetails onNavigateHome={handleNavigateHome} />
+      )}
+      {page === 'contact' && (
+        <ContactDetails onNavigateHome={handleNavigateHome} />
       )}
     </>
   );

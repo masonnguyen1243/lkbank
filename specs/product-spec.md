@@ -41,6 +41,11 @@ The primary goal is to provide a single, unified reference point that simplifies
   - Synchronizes page theme with global Light/Dark mode transitions, including an Iframe theme message sync listener to automatically update active theme via parent window communication (`THEME_CHANGE` event).
 
   - **Hash-based Routing & Deep-Linking**: Load and display specific bank details page based on URL hash (e.g., `#/bank/vtb`). Automatically sync the browser address bar's URL hash with the currently active bank section on screen as the user scrolls or navigates, utilizing lightweight history state replacement. Also supports `#/faqs` and subhash questions.
+- **Contact Details Component (`ContactDetails.tsx`)**:
+  - Displays customer support contacts (Hotline, Zalo OA QR code, emails) and region-specific sales points.
+  - Features two support groups: Group 1 for announcement speaker (TingeeBox) and Group 2 for Open API (Pay by Bank) service (currently placeholder).
+  - Implements copy-to-clipboard functionality next to phone numbers and email addresses.
+  - Fully responsive, styles adjusted for both Light and Dark mode.
 
 ## 4. Supported Banks
 1. Vietinbank (VTB)

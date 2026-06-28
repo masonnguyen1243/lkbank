@@ -2,6 +2,18 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
+## [2026-06-28] - Add Contact Information Section
+### Added
+- **Contact Details Component (`ContactDetails.tsx` & `contact.css`)**:
+  - Developed the new `<ContactDetails>` component representing a dedicated page for team and support contacts.
+  - Divided the page into two main sections:
+    - **Loa thông báo (TingeeBox) Support**: Details Zalo OA (TINGEE by HENO with placeholder QR code), Hotline (1900.255.567 with Phím 1), and emails (`hotro@heno.vn`, `doanhnghiep@heno.vn`). Includes region-specific sales cards (Northern, Central, Southern regions) and a General Manager banner (Mr. Đức Hạnh).
+    - **Open API (Pay by Bank) Support**: Set up as a "Coming Soon" placeholder card to receive user content updates in the future.
+  - Implements copy-to-clipboard functionality with a visual tooltip ("Đã copy!") on phone numbers and email links.
+- **Routing & Home Navigation Integration**:
+  - Added `'contact'` to `Page` union type and registered route `#/contact` in [App.tsx](file:///d:/Code/lkbank/src/App.tsx).
+  - Integrated the "Thông tin liên hệ" `<CategoryCard>` navigation card on the home page [Home.tsx](file:///d:/Code/lkbank/src/pages/Home.tsx).
+
 ## [2026-06-26] - Update Bao Kim Payout Content
 ### Changed
 - **Bao Kim Payout Content ("Tính năng chi hộ (Payout)")**:
