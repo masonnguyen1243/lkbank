@@ -2221,34 +2221,33 @@ html {
   height: 28px;
   border-radius: 50%;
   background: var(--white);
-  border: 2.5px solid var(--bdr);
-  color: var(--tx3);
+  border: 1.5px solid var(--primary-mid);
+  color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 12px;
   z-index: 2;
   transition: all 0.25s ease;
 }
 
 .step-item.active .step-node {
-  border-color: var(--primary);
-  background: var(--primary);
-  color: #ffffff;
-  box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.3);
+  border-color: var(--primary-mid);
+  background: var(--white);
+  color: var(--primary);
 }
 
 .step-connector {
-  width: 2px;
+  width: 1px;
   flex: 1;
-  background: var(--bdr);
+  background: linear-gradient(to bottom, var(--primary-mid), var(--bdr));
   margin: 4px 0;
   min-height: 44px;
 }
 
 [data-theme="dark"] .step-connector {
-  background: var(--card-border);
+  background: linear-gradient(to bottom, var(--primary-mid), var(--card-border));
 }
 
 .step-item:last-child .step-connector {
@@ -2373,6 +2372,10 @@ html {
   overflow-y: auto;
   min-height: calc(100vh - var(--sh));
   transition: all 0.3s ease;
+}
+
+.bank-layout.sb-active-view .detail-pane {
+  padding-left: calc(var(--sw) + 30px);
 }
 
 [data-theme="dark"] .detail-pane {
@@ -2735,7 +2738,7 @@ html {
   }
   
   .detail-pane {
-    padding: 16px;
+    padding: 16px !important;
   }
 
   .db-grid {

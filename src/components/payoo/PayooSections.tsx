@@ -14,7 +14,7 @@ export const PayooGatewaySection: React.FC<PayooSectionProps> = ({ searchQuery }
       num={1}
       name="Cổng thanh toán &amp; Thẻ Payoo"
       fullName="Công ty Cổ phần Dịch vụ Trực tuyến Cộng Đồng Việt · Payoo Payment Gateway"
-      logoUrl=""
+      logoUrl="/logo/Logo-Payoo.webp"
       fallbackText="Payoo"
       borderColor="#0082c8"
       fallbackBg="#00a2e8"
@@ -32,179 +32,103 @@ export const PayooGatewaySection: React.FC<PayooSectionProps> = ({ searchQuery }
             </div>
 
             <Accordion
-              title="Hướng dẫn Onboarding cổng thanh toán Payoo"
+              title="Hướng dẫn Quy trình Onboarding &amp; Ký hợp đồng Payoo (Hợp tác HENO x Payoo)"
               tags={
                 <>
-                  <span className="tag tag-heno">Đăng ký &amp; Ký HĐ</span>
-                  <span className="tag tag-time">3–5 ngày</span>
+                  <span className="tag tag-heno">Quy trình Onboard</span>
+                  <span className="tag tag-time">2–5 ngày</span>
                 </>
               }
             >
-              <div className="steps">
-                <div className="step">
-                  <div className="sn">1</div>
-                  <div className="sb2">
-                    <div className="st">Đăng ký tài khoản doanh nghiệp</div>
-                    <div className="sd">
-                      Doanh nghiệp cung cấp hồ sơ pháp lý (Giấy ĐKKD, CCCD người đại diện pháp luật, Giấy phép con đối với các ngành nghề đặc thù) để Heno gửi sang phía Payoo khởi tạo tài khoản sandbox.
-                    </div>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="sn">2</div>
-                  <div className="sb2">
-                    <div className="st">Thao tác cấu hình kỹ thuật</div>
-                    <div className="sd">
-                      Lấy thông tin cấu hình API (Merchant ID, API Signature Key, SHA256 Key) trên trang quản trị Sandbox Payoo. Tiến hành tích hợp API tạo đơn hàng, callback URL để nhận kết quả thanh toán.
-                    </div>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="sn">3</div>
-                  <div className="sb2">
-                    <div className="st">Kiểm thử và Chuyển đổi Production</div>
-                    <div className="sd">
-                      Thực hiện kiểm thử các kịch bản thanh toán thành công, thất bại, hủy đơn trên môi trường Sandbox. Sau khi nghiệm thu (UAT), tiến hành ký hợp đồng chính thức và nhận thông tin cấu hình môi trường Production.
-                    </div>
-                  </div>
-                </div>
+              <div style={{ marginBottom: '16px', fontSize: '13px', lineHeight: '1.6' }}>
+                Quy trình đăng ký kết nối cổng thanh toán Payoo dành cho đối tác/khách hàng của HENO được thực hiện theo hai trường hợp cụ thể như sau:
               </div>
-            </Accordion>
 
-            <Accordion
-              title="Hướng dẫn tích hợp API thanh toán thẻ và tạo Payment Link"
-              tags={<span className="tag tag-self">API Integration</span>}
-            >
-              <div className="steps">
-                <div className="step">
-                  <div className="sn">1</div>
-                  <div className="sb2">
-                    <div className="st">Tạo link thanh toán (Payment Link)</div>
-                    <div className="sd">
-                      Gọi API <code>/payment/create_link</code> với các tham số đơn hàng (Mã đơn, Số tiền, Nội dung, Thời gian hết hạn). Hệ thống Payoo trả về một đường dẫn (URL) thanh toán duy nhất.
+              <div className="sub-accordion-container" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {/* TH1 */}
+                <div style={{ borderLeft: '3px solid var(--primary)', paddingLeft: '16px', margin: '8px 0' }}>
+                  <h4 style={{ fontWeight: 800, fontSize: '14px', marginBottom: '8px', color: 'var(--tx)' }}>
+                    Trường hợp 1: Khách hàng của HENO phát triển có nhu cầu kết nối thanh toán
+                  </h4>
+                  <div className="steps">
+                    <div className="step">
+                      <div className="sn">1</div>
+                      <div className="sb2">
+                        <div className="st">HENO giới thiệu thông tin đối tác</div>
+                        <div className="sd">
+                          HENO tiếp nhận thông tin và giới thiệu nhu cầu kết nối của Khách hàng sang cho Payoo.
+                          <br />
+                          <strong style={{ color: 'var(--tx2)', display: 'inline-block', marginTop: '6px' }}>Thông tin Khách hàng cần cung cấp bao gồm:</strong>
+                          <ul style={{ marginTop: '4px', paddingLeft: '20px' }}>
+                            <li>Tên Khách hàng / Tên Doanh nghiệp sử dụng.</li>
+                            <li>Họ và tên của đầu mối đại diện liên hệ phía doanh nghiệp.</li>
+                            <li>Số điện thoại liên hệ của đầu mối đại diện doanh nghiệp.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="sn">2</div>
+                      <div className="sb2">
+                        <div className="st">Payoo tư vấn và hoàn tất hợp đồng</div>
+                        <div className="sd">
+                          Đại diện Payoo liên hệ trực tiếp để tư vấn giải pháp, đàm phán biểu phí giao dịch và hoàn tất thủ tục ký hợp đồng hợp tác thương mại với Khách hàng theo quy trình nghiệp vụ hiện hành của Payoo.
+                        </div>
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="sn">3</div>
+                      <div className="sb2">
+                        <div className="st">Cấp tài khoản và bàn giao thông số</div>
+                        <div className="sd">
+                          Payoo cấp tài khoản quản trị vận hành cổng thanh toán cho Khách hàng. Đồng thời, Payoo gửi bộ thông số tích hợp kỹ thuật để kết nối hai hệ thống.
+                        </div>
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="sn">4</div>
+                      <div className="sb2">
+                        <div className="st">Cấu hình kết nối trên Tingee</div>
+                        <div className="sd">
+                          Khách hàng đăng nhập trang quản trị Tingee (hoặc gửi bộ thông số kỹ thuật cho đội ngũ kỹ thuật HENO) để thực hiện cấu hình các tham số kỹ thuật của Payoo lên hệ thống. Khách hàng chính thức kích hoạt và bắt đầu sử dụng toàn bộ tính năng và API do Payoo hỗ trợ.
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="step">
-                  <div className="sn">2</div>
-                  <div className="sb2">
-                    <div className="st">Gửi link cho khách hàng</div>
-                    <div className="sd">
-                      Doanh nghiệp gửi Payment Link này qua SMS, Zalo, Email hoặc hiển thị mã QR link để khách hàng truy cập bằng trình duyệt. Khách hàng tự lựa chọn hình thức trả thẻ hoặc quét QR ngân hàng.
-                    </div>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="sn">3</div>
-                  <div className="sb2">
-                    <div className="st">Nhận kết quả giao dịch (IPN/Webhook)</div>
-                    <div className="sd">
-                      Khi khách hàng thanh toán thành công, Payoo Server tự động gọi IPN Webhook tới Server đối tác để xác thực chữ ký bảo mật và cập nhật trạng thái đơn hàng theo thời gian thực.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Accordion>
-          </>
-        );
-      }}
-    </BankSection>
-  );
-};
 
-export const PayooSmartPOSSection: React.FC<PayooSectionProps> = ({ searchQuery }) => {
-  return (
-    <BankSection
-      id="payoo_smartpos"
-      num={2}
-      name="Giải pháp thiết bị SmartPOS Payoo"
-      fullName="Giải pháp thanh toán tại quầy bằng thiết bị SmartPOS liên kết hệ thống HENO · Payoo SmartPOS"
-      logoUrl=""
-      fallbackText="POS"
-      borderColor="#0082c8"
-      fallbackBg="#00a2e8"
-      searchQuery={searchQuery}
-      hideFilter={true}
-    >
-      {() => {
-        return (
-          <>
-            <div className="acct-section">
-              <div className="tbl-label">Quy trình đăng ký và vận hành thiết bị SmartPOS Payoo</div>
-              <p style={{ fontSize: '13px', color: 'var(--tx2)', marginBottom: '16px', lineHeight: '1.6' }}>
-                Thiết bị SmartPOS cầm tay hỗ trợ toàn diện các phương thức thanh toán tại cửa hàng/quầy dịch vụ: quẹt thẻ từ/thẻ chip, chạm thẻ không tiếp xúc (Contactless - Visa/Mastercard/Apple Pay), quét mã VietQR và trả góp 0% lãi suất.
-              </p>
-            </div>
-
-            <Accordion
-              title="Quy trình cung cấp &amp; Bàn giao thiết bị SmartPOS"
-              tags={
-                <>
-                  <span className="tag tag-heno">Bàn giao tại quầy</span>
-                  <span className="tag tag-time">3–7 ngày làm việc</span>
-                </>
-              }
-            >
-              <div className="steps">
-                <div className="step">
-                  <div className="sn">1</div>
-                  <div className="sb2">
-                    <div className="st">Đăng ký số lượng &amp; Địa điểm lắp đặt</div>
-                    <div className="sd">
-                      Doanh nghiệp đăng ký nhu cầu sử dụng máy SmartPOS, cung cấp địa chỉ lắp đặt máy và số tài khoản ngân hàng thụ hưởng giao dịch để thiết lập cấu hình định tuyến tiền về.
+                {/* TH2 */}
+                <div style={{ borderLeft: '3px solid #2E7D32', paddingLeft: '16px', margin: '8px 0' }}>
+                  <h4 style={{ fontWeight: 800, fontSize: '14px', marginBottom: '8px', color: 'var(--tx)' }}>
+                    Trường hợp 2: Khách hàng đã ký hợp đồng hợp tác với Payoo trước đó, muốn kết nối sử dụng thêm trên hệ thống HENO
+                  </h4>
+                  <div className="steps">
+                    <div className="step">
+                      <div className="sn" style={{ borderColor: '#2E7D32', color: '#2E7D32' }}>1</div>
+                      <div className="sb2">
+                        <div className="st">Chuyển giao thông tin đối tác để ký hợp đồng dịch vụ bổ sung</div>
+                        <div className="sd">
+                          Payoo chuyển thông tin của Khách hàng sang cho HENO để hai bên HENO và Khách hàng hoàn tất thủ tục ký hợp đồng hợp tác dịch vụ bổ sung.
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="sn">2</div>
-                  <div className="sb2">
-                    <div className="st">Cài đặt phần mềm quản lý ứng dụng</div>
-                    <div className="sd">
-                      Payoo thực hiện cài đặt ứng dụng quản trị POS, nạp các khóa bảo mật đầu cuối (terminal keys) và phân quyền nhân viên sử dụng. Máy POS được gửi trực tiếp đến điểm kinh doanh của đối tác.
+                    <div className="step">
+                      <div className="sn" style={{ borderColor: '#2E7D32', color: '#2E7D32' }}>2</div>
+                      <div className="sb2">
+                        <div className="st">Cung cấp bộ thông số tích hợp</div>
+                        <div className="sd">
+                          Sau khi hợp đồng bổ sung hoàn tất, Payoo gửi bộ thông số kết nối kỹ thuật cho Khách hàng và HENO.
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="sn">3</div>
-                  <div className="sb2">
-                    <div className="st">Hướng dẫn nhân viên quầy và vận hành</div>
-                    <div className="sd">
-                      Nhân viên quầy mở máy, nhập mã nhân viên và chọn hình thức thanh toán (Thẻ/QR/Trả góp). Khách hàng quẹt thẻ hoặc quét mã hiển thị trên màn hình POS. Máy POS in hóa đơn giấy xác nhận giao dịch thành công.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Accordion>
-
-            <Accordion
-              title="Quy trình trả góp 0% lãi suất qua thẻ tín dụng trên SmartPOS"
-              tags={<span className="tag tag-heno">Trả góp tín dụng</span>}
-            >
-              <div className="steps">
-                <div className="step">
-                  <div className="sn">1</div>
-                  <div className="sb2">
-                    <div className="st">Chọn phương thức trả góp</div>
-                    <div className="sd">
-                      Trên màn hình máy SmartPOS Payoo, nhân viên chọn mục <strong>"Trả góp 0%"</strong>, nhập số tiền giao dịch (tối thiểu 3.000.000đ hoặc theo quy định ngân hàng).
-                    </div>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="sn">2</div>
-                  <div className="sb2">
-                    <div className="st">Quẹt thẻ &amp; Chọn kỳ hạn</div>
-                    <div className="sd">
-                      Khách hàng chạm hoặc cắm thẻ tín dụng (Credit Card) vào thiết bị. Máy POS tự động nhận diện ngân hàng phát hành thẻ. Nhân viên hỗ trợ khách hàng chọn kỳ hạn phù hợp (3, 6, 9, 12 tháng) và nhập các thông tin xác thực.
-                    </div>
-                  </div>
-                </div>
-                <div className="step">
-                  <div className="sn">3</div>
-                  <div className="sb2">
-                    <div className="st">Ký tên xác thực và in hóa đơn</div>
-                    <div className="sd">
-                      Khách hàng thực hiện ký tên điện tử trực tiếp trên màn hình cảm ứng SmartPOS. Máy POS in ra 2 liên hóa đơn: liên 1 đối tác lưu giữ và liên 2 đưa cho khách hàng. Số tiền sẽ được Payoo đối soát và giải ngân về tài khoản đăng ký.
+                    <div className="step">
+                      <div className="sn" style={{ borderColor: '#2E7D32', color: '#2E7D32' }}>3</div>
+                      <div className="sb2">
+                        <div className="st">Cấu hình tham số để liên kết tài khoản</div>
+                        <div className="sd">
+                          Khách hàng nhập các tham số nhận được vào phần cấu hình hệ thống trên trang quản lý của Tingee để hoàn tất liên kết tài khoản và bắt đầu vận hành dịch vụ bình thường.
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

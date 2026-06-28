@@ -26,8 +26,12 @@ The primary goal is to provide a single, unified reference point that simplifies
 - **Disbursement Service Component (`DisbursementDetails.tsx`)**:
   - Similar to the bank linking view, providing structured guidance, scroll tracking, theme synchronizations, and quick search filters for the disbursement services.
   - Includes **Chi hộ BIDV (Direct Link x Heno)**: GUID and flow detailing eform registrations, offline change request BM02 form, online admin control guides, Tingee authentication redirects, and segregated internal approval roles (Maker/Checker).
-- **Auto-debit Component (`AutoDebitDetails.tsx`)**:
-  - Structured view detailing registration procedures, API connection endpoints, and guidelines for auto-debit accounts.
+- **Auto-debit / Direct Debit Component (`OnepayDetails.tsx`)**:
+  - Detailed guidelines for trích nợ tự động (Direct Debit) via OnePay.
+  - Supports 7 partner banks: Agribank, BIDV, Vietinbank, Sacombank, MB, VPBank, MSB.
+  - Highlights specific bank registration requirements: Agribank Plus E-commerce setup (prevents error `11 - Not Register`) and VPBank Neo online payment activation with limit configuration.
+  - Documents Tingee client integration steps (user forms, OTP via Email/Zalo) and manual reconciliation/refund policies (3-5 business days).
+  - Attached manuals: `DirectDebit Solution.pdf` and `20241004_OnePay_Direct Debit.pptx`.
 - **E-wallet Component (`WalletDetails.tsx`)**:
   - Guidelines and specs covering API integration flows, sandbox credentials, and operation instructions for third-party e-wallets.
   - **Baokim E-Wallet integration**: Includes a modular `<BaokimWalletSection>` (`src/components/wallet/WalletSections.tsx`) detailing the 5-step onboarding guide, money transfer limit policies, attached PDF files for download/visualization, and extensive FAQ accordion questions.
@@ -39,6 +43,9 @@ The primary goal is to provide a single, unified reference point that simplifies
   - Embedded dynamic grid of 14 bank logos from `api.vietqr.io` inside Question 5, with circular initials fallback backgrounds matched to official bank brand-specific hex colors.
   - Supports deep-linking by listening to URL hash patterns such as `#/faqs/faq-1` to auto-expand and scroll to specific questions on load.
   - Synchronizes page theme with global Light/Dark mode transitions, including an Iframe theme message sync listener to automatically update active theme via parent window communication (`THEME_CHANGE` event).
+- **Payoo Service Component (`PayooDetails.tsx`)**:
+  - Detailed guidelines for Payoo integration, featuring online Gateway payments (`PayooGatewaySection`).
+  - Documents the joint HENO x Payoo onboarding procedures for both new prospects (Case 1, introducing enterprise names, representative names, and contact phone numbers) and existing partners (Case 2, signing supplementary service agreements) to configure connection credentials directly on Tingee.
 - **Hash-based Routing & Deep-Linking**:
   - Load and display specific bank details page based on URL hash (e.g., `#/bank/vtb`).
   - Automatically sync the browser address bar's URL hash with the currently active bank section on screen as the user scrolls or navigates, utilizing lightweight history state replacement. Also supports `#/faqs` and subhash questions.

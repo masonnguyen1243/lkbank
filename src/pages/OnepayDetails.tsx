@@ -4,12 +4,23 @@ import { OnepaySidebar, OnepayServiceInfo } from '../components/onepay/OnepaySid
 import { PDFModal } from '../components/ui/PDFModal';
 import '../styles/bank.css';
 import '../styles/faqs.css';
+import { OnepayDirectDebitSection } from '../components/onepay/OnepaySections';
 
 interface OnepayDetailsProps {
   onNavigateHome: () => void;
 }
 
-const ONEPAY_SERVICES: OnepayServiceInfo[] = [];
+const ONEPAY_SERVICES: OnepayServiceInfo[] = [
+  {
+    id: 'onepay_direct_debit',
+    name: 'Trích nợ tự động OnePay',
+    fullName: 'Cổng trích nợ tự động tài khoản/thẻ liên kết · OnePay Direct Debit',
+    logoUrl: '/logo/onepay.png',
+    fallbackText: 'OnePay',
+    searchNames: 'onepay direct debit trich no tu dong agribank vpbank bidv vietinbank sacombank mb msb',
+    fallbackBg: '#005baa',
+  }
+];
 
 export const OnepayDetails: React.FC<OnepayDetailsProps> = ({ onNavigateHome }) => {
   const { theme, toggleTheme } = useTheme();
@@ -90,6 +101,14 @@ export const OnepayDetails: React.FC<OnepayDetailsProps> = ({ onNavigateHome }) 
     setPdfModalState((prev) => ({ ...prev, isOpen: false }));
   };
 
+  const handleViewPDF = (url: string, title: string) => {
+    setPdfModalState({
+      isOpen: true,
+      url,
+      title,
+    });
+  };
+
   return (
     <div className={`bank-layout ${selectedServiceId ? 'sb-active-view' : ''}`}>
       {/* SCROLL PROGRESS BAR */}
@@ -126,7 +145,7 @@ export const OnepayDetails: React.FC<OnepayDetailsProps> = ({ onNavigateHome }) 
       )}
 
       {/* HEADER */}
-      <header className="hdr" style={{ paddingLeft: selectedServiceId ? 'calc(var(--sw) + 20px)' : '20px' }}>
+      <header className="hdr">
         <button
           className="hdr-back-btn"
           onClick={onNavigateHome}
@@ -145,9 +164,17 @@ export const OnepayDetails: React.FC<OnepayDetailsProps> = ({ onNavigateHome }) 
         />
         <div style={{ display: 'flex', alignItems: 'center', gap: 0, flex: 1 }}>
           <div>
-            <div className="hdr-t">Trích nợ tự động (direct debit)</div>
+            <div className="hdr-t">
+              {selectedServiceId
+                ? `${ONEPAY_SERVICES.find((s) => s.id === selectedServiceId)?.name}`
+                : 'Trích nợ tự động (direct debit)'}
+            </div>
           </div>
-          <span className="hdr-s">— ONEPAY</span>
+          <span className="hdr-s">
+            {selectedServiceId
+              ? `— Hướng dẫn tích hợp`
+              : '— ONEPAY'}
+          </span>
         </div>
         <button
           className="theme-toggle-btn"
@@ -203,7 +230,7 @@ export const OnepayDetails: React.FC<OnepayDetailsProps> = ({ onNavigateHome }) 
         )}
 
         {/* DETAILS/DASHBOARD CONTENT PANE */}
-        <div className="detail-pane" style={{ paddingLeft: selectedServiceId ? 'calc(var(--sw) + 30px)' : '30px' }}>
+        <div className="detail-pane">
           {!selectedServiceId ? (
             /* OVERVIEW DASHBOARD */
             <div className="overview-dashboard" style={{ marginTop: '30px' }}>
@@ -230,34 +257,102 @@ export const OnepayDetails: React.FC<OnepayDetailsProps> = ({ onNavigateHome }) 
                 </div>
               </div>
 
-              {/* SKELETON / PLACEHOLDER FOR SERVICES */}
-              <div className="section-card" style={{ padding: '40px 24px', textAlign: 'center', borderStyle: 'dashed', borderWidth: '2px', marginTop: '24px' }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  background: 'var(--primary-light)',
-                  borderRadius: '50%',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '16px',
-                  color: 'var(--primary)'
-                }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                  </svg>
+              {/* THUẬT NGỮ & VIẾT TẮT */}
+              <div className="section-card" id="terminology" style={{ marginBottom: '32px', marginTop: '24px' }}>
+                <div className="section-hdr">
+                  <div>
+                    <div className="section-hdr-t">Thuật ngữ &amp; Viết tắt</div>
+                    <div className="section-hdr-s">
+                      Giải thích các ký hiệu và thuật ngữ chuyên ngành trong quy trình Trích nợ tự động
+                    </div>
+                  </div>
                 </div>
-                <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '6px', color: 'var(--tx)' }}>
-                  Danh sách quy trình Trích nợ tự động OnePay trống
-                </h3>
-                <p style={{ fontSize: '13px', color: 'var(--tx2)', maxWidth: '440px', margin: '0 auto', lineHeight: '1.6' }}>
-                  Nội dung chi tiết của các quy trình đăng ký và kết nối trích nợ tự động qua OnePay sẽ được cập nhật tại đây khi có thông tin thực tế.
-                </p>
+                <div className="term-tbl-wrap">
+                  <table className="term-table">
+                    <thead>
+                      <tr>
+                        <th style={{ width: '150px' }}>Viết tắt</th>
+                        <th style={{ width: '220px' }}>Thuật ngữ đầy đủ</th>
+                        <th>Ghi chú / Định nghĩa</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="ta">Direct Debit</td>
+                        <td className="tf">Trích nợ tự động</td>
+                        <td className="tn">Giải pháp trích tiền trực tiếp từ tài khoản/thẻ khách hàng định kỳ tự động</td>
+                      </tr>
+                      <tr>
+                        <td className="ta">Mandate</td>
+                        <td className="tf">Ủy quyền thanh toán</td>
+                        <td className="tn">Sự chấp thuận pháp lý của khách hàng cho phép đơn vị trích tiền tự động</td>
+                      </tr>
+                      <tr>
+                        <td className="ta">Tokenization</td>
+                        <td className="tf">Mã hóa thẻ/tài khoản</td>
+                        <td className="tn">Sinh ra token đại diện cho thông tin thẻ/tài khoản để bảo mật và sử dụng sau này</td>
+                      </tr>
+                      <tr>
+                        <td className="ta">Recurring</td>
+                        <td className="tf">Thanh toán định kỳ</td>
+                        <td className="tn">Lặp lại chu kỳ thanh toán tự động không cần OTP của chủ tài khoản</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Services Grid */}
+              <div className="db-grid">
+                {ONEPAY_SERVICES.filter(s => !searchQuery || s.searchNames.includes(searchQuery.toLowerCase().trim())).map((service) => (
+                  <div
+                    key={service.id}
+                    className="db-card"
+                    onClick={() => window.location.hash = `#/onepay/${service.id}`}
+                  >
+                    <div className="db-card-logo-wrap">
+                      {!service.logoUrl ? (
+                        <div
+                          className="sb-avatar"
+                          style={{
+                            background: service.fallbackBg || 'var(--primary)',
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#fff',
+                            fontWeight: 800,
+                            fontSize: '14px'
+                          }}
+                        >
+                          {service.fallbackText}
+                        </div>
+                      ) : (
+                        <img className="db-card-logo" src={service.logoUrl} alt={service.name} />
+                      )}
+                    </div>
+                    <h3>{service.name}</h3>
+                    <p>{service.fullName}</p>
+                    <div className="db-card-btn">
+                      Xem quy trình tích hợp
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ) : null}
+          ) : (
+            /* DETAILED VIEW FOR SINGLE SERVICE */
+            <div className="detail-view-container onepay-detail-view">
+              {selectedServiceId === 'onepay_direct_debit' && (
+                <OnepayDirectDebitSection onViewPDF={handleViewPDF} searchQuery={searchQuery} />
+              )}
+            </div>
+          )}
 
           {/* FOOTER */}
           <div className="footer">

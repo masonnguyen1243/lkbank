@@ -154,7 +154,7 @@ export const PayoutDetails: React.FC<PayoutDetailsProps> = ({ onNavigateHome }) 
       )}
 
       {/* HEADER */}
-      <header className="hdr" style={{ paddingLeft: selectedServiceId ? 'calc(var(--sw) + 20px)' : '20px' }}>
+      <header className="hdr">
         <button
           className="hdr-back-btn"
           onClick={onNavigateHome}
@@ -275,7 +275,7 @@ export const PayoutDetails: React.FC<PayoutDetailsProps> = ({ onNavigateHome }) 
         )}
 
         {/* DETAILS/DASHBOARD CONTENT PANE */}
-        <div className="detail-pane" style={{ paddingLeft: selectedServiceId ? 'calc(var(--sw) + 30px)' : '30px' }}>
+        <div className="detail-pane">
           {!selectedServiceId ? (
             /* OVERVIEW DASHBOARD */
             <div className="overview-dashboard" style={{ marginTop: '30px' }}>

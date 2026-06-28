@@ -2,6 +2,30 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
+## [2026-06-29] - Integrate Payoo Onboarding Guideline
+### Added
+- **Payoo Onboarding Flow (`PayooSections.tsx` & `PayooDetails.tsx`)**:
+  - Populated `PAYOO_SERVICES` listing only the Payoo Gateway solution on the dashboard view (excluding SmartPOS).
+  - Implemented the dual-scenario joint onboarding guide explaining registration, referrals, and contract workflows rewritten to use professional Vietnamese and remove all abbreviations (MC, PY, HĐ, HD).
+  - Documents the required client fields (Enterprise name, representative name & phone number) and Tingee config instructions.
+  - Rendered a terminology table detailing key definitions: Merchant, Payoo, and Payment Link.
+
+## [2026-06-29] - Sync Step Node Styling in Payout Stepper
+### Changed
+- **Payout Stepper UI Sync (`bank.css`)**:
+  - Replaced the solid background style of payout page steps (`.step-node`) with the standard outline circle border and primary/pink text.
+  - Adjusted the vertical step connector lines (`.step-connector`) from solid thick borders to a thin 1px gradient style matching other guide lists across the portal.
+
+## [2026-06-28] - Integrate OnePay Direct Debit Onboarding Guideline
+### Added
+- **OnePay Direct Debit Onboarding Flow (`OnepaySections.tsx` & `OnepayDetails.tsx`)**:
+  - Developed full guidelining sections for OnePay Trích nợ tự động (Direct Debit) supporting 7 partner banks (Agribank, BIDV, Vietinbank, Sacombank, MB, VPBank, MSB).
+  - Outlined the 4-step user authentication linking process on the Tingee interface (selecting Direct Debit, choosing a bank, entering Account Name, SĐT, and selecting Zalo/Email OTP).
+  - Detailed pre-registration banking procedures for Agribank Plus (registering E-commerce to prevent error `11 - Not Register`) and VPBank Neo (activating Online Payment with daily limit setups).
+  - Specified transaction limits (2M per txn, 5M per day) and manual reconciliation & refund rules (reimbursements completed within 3-5 business days upon approval).
+  - Embedded direct downloadable attachments: *DirectDebit Solution.pdf* and *20241004_OnePay_Direct Debit.pptx*.
+  - Mounted the detailed OnepayDirectDebitSection component inside OnepayDetails.tsx and replaced the dashboard's blank skeleton screen with a dynamic grid service card list and terminology glossary table.
+
 ## [2026-06-28] - Add VPBank VA Flow & Spacing Improvements
 ### Added
 - **VPBank VA (Virtual Account) Flow (`Banks6to10.tsx`)**:

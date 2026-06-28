@@ -41,7 +41,7 @@ const SEARCH_DATABASE: SearchItem[] = [
   { id: 'payout-bidv', category: 'dev', categoryLabel: 'Chi hộ', title: 'Tính năng Chi hộ BIDV (Direct Link)', desc: 'Tích hợp API chi hộ tự động và đối soát giao dịch với đối tác BIDV.', route: '#/payout' },
   { id: 'payout-baokim', category: 'dev', categoryLabel: 'Chi hộ', title: 'Tính năng Chi hộ Bao Kim (Ví điện tử)', desc: 'Tích hợp ví liên kết & đồng bộ tham số ví Bao Kim Payout.', route: '#/payout' },
   { id: 'autodebit', category: 'dev', categoryLabel: 'Trích nợ', title: 'Trích nợ tự động OnePay (Direct Debit)', desc: 'Hướng dẫn tích hợp cổng OnePay trích nợ tự động định kỳ.', route: '#/onepay' },
-  { id: 'payoo', category: 'dev', categoryLabel: 'Thanh toán', title: 'Cổng thẻ & Thiết bị SmartPOS Payoo', desc: 'Quy trình tích hợp thanh toán thẻ, Payment Link và thiết bị SmartPOS.', route: '#/payoo' },
+  { id: 'payoo', category: 'dev', categoryLabel: 'Thanh toán', title: 'Cổng thẻ Payoo', desc: 'Quy trình tích hợp thanh toán thẻ, Payment Link.', route: '#/payoo' },
 
   // --- FAQs ---
   { id: 'faq-1', category: 'faq', categoryLabel: 'FAQs', title: 'Lấy Client ID & Secret Token tích hợp?', desc: 'Tra cứu thông tin Client ID & Secret Token từ tài khoản app.tingee.vn.', route: '#/faqs/faq-1' },
@@ -278,10 +278,10 @@ export const Home: React.FC<HomeProps> = ({
               ) : (
                 <div className="search-no-results">
                   <p>Không tìm thấy kết quả phù hợp cho "{searchQuery}"</p>
-                  <a 
-                    className="search-no-results-btn" 
-                    href="https://t.me/tingeesupport" 
-                    target="_blank" 
+                  <a
+                    className="search-no-results-btn"
+                    href="https://t.me/tingeesupport"
+                    target="_blank"
                     rel="noopener noreferrer"
                   >
                     Hỏi hỗ trợ qua Telegram
@@ -320,7 +320,7 @@ export const Home: React.FC<HomeProps> = ({
               </span>
               Vận Hành & Hỗ Trợ
             </h2>
-            <p>Tài liệu tra cứu nghiệp vụ dành cho nhân viên Sales, CS và Đối tác</p>
+            <p>Tài liệu tra cứu nghiệp vụ</p>
           </div>
 
           <div className="cards-list">
@@ -389,7 +389,7 @@ export const Home: React.FC<HomeProps> = ({
               </span>
               Tích Hợp & Dịch Vụ
             </h2>
-            <p>Hệ sinh thái API, cổng thanh toán thẻ, và hướng dẫn tích hợp hệ thống</p>
+            <p>Hướng dẫn tích hợp hệ thống</p>
           </div>
 
           <div className="cards-list">
@@ -436,18 +436,18 @@ export const Home: React.FC<HomeProps> = ({
               </div>
               <div className="card-content">
                 <div className="card-title-row">
-                  <span className="card-title">Thanh toán thẻ, Payment Link & SmartPOS</span>
+                  <span className="card-title">Thanh toán thẻ, Payment Link</span>
                   <span className="card-arrow">→</span>
                 </div>
-                <p className="card-description">Quy trình tích hợp cổng thẻ ATM/Quốc tế Payoo, tạo link thanh toán nhanh trực tuyến và vận hành SmartPOS.</p>
+                <p className="card-description">Quy trình tích hợp cổng thẻ ATM/Quốc tế Payoo, tạo link thanh toán nhanh trực tuyến.</p>
               </div>
             </a>
 
             {/* External Developer Documentation link */}
-            <a 
-              href="https://developers.tingee.vn" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://developers.tingee.vn"
+              target="_blank"
+              rel="noopener noreferrer"
               className="category-card dev-link"
             >
               <div className="card-icon">

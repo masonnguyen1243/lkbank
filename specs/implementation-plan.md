@@ -58,7 +58,7 @@ Roadmap and developmental checklist for the HENO × Tingee Bank Linking Portal p
   - **Task 5.2.2: Tích hợp thông tin vào các file React component** (Hoàn thành đối với dịch vụ Chi hộ BIDV)
     - Cập nhật danh sách dịch vụ và các bước thực hiện vào các file thành phần:
       - Chi hộ: [DisbursementSections.tsx](file:///d:/Code/lkbank/src/components/disbursement/DisbursementSections.tsx) & [DisbursementDetails.tsx](file:///d:/Code/lkbank/src/pages/DisbursementDetails.tsx) (Hoàn thành)
-      - Trích nợ tự động: [AutoDebitSections.tsx](file:///d:/Code/lkbank/src/components/autodebit/AutoDebitSections.tsx) & [AutoDebitDetails.tsx](file:///d:/Code/lkbank/src/pages/AutoDebitDetails.tsx) (Đang chờ dữ liệu)
+      - Trích nợ tự động: [OnepaySections.tsx](file:///d:/Code/lkbank/src/components/onepay/OnepaySections.tsx) & [OnepayDetails.tsx](file:///d:/Code/lkbank/src/pages/OnepayDetails.tsx) (Hoàn thành)
       - Ví điện tử: [WalletSections.tsx](file:///d:/Code/lkbank/src/components/wallet/WalletSections.tsx) & [WalletDetails.tsx](file:///d:/Code/lkbank/src/pages/WalletDetails.tsx) (Đang chờ dữ liệu)
     - Lưu trữ và liên kết chính xác các biểu mẫu tài liệu thực tế trong thư mục `public/docs/bidv/`. (Hoàn thành)
   - **Task 5.2.3: Tích hợp và tối ưu bộ lọc & Tìm kiếm (Search/Filters)** (Hoàn thành)
@@ -122,3 +122,17 @@ Roadmap and developmental checklist for the HENO × Tingee Bank Linking Portal p
   - Tạo cấu trúc Accordion hướng dẫn tích hợp dịch vụ tài khoản ảo VPBank VA cho khách hàng doanh nghiệp & hộ kinh doanh.
   - Hướng dẫn thu thập hồ sơ pháp lý, ảnh chụp văn phòng, tài khoản định danh VNeID mức 2.
   - Tích hợp 3 tài liệu mẫu Word đính kèm: Hợp đồng cung ứng dịch vụ MerchantQR, Giấy đề nghị sử dụng dịch vụ, và Văn bản thỏa thuận bảo vệ dữ liệu cá nhân của VPBank.
+- **Task 7.9: Tích hợp hướng dẫn Onboard dịch vụ Trích nợ tự động (Direct Debit) OnePay** (Hoàn thành)
+  - Triển khai hướng dẫn 4 bước đăng ký liên kết phía Tingee (nhập Tên chủ tài khoản, SĐT, hình thức xác thực Email/Zalo).
+  - Tích hợp tài liệu chi tiết hướng dẫn kích hoạt Online E-commerce/Payment của Agribank Plus (lỗi `11 - Not Register`) và VPBank Neo.
+  - Hướng dẫn hạn mức thanh toán trích nợ tự động (2M/giao dịch, 5M/ngày) và quy định đối soát hoàn tiền manual (3-5 ngày làm việc).
+  - Đính kèm 2 tài liệu OnePay: DirectDebit Solution.pdf và 20241004_OnePay_Direct Debit.pptx.
+- **Task 7.10: Đồng bộ thiết kế Timeline Stepper ở trang Chi hộ** (Hoàn thành)
+  - Thay thế vòng tròn số màu đặc (solid pink) của `.step-node` thành vòng tròn viền mỏng (outline pink) và đổi màu chữ số bên trong thành màu hồng nhạt.
+  - Chuyển đổi đường nối thẳng dày màu xám `.step-connector` thành đường nối mỏng 1px có hiệu ứng dải màu gradient mượt mà trùng khớp với các trang con khác.
+- **Task 7.11: Tích hợp hướng dẫn Onboarding đối tác Payoo** (Hoàn thành)
+  - Khởi tạo cấu trúc giao diện cho trang Payoo chi tiết (`PayooDetails.tsx`), kết nối grid danh sách giải pháp và bảng thuật ngữ chuyên ngành (loại bỏ thiết bị SmartPOS Payoo).
+  - Triển khai Accordion hướng dẫn quy trình onboard hợp tác HENO x Payoo chuyên nghiệp hóa không sử dụng từ viết tắt cho 2 trường hợp cụ thể:
+    - *Trường hợp 1*: Khách hàng của HENO phát triển có nhu cầu kết nối thanh toán (yêu cầu cung cấp Tên đối tác / Doanh nghiệp sử dụng, Họ và tên cùng SĐT của người đại diện liên hệ).
+    - *Trường hợp 2*: Khách hàng đã ký hợp đồng hợp tác với Payoo trước đó, nay muốn kết nối sử dụng trên hệ thống HENO (Payoo chuyển thông tin Khách hàng để ký hợp đồng dịch vụ bổ sung).
+  - Hướng dẫn cấu hình bộ tham số kết nối nhận từ Payoo lên trang quản trị Tingee để sử dụng đầy đủ các API/Tính năng.

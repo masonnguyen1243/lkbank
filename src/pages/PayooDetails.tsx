@@ -4,12 +4,23 @@ import { PayooSidebar, PayooServiceInfo } from '../components/payoo/PayooSidebar
 import { PDFModal } from '../components/ui/PDFModal';
 import '../styles/bank.css';
 import '../styles/faqs.css';
+import { PayooGatewaySection } from '../components/payoo/PayooSections';
 
 interface PayooDetailsProps {
   onNavigateHome: () => void;
 }
 
-const PAYOO_SERVICES: PayooServiceInfo[] = [];
+const PAYOO_SERVICES: PayooServiceInfo[] = [
+  {
+    id: 'payoo_gateway',
+    name: 'Cổng thanh toán & Thẻ Payoo',
+    fullName: 'Cổng thanh toán trực tuyến hỗ trợ thẻ Napas, Visa, Mastercard · Payoo Gateway',
+    logoUrl: '/logo/Logo-Payoo.webp',
+    fallbackText: 'Payoo',
+    searchNames: 'payoo gateway cong thanh toan the napas visa mastercard onboarding py',
+    fallbackBg: '#0082c8',
+  }
+];
 
 export const PayooDetails: React.FC<PayooDetailsProps> = ({ onNavigateHome }) => {
   const { theme, toggleTheme } = useTheme();
@@ -90,6 +101,14 @@ export const PayooDetails: React.FC<PayooDetailsProps> = ({ onNavigateHome }) =>
     setPdfModalState((prev) => ({ ...prev, isOpen: false }));
   };
 
+  const handleViewPDF = (url: string, title: string) => {
+    setPdfModalState({
+      isOpen: true,
+      url,
+      title,
+    });
+  };
+
   return (
     <div className={`bank-layout ${selectedServiceId ? 'sb-active-view' : ''}`}>
       {/* SCROLL PROGRESS BAR */}
@@ -126,7 +145,7 @@ export const PayooDetails: React.FC<PayooDetailsProps> = ({ onNavigateHome }) =>
       )}
 
       {/* HEADER */}
-      <header className="hdr" style={{ paddingLeft: selectedServiceId ? 'calc(var(--sw) + 20px)' : '20px' }}>
+      <header className="hdr">
         <button
           className="hdr-back-btn"
           onClick={onNavigateHome}
@@ -138,16 +157,24 @@ export const PayooDetails: React.FC<PayooDetailsProps> = ({ onNavigateHome }) =>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
         </button>
-        <img 
-          src="https://developers.tingee.vn/img/logo-compact.png" 
-          alt="Tingee Logo" 
-          style={{ height: '24px', marginRight: '12px', display: 'block' }} 
+        <img
+          src="https://developers.tingee.vn/img/logo-compact.png"
+          alt="Tingee Logo"
+          style={{ height: '24px', marginRight: '12px', display: 'block' }}
         />
         <div style={{ display: 'flex', alignItems: 'center', gap: 0, flex: 1 }}>
           <div>
-            <div className="hdr-t">Thanh toán thẻ, Payment Link, SmartPOS</div>
+            <div className="hdr-t">
+              {selectedServiceId
+                ? `${PAYOO_SERVICES.find((s) => s.id === selectedServiceId)?.name}`
+                : 'Thanh toán thẻ, Payment Link'}
+            </div>
           </div>
-          <span className="hdr-s">— PAYOO</span>
+          <span className="hdr-s">
+            {selectedServiceId
+              ? `— Hướng dẫn tích hợp`
+              : '— PAYOO'}
+          </span>
         </div>
         <button
           className="theme-toggle-btn"
@@ -180,9 +207,9 @@ export const PayooDetails: React.FC<PayooDetailsProps> = ({ onNavigateHome }) =>
         <section className="faq-hero-section" style={{ marginTop: 'var(--sh)' }}>
           <div className="faq-hero-overlay"></div>
           <div className="faq-hero-inner">
-            <h1>Thanh toán thẻ, Payment Link, SmartPOS</h1>
+            <h1>Thanh toán thẻ, Payment Link</h1>
             <p className="faq-hero-subtitle" style={{ marginBottom: 0 }}>
-              Quy trình tích hợp cổng thẻ ATM/Quốc tế Payoo, tạo link thanh toán nhanh trực tuyến và vận hành SmartPOS.
+              Quy trình tích hợp cổng thẻ ATM/Quốc tế Payoo, tạo link thanh toán nhanh trực tuyến.
             </p>
           </div>
         </section>
@@ -203,7 +230,7 @@ export const PayooDetails: React.FC<PayooDetailsProps> = ({ onNavigateHome }) =>
         )}
 
         {/* DETAILS/DASHBOARD CONTENT PANE */}
-        <div className="detail-pane" style={{ paddingLeft: selectedServiceId ? 'calc(var(--sw) + 30px)' : '30px' }}>
+        <div className="detail-pane">
           {!selectedServiceId ? (
             /* OVERVIEW DASHBOARD */
             <div className="overview-dashboard" style={{ marginTop: '30px' }}>
@@ -214,7 +241,7 @@ export const PayooDetails: React.FC<PayooDetailsProps> = ({ onNavigateHome }) =>
                       Tổng quan Giải pháp Thanh toán Payoo
                     </h1>
                     <p style={{ fontSize: '13px', color: 'var(--tx2)', maxWidth: '640px' }}>
-                      Tài liệu hướng dẫn đăng ký, tích hợp cổng thanh toán thẻ, tạo Payment Link gửi khách hàng thanh toán online, và hướng dẫn vận hành giải pháp máy quẹt thẻ cầm tay SmartPOS Payoo tại quầy.
+                      Tài liệu hướng dẫn đăng ký, tích hợp cổng thanh toán thẻ, tạo liên kết thanh toán (Payment Link) trực tuyến để gửi khách hàng thanh toán nhanh qua hệ thống Tingee.
                     </p>
                     <div className="intro-stats">
                       <div className="stat">
@@ -222,7 +249,7 @@ export const PayooDetails: React.FC<PayooDetailsProps> = ({ onNavigateHome }) =>
                         <div className="stat-l">Giải pháp hỗ trợ</div>
                       </div>
                       <div className="stat">
-                        <div className="stat-n">Credit / POS</div>
+                        <div className="stat-n">Thẻ &amp; Link</div>
                         <div className="stat-l">Hình thức thanh toán</div>
                       </div>
                     </div>
@@ -230,34 +257,97 @@ export const PayooDetails: React.FC<PayooDetailsProps> = ({ onNavigateHome }) =>
                 </div>
               </div>
 
-              {/* SKELETON / PLACEHOLDER FOR SERVICES */}
-              <div className="section-card" style={{ padding: '40px 24px', textAlign: 'center', borderStyle: 'dashed', borderWidth: '2px', marginTop: '24px' }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  background: 'var(--primary-light)',
-                  borderRadius: '50%',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '16px',
-                  color: 'var(--primary)'
-                }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                  </svg>
+              {/* THUẬT NGỮ & KHÁI NIỆM */}
+              <div className="section-card" id="terminology" style={{ marginBottom: '32px', marginTop: '24px' }}>
+                <div className="section-hdr">
+                  <div>
+                    <div className="section-hdr-t">Thuật ngữ &amp; Khái niệm</div>
+                    <div className="section-hdr-s">
+                      Giải thích các thuật ngữ chuyên ngành trong quy trình kết nối và thanh toán qua cổng Payoo
+                    </div>
+                  </div>
                 </div>
-                <h3 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '6px', color: 'var(--tx)' }}>
-                  Danh sách quy trình thanh toán Payoo trống
-                </h3>
-                <p style={{ fontSize: '13px', color: 'var(--tx2)', maxWidth: '440px', margin: '0 auto', lineHeight: '1.6' }}>
-                  Nội dung chi tiết của các quy trình thanh toán thẻ, payment link và SmartPOS Payoo sẽ được cập nhật tại đây khi có thông tin thực tế.
-                </p>
+                <div className="term-tbl-wrap">
+                  <table className="term-table">
+                    <thead>
+                      <tr>
+                        <th style={{ width: '220px' }}>Thuật ngữ chính</th>
+                        <th style={{ width: '220px' }}>Ý nghĩa đầy đủ</th>
+                        <th>Ghi chú / Định nghĩa chi tiết</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="ta">Đơn vị chấp nhận thanh toán</td>
+                        <td className="tf">Khách hàng tích hợp (Merchant)</td>
+                        <td className="tn">Các doanh nghiệp, cửa hàng hoặc cá nhân đăng ký sử dụng dịch vụ thanh toán của Payoo thông qua nền tảng HENO.</td>
+                      </tr>
+                      <tr>
+                        <td className="ta">Cổng thanh toán Payoo</td>
+                        <td className="tf">Đối tác liên kết thanh toán</td>
+                        <td className="tn">Đơn vị trung gian thanh toán cung cấp giải pháp xử lý giao dịch thẻ và liên kết tài khoản ngân hàng.</td>
+                      </tr>
+                      <tr>
+                        <td className="ta">Đường dẫn thanh toán</td>
+                        <td className="tf">Liên kết thanh toán (Payment Link)</td>
+                        <td className="tn">Đường link độc bản được khởi tạo tự động theo từng đơn hàng cụ thể để khách hàng nhấp vào thực hiện thanh toán online.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Services Grid */}
+              <div className="db-grid">
+                {PAYOO_SERVICES.filter(s => !searchQuery || s.searchNames.includes(searchQuery.toLowerCase().trim())).map((service) => (
+                  <div
+                    key={service.id}
+                    className="db-card"
+                    onClick={() => window.location.hash = `#/payoo/${service.id}`}
+                  >
+                    <div className="db-card-logo-wrap">
+                      {!service.logoUrl ? (
+                        <div
+                          className="sb-avatar"
+                          style={{
+                            background: service.fallbackBg || 'var(--primary)',
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#fff',
+                            fontWeight: 800,
+                            fontSize: '14px'
+                          }}
+                        >
+                          {service.fallbackText}
+                        </div>
+                      ) : (
+                        <img className="db-card-logo" src={service.logoUrl} alt={service.name} />
+                      )}
+                    </div>
+                    <h3>{service.name}</h3>
+                    <p>{service.fullName}</p>
+                    <div className="db-card-btn">
+                      Xem quy trình tích hợp
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ) : null}
+          ) : (
+            /* DETAILED VIEW FOR SINGLE SERVICE */
+            <div className="detail-view-container payoo-detail-view">
+              {selectedServiceId === 'payoo_gateway' && (
+                <PayooGatewaySection onViewPDF={handleViewPDF} searchQuery={searchQuery} />
+              )}
+            </div>
+          )}
 
           {/* FOOTER */}
           <div className="footer">

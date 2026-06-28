@@ -166,7 +166,7 @@ export const BankDetails: React.FC<BankDetailsProps> = ({ onNavigateHome }) => {
       )}
 
       {/* HEADER */}
-      <header className="hdr" style={{ paddingLeft: selectedBankId ? 'calc(var(--sw) + 20px)' : '20px' }}>
+      <header className="hdr">
         <button
           className="hdr-back-btn"
           onClick={onNavigateHome}
@@ -286,7 +286,7 @@ export const BankDetails: React.FC<BankDetailsProps> = ({ onNavigateHome }) => {
         )}
 
         {/* DETAILS/DASHBOARD CONTENT PANE */}
-        <div className="detail-pane" style={{ paddingLeft: selectedBankId ? 'calc(var(--sw) + 30px)' : '30px' }}>
+        <div className="detail-pane">
           {!selectedBankId ? (
             /* OVERVIEW DASHBOARD */
             <div className="overview-dashboard" style={{ marginTop: '30px' }}>
