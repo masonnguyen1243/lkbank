@@ -10,9 +10,17 @@ Hệ thống tài liệu hướng dẫn quy trình liên kết tài khoản ngâ
 - **Trang chủ**: Giao diện trực quan điều hướng người dùng truy cập các danh mục tài liệu.
 - **Trang quy trình**: Trình bày chi tiết hướng dẫn của 14 ngân hàng thương mại tại Việt Nam.
 - **Bộ lọc loại tài khoản**: Lọc nhanh theo Cá nhân (CN), Hộ kinh doanh (HKD), và Doanh nghiệp (DN) trên từng ngân hàng để thu gọn thông tin, tự động mở rộng accordion khi lọc ra kết quả duy nhất.
-- **Tìm kiếm thông minh**: Lọc danh sách ngân hàng ở sidebar theo thời gian thực và tự động đánh dấu (Highlight) từ khóa khớp.
-- **Dark Mode**: Hỗ trợ chuyển đổi nhanh chủ đề Sáng / Tối và lưu trạng thái ưu tiên qua React Context.
+- **Tìm kiếm thông minh**: Lọc danh sách ngân hàng ở sidebar theo thời gian thực và tự động đánh dấu (Highlight) từ khóa khớp. Loại bỏ các từ khóa thương hiệu độc quyền để đảm bảo công bằng.
+- **Dark Mode**: Hỗ trợ chuyển đổi nhanh chủ đề Sáng / Tối và lưu trạng thái ưu tiên qua React Context, tối ưu hiển thị trên các nhóm danh mục.
 - **Xem tài liệu trực tiếp**: Hỗ trợ Modal xem biểu mẫu PDF tích hợp không cần rời trang hoặc mở tab mới.
+- **FAQs Pay By Bank (FAQs Help Center)**: Trang giải đáp 16 câu hỏi thường gặp về tích hợp API, môi trường giả lập (Sandbox), quy trình đối soát vận hành và chính sách phí dịch vụ. Tích hợp thanh tìm kiếm tiếng Việt không dấu (accents-insensitive), highlight từ khóa khớp, nút xóa nhanh từ khóa (Clear search), lưới logo 14 ngân hàng với vòng tròn fallback theo đúng màu sắc thương hiệu, và cơ chế tự động đồng bộ theme từ trang cha qua Iframe message listener (`THEME_CHANGE`).
+- **Giao diện đồng bộ & Định hướng Visual mới**:
+  - **Đồng bộ Banner tràn viền (Hero Banner Sync)**: Áp dụng dải banner gradient xanh navy-đỏ Tingee full-width ở đầu mỗi trang chi tiết (khi ở chế độ xem tổng quan), đi kèm ô tìm kiếm kính mờ (Glassmorphism) trên trang Ngân hàng & Chi hộ.
+  - **Cân chỉnh nút Back & Dynamic Header Padding**: Reset padding lề trái của header cố định thành `20px` mặc định, giúp nút quay lại căn sát lề trái chuẩn xác giống trang FAQs và tự động co giãn khi kích hoạt Sidebar.
+  - **Nhất quán thương hiệu**: Bổ sung logo Tingee thu gọn ở góc trái thanh tiêu đề trên mọi trang con.
+  - **Khắc phục lỗi cuộn trang**: Tự động đưa vị trí cuộn về đầu trang (`window.scrollTo(0, 0)`) mỗi khi chuyển đổi trang qua hash link.
+  - **Sidebar tối giản**: Chuyển phần thông tin "Tổng quan" và "Thuật ngữ" hiển thị trực tiếp ở trang danh sách bên ngoài và loại bỏ chúng khỏi Sidebar để tránh làm rối mắt người dùng.
+  - **Giao diện Chi hộ trực quan**: Cập nhật logo thực tế cho BIDV & Bảo Kim (sửa lỗi hiển thị hình ảnh Bao Kim logo) thay thế cho định dạng chữ text đơn điệu.
 
 ---
 
@@ -58,11 +66,17 @@ Yêu cầu máy tính đã cài đặt **Node.js** (khuyến nghị phiên bản
 ├── public/                # Thư mục chứa tài nguyên tĩnh không qua compile
 │   └── docs/              # Tài liệu, công văn, biểu mẫu đăng ký liên kết (.docx, .pdf)
 ├── src/                   # Thư mục mã nguồn chính (React)
-│   ├── components/        # Các React Components dùng chung
-│   ├── hooks/             # Custom React Hooks (như useScrollSpy, useSearchHighlight)
+│   ├── components/        # Các React Components chia theo nghiệp vụ
+│   │   ├── ui/            # Các component giao diện dùng chung (Accordion, PDFModal,...)
+│   │   ├── bank/          # Nghiệp vụ Liên kết Ngân hàng & Guideline chi tiết
+│   │   ├── disbursement/  # Nghiệp vụ Quy trình dịch vụ Chi hộ
+│   │   ├── autodebit/     # Nghiệp vụ Trích nợ tự động
+│   │   └── wallet/        # Nghiệp vụ tích hợp Ví điện tử
+│   ├── pages/             # Các trang (views) cấp cao điều hướng của ứng dụng (Home, BankDetails,...)
+│   ├── hooks/             # Custom React Hooks (như useScrollSpy)
 │   ├── context/           # React Context (quản lý Dark Mode, User state)
 │   ├── styles/            # Các file CSS định dạng giao diện
-│   ├── App.tsx            # Component gốc điều hướng và layout chính
+│   ├── App.tsx            # Component gốc điều phối định tuyến và layout chính
 │   ├── main.tsx           # Điểm khởi chạy (Entrypoint) gắn kết React với DOM
 │   └── index.css          # Tệp reset CSS toàn cục
 ├── index.html             # Tệp HTML khung của ứng dụng

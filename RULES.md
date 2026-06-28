@@ -21,9 +21,14 @@ Cổng thông tin dạng tài liệu hướng dẫn (Single Page Application - S
 
 ## Conventions
 
-- Tên file & Thư mục: Đặt trong cấu trúc module `src/components`, `src/hooks`, `src/context`, và `src/styles`.
-- Bố cục CSS: Thiết kế Responsive sử dụng các biến định vị `--sw` (sidebar width) và `--sh` (header height).
+- Tên file & Thư mục: Đặt trong cấu trúc phân chia rõ ràng `src/pages/` (trang chính), `src/components/ui/` (UI dùng chung), `src/components/[feature]/` (cụm nghiệp vụ ngân hàng/chi hộ/trích nợ/ví), `src/hooks/`, `src/context/`, và `src/styles/`.
+- Bố cục CSS & Tiêu chuẩn giao diện:
+  - Thiết kế Responsive sử dụng các biến định vị `--sw` (sidebar width = `260px` hoặc tùy biến) và `--sh` (header height = `56px` hoặc tùy biến).
+  - **Đồng bộ Hero Banners**: Khi xem trang tổng quan, dùng dải banner `.faq-hero-section` có `marginTop: 'var(--sh)'`. Đặt `marginTop: 0` trên `.main-layout-container` khi banner hiển thị và `marginTop: 'var(--sh)'` khi xem chi tiết (có Sidebar active).
+  - **Cân chỉnh Header & Padding**: Đặt `padding: 0 20px` mặc định trên `.hdr` trong `bank.css`. Dùng inline `style={{ paddingLeft: isActive ? 'calc(var(--sw) + 20px)' : '20px' }}` trong React để căn lề nút Back chuẩn sát lề trái 20px giống trang FAQs khi Sidebar ẩn.
+  - **Scroll Spacing Reset**: Bắt buộc thêm `window.scrollTo(0, 0)` trong handler chuyển đổi hash của `App.tsx` khi người dùng chuyển sang trang khác.
 - Giao diện: Dark Mode được điều khiển bằng thuộc tính `[data-theme="dark"]` trên phần tử `<html>` thông qua `ThemeContext` và lưu trữ trạng thái qua `localStorage`.
+- Tìm kiếm & Bình đẳng thương hiệu: Không sử dụng các từ khóa tìm kiếm nhanh mang tính độc quyền/cạnh tranh không lành mạnh cho các đối tác riêng biệt. Sử dụng bộ lọc accents-insensitive cho nội dung tiếng Việt.
 
 ## Security rules (non-negotiable)
 
@@ -35,14 +40,15 @@ Cổng thông tin dạng tài liệu hướng dẫn (Single Page Application - S
 | File / Directory | Purpose |
 |---|---|
 | `src/main.tsx` | Điểm khởi chạy (Entrypoint) gắn kết React với DOM |
-| `src/App.tsx` | Component gốc điều hướng và quản lý trạng thái hiển thị |
-| `src/components/Home.tsx` | Component Trang chủ cổng thông tin |
-| `src/components/BankDetails.tsx` | Component Trang chi tiết hướng dẫn liên kết ngân hàng |
-| `src/components/PDFModal.tsx` | Component Modal xem PDF trực tiếp, hỗ trợ phím Escape và khóa cuộn trang |
-| `src/components/banks/` | Thư mục chứa mã nguồn hướng dẫn của 14 ngân hàng thương mại |
+| `src/App.tsx` | Component gốc điều phối định tuyến và layout chính |
+| `src/pages/` | Thư mục chứa các trang chính điều hướng (`Home.tsx`, `BankDetails.tsx`, `DisbursementDetails.tsx`,...) |
+| `src/components/ui/` | Thư mục chứa các component giao diện dùng chung (`Accordion.tsx`, `PDFModal.tsx`, `HighlightText.tsx`,...) |
+| `src/components/bank/` | Thư mục chứa component nghiệp vụ ngân hàng (`BankSection.tsx`, `BankSidebar.tsx`, và guideline chi tiết) |
+| `src/components/disbursement/`| Thư mục chứa component nghiệp vụ dịch vụ Chi hộ |
+| `src/components/autodebit/` | Thư mục chứa component nghiệp vụ Trích nợ tự động |
+| `src/components/wallet/` | Thư mục chứa component nghiệp vụ tích hợp Ví điện tử |
 | `src/hooks/useScrollSpy.ts` | Custom hook theo dõi vị trí cuộn trang để cập nhật liên kết active ở Sidebar |
-| `src/components/HighlightText.tsx` | Component làm nổi bật từ khóa tìm kiếm (Search Highlight) |
 | `src/context/ThemeContext.tsx` | Context quản lý chế độ giao diện Sáng / Tối (Light/Dark Theme) |
 | `src/styles/` | Thư mục chứa CSS định dạng giao diện (`home.css` và `bank.css`) |
-| `public/docs/` | Biểu mẫu mẫu và quy trình đính kèm dạng file (.docx, .pdf) |
+| `public/docs/` | Các biểu mẫu mẫu và quy trình đính kèm dạng file (.docx, .pdf) |
 
