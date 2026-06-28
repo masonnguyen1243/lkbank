@@ -2,13 +2,20 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
-## [2026-06-29] - Integrate Payoo Onboarding Guideline
+## [2026-06-29] - Integrate Payoo Onboarding Guideline & Correct Layout Responsiveness
 ### Added
 - **Payoo Onboarding Flow (`PayooSections.tsx` & `PayooDetails.tsx`)**:
   - Populated `PAYOO_SERVICES` listing only the Payoo Gateway solution on the dashboard view (excluding SmartPOS).
   - Implemented the dual-scenario joint onboarding guide explaining registration, referrals, and contract workflows rewritten to use professional Vietnamese and remove all abbreviations (MC, PY, HĐ, HD).
   - Documents the required client fields (Enterprise name, representative name & phone number) and Tingee config instructions.
   - Rendered a terminology table detailing key definitions: Merchant, Payoo, and Payment Link.
+  - Integrated the official Payoo logo (`/logo/Logo-Payoo.webp`) in the services grid, sidebar links, and section headers.
+
+### Changed
+- **Responsive Layout & Margin Fixes (`bank.css` & Detail Pages)**:
+  - Removed dynamic inline `paddingLeft` overrides on `<header className="hdr">` and `<div className="detail-pane">` across all detail views.
+  - Relocated responsive structure padding to `bank.css` stylesheet classes and media queries, using `padding: 16px !important` on `.detail-pane` for devices under 768px to resolve layout bugs.
+  - Set Header items to be aligned 20px from the left on all devices and views to match parent index pages.
 
 ## [2026-06-29] - Sync Step Node Styling in Payout Stepper
 ### Changed

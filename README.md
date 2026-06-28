@@ -16,11 +16,13 @@ Hệ thống tài liệu hướng dẫn quy trình liên kết tài khoản ngâ
 - **FAQs Pay By Bank (FAQs Help Center)**: Trang giải đáp 16 câu hỏi thường gặp về tích hợp API, môi trường giả lập (Sandbox), quy trình đối soát vận hành và chính sách phí dịch vụ. Tích hợp thanh tìm kiếm tiếng Việt không dấu (accents-insensitive), highlight từ khóa khớp, nút xóa nhanh từ khóa (Clear search), lưới logo 14 ngân hàng với vòng tròn fallback theo đúng màu sắc thương hiệu, và cơ chế tự động đồng bộ theme từ trang cha qua Iframe message listener (`THEME_CHANGE`).
 - **Giao diện đồng bộ & Định hướng Visual mới**:
   - **Đồng bộ Banner tràn viền (Hero Banner Sync)**: Áp dụng dải banner gradient xanh navy-đỏ Tingee full-width ở đầu mỗi trang chi tiết (khi ở chế độ xem tổng quan), đi kèm ô tìm kiếm kính mờ (Glassmorphism) trên trang Ngân hàng & Chi hộ.
-  - **Cân chỉnh nút Back & Dynamic Header Padding**: Reset padding lề trái của header cố định thành `20px` mặc định, giúp nút quay lại căn sát lề trái chuẩn xác giống trang FAQs và tự động co giãn khi kích hoạt Sidebar.
+  - **Cân chỉnh nút Back & Header Padding**: Nút Quay lại (Back Button) và tiêu đề trang luôn luôn căn sát lề trái 20px ở mọi màn hình để đảm bảo đồng bộ nhất quán, không bị thụt lề động khi Sidebar mở.
+  - **Sửa lỗi Responsive cho Mobile/Tablet**: Đã loại bỏ hoàn toàn inline-padding trên khung nội dung chi tiết (`.detail-pane`) trong React, đưa toàn bộ cấu trúc căn chỉnh padding vào CSS để tự động tối ưu hóa và hiển thị chuẩn Responsive trên các thiết bị di động/tablet.
   - **Nhất quán thương hiệu**: Bổ sung logo Tingee thu gọn ở góc trái thanh tiêu đề trên mọi trang con.
   - **Khắc phục lỗi cuộn trang**: Tự động đưa vị trí cuộn về đầu trang (`window.scrollTo(0, 0)`) mỗi khi chuyển đổi trang qua hash link.
   - **Sidebar tối giản**: Chuyển phần thông tin "Tổng quan" và "Thuật ngữ" hiển thị trực tiếp ở trang danh sách bên ngoài và loại bỏ chúng khỏi Sidebar để tránh làm rối mắt người dùng.
-  - **Giao diện Chi hộ trực quan**: Cập nhật logo thực tế cho BIDV & Bảo Kim (sửa lỗi hiển thị hình ảnh Bao Kim logo) thay thế cho định dạng chữ text đơn điệu.
+  - **Giao diện Chi hộ trực quan**: Cập nhật logo thực tế cho BIDV & Bảo Kim thay thế cho định dạng chữ text đơn điệu.
+  - **Tích hợp Cổng thẻ Payoo**: Tích hợp hướng dẫn tích hợp cổng thẻ Payoo, quy trình tạo link thanh toán nhanh trực tuyến, bổ sung logo chính thức `/logo/Logo-Payoo.webp` và quy trình onboarding Hợp tác HENO x Payoo ngôn ngữ hóa chuyên nghiệp không dùng từ viết tắt, loại bỏ hoàn toàn SmartPOS.
 
 ---
 
