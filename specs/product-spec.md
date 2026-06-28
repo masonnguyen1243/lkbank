@@ -63,3 +63,11 @@ The primary goal is to provide a single, unified reference point that simplifies
 13. MSB
 14. TPBank
 
+## UI Updates (Recent)
+
+- Header is fixed with Back button aligned left 20px, always navigates to homepage.
+- Hero Banner gradient synchronized across all detail pages, placed outside `main‑layout‑container` for full‑width.
+- Tingee logo inserted on all detail pages (Onepay, Payoo, etc.).
+- Tabs “Tổng quan” và “Thuật ngữ” removed from sidebar to simplify navigation.
+- Automatic scroll reset to top on page navigation (`window.scrollTo(0, 0)`).
+

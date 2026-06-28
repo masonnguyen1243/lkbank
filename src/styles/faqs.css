@@ -589,3 +589,78 @@ mark.highlight {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   }
 }
+
+/* ── 2-COLUMN LAYOUT FOR FAQS ── */
+@media (min-width: 769px) {
+  .faq-container-main {
+    max-width: 1200px;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+  }
+  .faq-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: calc(var(--sh) + 20px);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--faq-card-bg);
+    border: 1px solid var(--faq-bdr);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--faq-shadow);
+  }
+  .faq-sidebar .faq-pill-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    justify-content: flex-start;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
+    transition: all 0.2s ease;
+  }
+  .faq-sidebar .faq-pill-btn:hover {
+    background: rgba(10, 29, 55, 0.04);
+  }
+  [data-theme="dark"] .faq-sidebar .faq-pill-btn:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .faq-sidebar .faq-pill-btn.active {
+    background: var(--faq-primary);
+    color: #ffffff;
+    border-color: var(--faq-primary);
+    box-shadow: 0 4px 12px rgba(225, 42, 65, 0.25);
+  }
+  .faq-content-pane {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .faq-sidebar {
+    display: flex;
+    gap: 8px;
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 8px 4px;
+    margin-bottom: 20px;
+    scrollbar-width: none;
+  }
+  .faq-sidebar::-webkit-scrollbar {
+    display: none;
+  }
+  .faq-sidebar .faq-pill-btn {
+    flex-shrink: 0;
+  }
+  .faq-content-pane {
+    width: 100%;
+  }
+}

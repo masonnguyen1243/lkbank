@@ -47,3 +47,10 @@ Cổng thông tin dạng tài liệu hướng dẫn (Single Page Application - S
 | `src/styles/` | Thư mục chứa CSS định dạng giao diện (`home.css` và `bank.css`) |
 | `public/docs/` | Các biểu mẫu mẫu và quy trình đính kèm dạng file (.docx, .pdf) |
 
+## UI Updates (Recent)
+
+- Header is fixed with Back button aligned left 20px, always navigates to homepage.
+- Hero Banner gradient synchronized across all detail pages, placed outside `main-layout-container` for full-width.
+- Tingee logo inserted on all detail pages (Onepay, Payoo, etc.).
+- Tabs “Tổng quan” và “Thuật ngữ” removed from sidebar to simplify navigation.
+- Automatic scroll reset to top on page navigation (`window.scrollTo(0, 0)`).

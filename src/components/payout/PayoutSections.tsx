@@ -37,9 +37,48 @@ export const BIDVPayoutSection: React.FC<PayoutSectionProps> = ({ onViewPDF, sea
           <>
             <div className="acct-section">
               <div className="tbl-label">Quy trình đăng ký và vận hành Chi hộ BIDV</div>
-              <p style={{ fontSize: '13px', color: 'var(--tx2)', marginBottom: '16px', lineHeight: '1.6' }}>
-                Hệ thống hỗ trợ doanh nghiệp tích hợp Direct Link kết nối trực tiếp tài khoản ngân hàng BIDV với nền tảng Tingee để thực hiện chi hộ tự động qua bộ API Chi hộ. Quy trình onboard yêu cầu hoàn tất các thủ tục đăng ký với ngân hàng BIDV và phân quyền tài khoản Maker / Checker trên hệ thống.
-              </p>
+              <div className="payout-stepper">
+                <div className="step-item active">
+                  <div className="step-left">
+                    <div className="step-node">1</div>
+                    <div className="step-connector"></div>
+                  </div>
+                  <div className="step-content">
+                    <div className="step-title">Đăng ký dịch vụ BIDV Direct Link</div>
+                    <div className="step-desc">Doanh nghiệp thực hiện đăng ký dịch vụ BIDV Direct (Gói nâng cao ERP/Heno) qua biểu mẫu trực tuyến E-form hoặc quầy giao dịch.</div>
+                  </div>
+                </div>
+                <div className="step-item active">
+                  <div className="step-left">
+                    <div className="step-node">2</div>
+                    <div className="step-connector"></div>
+                  </div>
+                  <div className="step-content">
+                    <div className="step-title">Nộp hồ sơ giấy bổ sung</div>
+                    <div className="step-desc">Ký đóng dấu hồ sơ bản cứng và gửi ra chi nhánh BIDV quản lý tài khoản kèm bản sao CCCD của các User đăng ký.</div>
+                  </div>
+                </div>
+                <div className="step-item active">
+                  <div className="step-left">
+                    <div className="step-node">3</div>
+                    <div className="step-connector"></div>
+                  </div>
+                  <div className="step-content">
+                    <div className="step-title">Cấu hình Maker & Checker</div>
+                    <div className="step-desc">Đăng nhập tài khoản quản trị ngân hàng BIDV Direct, kích hoạt kết nối dịch vụ đối tác và phân quyền kiểm soát Maker/Checker.</div>
+                  </div>
+                </div>
+                <div className="step-item active">
+                  <div className="step-left">
+                    <div className="step-node">4</div>
+                    <div className="step-connector"></div>
+                  </div>
+                  <div className="step-content">
+                    <div className="step-title">Kiểm thử và vận hành</div>
+                    <div className="step-desc">Kết nối Client ID/Secret Token, chạy thử nghiệm giao dịch Sandbox và chính thức vận hành tính năng chi hộ tự động.</div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <Accordion
@@ -212,7 +251,7 @@ export const BaokimPayoutSection: React.FC<PayoutSectionProps> = ({ onViewPDF, s
       num={2}
       name="Chi hộ Bảo Kim"
       fullName="Công ty Cổ phần Thương mại Điện tử Bảo Kim · Baokim E-Wallet Payout"
-      logoUrl="/public/logo/Logo-Bao-Kim.png"
+      logoUrl="/logo/Logo-Bao-Kim.png"
       fallbackText="BaoKim"
       borderColor="#FF6B00"
       fallbackBg="#FF6B00"
@@ -224,9 +263,48 @@ export const BaokimPayoutSection: React.FC<PayoutSectionProps> = ({ onViewPDF, s
           <>
             <div className="acct-section">
               <div className="tbl-label">Dịch vụ Chi hộ từ Ví điện tử Bảo Kim (Payout)</div>
-              <p style={{ fontSize: '13px', color: 'var(--tx2)', marginBottom: '16px', lineHeight: '1.6' }}>
-                Tính năng/Dịch vụ chi hộ từ ví điện tử Bảo Kim (Payout) là dịch vụ hợp tác trọng tâm giữa Tingee và Bảo Kim. Quy trình bao gồm các bước Onboarding/mở ví điện tử Bảo Kim và thực hiện liên kết, đồng bộ tài khoản ví này sang cổng Tingee để thực hiện các lệnh chi hộ tự động.
-              </p>
+              <div className="payout-stepper">
+                <div className="step-item active">
+                  <div className="step-left">
+                    <div className="step-node">1</div>
+                    <div className="step-connector"></div>
+                  </div>
+                  <div className="step-content">
+                    <div className="step-title">Mở ví điện tử Baokim E-wallet</div>
+                    <div className="step-desc">Tải ứng dụng Baokim E-wallet trên điện thoại, điền hồ sơ đăng ký tài khoản (Cá nhân hoặc Doanh nghiệp).</div>
+                  </div>
+                </div>
+                <div className="step-item active">
+                  <div className="step-left">
+                    <div className="step-node">2</div>
+                    <div className="step-connector"></div>
+                  </div>
+                  <div className="step-content">
+                    <div className="step-title">Xác thực KYC & Quét chip NFC</div>
+                    <div className="step-desc">Chụp ảnh CCCD và quét chip NFC CCCD gắn chip (yêu cầu quét cả người đại diện pháp luật và người được ủy quyền).</div>
+                  </div>
+                </div>
+                <div className="step-item active">
+                  <div className="step-left">
+                    <div className="step-node">3</div>
+                    <div className="step-connector"></div>
+                  </div>
+                  <div className="step-content">
+                    <div className="step-title">Liên kết tài khoản ngân hàng</div>
+                    <div className="step-desc">Thực hiện chuyển khoản 10.000 VNĐ từ tài khoản chính chủ của doanh nghiệp/cá nhân để hoàn tất liên kết ví.</div>
+                  </div>
+                </div>
+                <div className="step-item active">
+                  <div className="step-left">
+                    <div className="step-node">4</div>
+                    <div className="step-connector"></div>
+                  </div>
+                  <div className="step-content">
+                    <div className="step-title">Đồng bộ ví với Tingee</div>
+                    <div className="step-desc">Lấy thông tin Wallet ID từ Bảo Kim, cấu hình liên kết trên Merchant Dashboard của Tingee và kích hoạt đồng bộ API chi hộ.</div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <Accordion

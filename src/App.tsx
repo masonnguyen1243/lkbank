@@ -25,6 +25,7 @@ function App() {
   useEffect(() => {
     const handleHashChange = () => {
       setPage(getPageFromHash(window.location.hash));
+      window.scrollTo(0, 0);
     };
 
     window.addEventListener('hashchange', handleHashChange);

@@ -43,14 +43,25 @@ export const PayooSidebar: React.FC<PayooSidebarProps> = ({
   return (
     <aside className={`sb ${isOpen ? 'open' : ''}`} id="sidebar">
       <div className="sb-search-wrap">
-        <input
-          className="sb-search"
-          id="sbSearch"
-          type="text"
-          placeholder="Tìm kiếm dịch vụ Payoo..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        <div className="sb-search-container">
+          <input
+            className="sb-search"
+            id="sbSearch"
+            type="text"
+            placeholder="Tìm kiếm dịch vụ Payoo..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <button
+              className="sb-clear-btn"
+              onClick={() => setSearchQuery('')}
+              aria-label="Xóa tìm kiếm"
+            >
+              ✕
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="sb-section">Điều hướng</div>

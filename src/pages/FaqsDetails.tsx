@@ -343,7 +343,7 @@ const FaqHighlightText: React.FC<FaqHighlightTextProps> = ({ text, highlight }) 
     }
 
     parts.push(
-      <mark key={index} className="highlight">
+      <mark key={index} className="sb-hl">
         {text.slice(index, index + query.length)}
       </mark>
     );
@@ -496,6 +496,11 @@ export const FaqsDetails: React.FC<FaqsDetailsProps> = ({ onNavigateHome }) => {
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
         </button>
+        <img 
+          src="https://developers.tingee.vn/img/logo-compact.png" 
+          alt="Tingee Logo" 
+          style={{ height: '24px', marginRight: '12px', display: 'block' }} 
+        />
         <div style={{ display: 'flex', alignItems: 'center', gap: 0, flex: 1 }}>
           <div>
             <div className="hdr-t">FAQs Pay By Bank</div>
@@ -580,207 +585,206 @@ export const FaqsDetails: React.FC<FaqsDetailsProps> = ({ onNavigateHome }) => {
 
       {/* MAIN CONTAINER */}
       <div className="faq-container-main">
-        {/* CATEGORY SELECTOR PILLS */}
-        <div className="faq-pills-scroll-wrapper">
-          <div className="faq-pills-outer-container">
-            <div className="faq-pills-list" id="faq-pills-container">
-              {CATEGORIES.map((cat) => {
-                const isActive = activeCategory === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    id={cat.testId}
-                    className={`faq-pill-btn ${isActive ? 'active' : ''}`}
-                    onClick={() => setActiveCategory(cat.id)}
-                  >
-                    <span className="faq-pill-icon">{cat.icon}</span>
-                    <span className="faq-pill-name">{cat.name}</span>
-                  </button>
-                );
-              })}
+        {/* SIDEBAR FOR CATEGORIES */}
+        <div className="faq-sidebar" id="faq-sidebar">
+          {CATEGORIES.map((cat) => {
+            const isActive = activeCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                id={cat.testId}
+                className={`faq-pill-btn ${isActive ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat.id)}
+              >
+                <span className="faq-pill-icon">{cat.icon}</span>
+                <span className="faq-pill-name">{cat.name}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* CONTENT PANE */}
+        <div className="faq-content-pane">
+          {/* QUICK ACTION BAR */}
+          <div className="faq-quick-action-bar">
+            <div className="faq-results-count">
+              {filteredFaqs.length > 0 ? (
+                <>Tìm thấy <strong>{filteredFaqs.length}</strong> câu hỏi phù hợp</>
+              ) : (
+                <>Không tìm thấy câu hỏi nào phù hợp</>
+              )}
+            </div>
+            <div className="faq-action-buttons">
+              <button
+                className="faq-action-btn"
+                id="faq-action-expand"
+                onClick={handleExpandAll}
+              >
+                Mở rộng tất cả
+              </button>
+              <button
+                className="faq-action-btn"
+                id="faq-action-collapse"
+                onClick={handleCollapseAll}
+              >
+                Thu gọn tất cả
+              </button>
             </div>
           </div>
-        </div>
 
-        {/* QUICK ACTION BAR */}
-        <div className="faq-quick-action-bar">
-          <div className="faq-results-count">
+          {/* ACCORDION FAQ LIST */}
+          <div className="faq-list-wrapper" id="faq-list-container">
             {filteredFaqs.length > 0 ? (
-              <>Tìm thấy <strong>{filteredFaqs.length}</strong> câu hỏi phù hợp</>
-            ) : (
-              <>Không tìm thấy câu hỏi nào phù hợp</>
-            )}
-          </div>
-          <div className="faq-action-buttons">
-            <button
-              className="faq-action-btn"
-              id="faq-action-expand"
-              onClick={handleExpandAll}
-            >
-              Mở rộng tất cả
-            </button>
-            <button
-              className="faq-action-btn"
-              id="faq-action-collapse"
-              onClick={handleCollapseAll}
-            >
-              Thu gọn tất cả
-            </button>
-          </div>
-        </div>
-
-        {/* ACCORDION FAQ LIST */}
-        <div className="faq-list-wrapper" id="faq-list-container">
-          {filteredFaqs.length > 0 ? (
-            filteredFaqs.map((faq) => {
-              const isOpen = !!openStates[faq.id];
-              const numId = faq.id.replace('faq-', '');
-              return (
-                <div
-                  key={faq.id}
-                  id={`faq-item-${numId}`}
-                  className={`faq-card-item ${isOpen ? 'open' : ''}`}
-                >
-                  <button
-                    className="faq-card-header"
-                    id={`faq-header-${numId}`}
-                    onClick={() => handleToggleFaq(faq.id)}
-                    aria-expanded={isOpen}
-                  >
-                    <span className="faq-card-title">
-                      <FaqHighlightText text={faq.question} highlight={searchQuery} />
-                    </span>
-                    <span className="faq-card-arrow-wrapper">
-                      <svg
-                        className={`faq-arrow-icon ${isOpen ? 'open' : ''}`}
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </span>
-                  </button>
-
+              filteredFaqs.map((faq) => {
+                const isOpen = !!openStates[faq.id];
+                const numId = faq.id.replace('faq-', '');
+                return (
                   <div
-                    className={`faq-card-body-wrapper ${isOpen ? 'open' : ''}`}
-                    id={`faq-content-${numId}`}
+                    key={faq.id}
+                    id={`faq-item-${numId}`}
+                    className={`faq-card-item ${isOpen ? 'open' : ''}`}
                   >
-                    <div className="faq-card-body-content">
-                      <div className="faq-card-answer-text">
-                        {faq.contentParts.map((part, index) => {
-                          if (part.type === 'link') {
+                    <button
+                      className="faq-card-header"
+                      id={`faq-header-${numId}`}
+                      onClick={() => handleToggleFaq(faq.id)}
+                      aria-expanded={isOpen}
+                    >
+                      <span className="faq-card-title">
+                        <FaqHighlightText text={faq.question} highlight={searchQuery} />
+                      </span>
+                      <span className="faq-card-arrow-wrapper">
+                        <svg
+                          className={`faq-arrow-icon ${isOpen ? 'open' : ''}`}
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </span>
+                    </button>
+
+                    <div
+                      className={`faq-card-body-wrapper ${isOpen ? 'open' : ''}`}
+                      id={`faq-content-${numId}`}
+                    >
+                      <div className="faq-card-body-content">
+                        <div className="faq-card-answer-text">
+                          {faq.contentParts.map((part, index) => {
+                            if (part.type === 'link') {
+                              return (
+                                <a
+                                  key={index}
+                                  href={part.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="faq-body-link"
+                                >
+                                  <FaqHighlightText text={part.text} highlight={searchQuery} />
+                                </a>
+                              );
+                            }
+
+                            if (part.bold) {
+                              return (
+                                <strong key={index} className="faq-body-bold">
+                                  <FaqHighlightText text={part.text} highlight={searchQuery} />
+                                </strong>
+                              );
+                            }
+
                             return (
-                              <a
-                                key={index}
-                                href={part.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="faq-body-link"
-                              >
+                              <span key={index}>
                                 <FaqHighlightText text={part.text} highlight={searchQuery} />
-                              </a>
-                            );
-                          }
-
-                          if (part.bold) {
-                            return (
-                              <strong key={index} className="faq-body-bold">
-                                <FaqHighlightText text={part.text} highlight={searchQuery} />
-                              </strong>
-                            );
-                          }
-
-                          return (
-                            <span key={index}>
-                              <FaqHighlightText text={part.text} highlight={searchQuery} />
-                            </span>
-                          );
-                        })}
-                      </div>
-
-                      {/* Render dynamic bank logo grid for Q5 */}
-                      {faq.hasSpecialGrid && (
-                        <div className="faq-bank-grid">
-                          {BANKS_DATA.map((bank) => {
-                            const hasError = !!logoErrors[bank.id];
-                            return (
-                              <div
-                                key={bank.id}
-                                className="faq-bank-item"
-                                title={bank.name}
-                                id={`bank-logo-${bank.id}`}
-                              >
-                                {!hasError ? (
-                                  <img
-                                    className="faq-bank-logo"
-                                    src={`https://api.vietqr.io/img/${bank.code}.png`}
-                                    alt={bank.name}
-                                    onError={() => handleLogoError(bank.id)}
-                                  />
-                                ) : (
-                                  <div
-                                    className="faq-bank-fallback"
-                                    style={{ backgroundColor: bank.fallbackBg }}
-                                  >
-                                    {bank.name.slice(0, 3).toUpperCase()}
-                                  </div>
-                                )}
-                                <span className="faq-bank-name">{bank.name}</span>
-                              </div>
+                              </span>
                             );
                           })}
                         </div>
-                      )}
+
+                        {/* Render dynamic bank logo grid for Q5 */}
+                        {faq.hasSpecialGrid && (
+                          <div className="faq-bank-grid">
+                            {BANKS_DATA.map((bank) => {
+                              const hasError = !!logoErrors[bank.id];
+                              return (
+                                <div
+                                  key={bank.id}
+                                  className="faq-bank-item"
+                                  title={bank.name}
+                                  id={`bank-logo-${bank.id}`}
+                                >
+                                  {!hasError ? (
+                                    <img
+                                      className="faq-bank-logo"
+                                      src={`https://api.vietqr.io/img/${bank.code}.png`}
+                                      alt={bank.name}
+                                      onError={() => handleLogoError(bank.id)}
+                                    />
+                                  ) : (
+                                    <div
+                                      className="faq-bank-fallback"
+                                      style={{ backgroundColor: bank.fallbackBg }}
+                                    >
+                                      {bank.name.slice(0, 3).toUpperCase()}
+                                    </div>
+                                  )}
+                                  <span className="faq-bank-name">{bank.name}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })
-          ) : (
-            <div className="faq-no-results" id="faqNoResultsView">
-              <p>
-                Không tìm thấy câu hỏi phù hợp với từ khóa <strong>"{searchQuery}"</strong>.
-              </p>
-            </div>
-          )}
-        </div>
+                );
+              })
+            ) : (
+              <div className="faq-no-results" id="faqNoResultsView">
+                <p>
+                  Không tìm thấy câu hỏi phù hợp với từ khóa <strong>"{searchQuery}"</strong>.
+                </p>
+              </div>
+            )}
+          </div>
 
-        {/* CTA FOOTER */}
-        <div className="faq-cta-footer">
-          <h3>Không tìm thấy câu trả lời?</h3>
-          <p>Đội ngũ kỹ thuật Tingee luôn sẵn sàng hỗ trợ 24/7.</p>
-          <div className="faq-cta-buttons">
-            <a
-              href="https://t.me/tingeesupport"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="faq-cta-btn telegram"
-              id="faq-cta-telegram"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-              </svg>
-              Telegram Support
-            </a>
-            <a
-              href="https://zalo.me"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="faq-cta-btn zalo"
-              id="faq-cta-zalo"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              Zalo OA Support
-            </a>
+          {/* CTA FOOTER */}
+          <div className="faq-cta-footer">
+            <h3>Không tìm thấy câu trả lời?</h3>
+            <p>Đội ngũ kỹ thuật Tingee luôn sẵn sàng hỗ trợ 24/7.</p>
+            <div className="faq-cta-buttons">
+              <a
+                href="https://t.me/tingeesupport"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="faq-cta-btn telegram"
+                id="faq-cta-telegram"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+                Telegram Support
+              </a>
+              <a
+                href="https://zalo.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="faq-cta-btn zalo"
+                id="faq-cta-zalo"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                Zalo OA Support
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -43,64 +43,28 @@ export const PayoutSidebar: React.FC<PayoutSidebarProps> = ({
   return (
     <aside className={`sb ${isOpen ? 'open' : ''}`} id="sidebar">
       <div className="sb-search-wrap">
-        <input
-          className="sb-search"
-          id="sbSearch"
-          type="text"
-          placeholder="Tìm kiếm dịch vụ chi hộ..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        <div className="sb-search-container">
+          <input
+            className="sb-search"
+            id="sbSearch"
+            type="text"
+            placeholder="Tìm kiếm dịch vụ chi hộ..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <button
+              className="sb-clear-btn"
+              onClick={() => setSearchQuery('')}
+              aria-label="Xóa tìm kiếm"
+            >
+              ✕
+            </button>
+          )}
+        </div>
       </div>
 
-      <div className="sb-section">Điều hướng</div>
-      <a
-        className={`sb-link ${activeId === 'intro' ? 'active' : ''}`}
-        href="#intro"
-        onClick={(e) => {
-          e.preventDefault();
-          onLinkClick('intro');
-          onClose();
-        }}
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          style={{ flexShrink: 0, color: '#6b7280' }}
-        >
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <path d="M3 9h18" />
-          <path d="M9 21V9" />
-        </svg>
-        <span>Tổng quan</span>
-      </a>
-      <a
-        className={`sb-link ${activeId === 'terminology' ? 'active' : ''}`}
-        href="#terminology"
-        onClick={(e) => {
-          e.preventDefault();
-          onLinkClick('terminology');
-          onClose();
-        }}
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          style={{ flexShrink: 0, color: '#6b7280' }}
-        >
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-        </svg>
-        <span>Thuật ngữ</span>
-      </a>
+
 
       {filteredServices.length > 0 && (
         <>

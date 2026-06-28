@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import '../styles/contact.css';
+import '../styles/faqs.css';
 
 interface ContactDetailsProps {
   onNavigateHome: () => void;
@@ -56,6 +57,11 @@ export const ContactDetails: React.FC<ContactDetailsProps> = ({ onNavigateHome }
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
           </button>
+          <img
+            src="https://developers.tingee.vn/img/logo-compact.png"
+            alt="Tingee Logo"
+            style={{ height: '24px', marginRight: '12px', display: 'block' }}
+          />
           <div>
             <span className="contact-hdr-title">Thông tin liên hệ</span>
             <span className="contact-hdr-subtitle">— Nhân sự Sales &amp; Vận hành</span>
@@ -87,26 +93,20 @@ export const ContactDetails: React.FC<ContactDetailsProps> = ({ onNavigateHome }
           )}
         </button>
       </header>
+      {/* HERO SECTION */}
+      <section className="faq-hero-section" style={{ marginTop: 'var(--sh)' }}>
+        <div className="faq-hero-overlay"></div>
+        <div className="faq-hero-inner">
+          <h1>Đầu mối liên hệ HENO &amp; Tingee</h1>
+          <p className="faq-hero-subtitle" style={{ marginBottom: 0 }}>
+            Hệ thống danh bạ liên hệ hỗ trợ tích hợp dịch vụ, giải đáp vận hành và đầu mối kinh doanh của Tingee.
+          </p>
+        </div>
+      </section>
 
       {/* Main Content */}
-      <main className="contact-main">
+      <main className="contact-main" style={{ marginTop: 0 }}>
         <div className="contact-container">
-
-          {/* Welcome Card */}
-          <div className="contact-intro-card">
-            <div className="contact-intro-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
-            </div>
-            <div className="contact-intro-body">
-              <h1>Đầu mối liên hệ Sales &amp; Vận hành</h1>
-              <p>Hệ thống danh bạ liên hệ hỗ trợ tích hợp dịch vụ, giải đáp vận hành và đầu mối kinh doanh của Tingee × HENO.</p>
-            </div>
-          </div>
 
           {/* Grid layout containing two support categories */}
           <div className="contact-service-grid">
@@ -358,7 +358,7 @@ export const ContactDetails: React.FC<ContactDetailsProps> = ({ onNavigateHome }
                 Dịch vụ Open API (Pay by Bank)
               </h2>
 
-              <div className="coming-soon-card">
+              <div className="coming-soon-card api-coming-soon-card">
                 <div className="coming-soon-bg"></div>
                 <div className="coming-soon-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

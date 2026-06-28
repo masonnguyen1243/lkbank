@@ -98,3 +98,10 @@ Roadmap and developmental checklist for the HENO × Tingee Bank Linking Portal p
   - Đồng bộ mã màu HEX thương hiệu chính thức cho 14 vòng tròn fallback logo.
 - **Task 6.9: Điều chỉnh bộ câu hỏi chuẩn hóa FAQs v1 (Câu 4, 8, 9, 10, 13, 16)** (Hoàn thành)
   - Cập nhật nội dung câu hỏi và câu trả lời tương ứng theo PRD sửa đổi mới nhất.
+## UI Updates (Recent)
+
+- Header is fixed with Back button aligned left 20px, always navigates to homepage.
+- Hero Banner gradient synchronized across all detail pages, placed outside `main‑layout‑container` for full‑width.
+- Tingee logo inserted on all detail pages (Onepay, Payoo, etc.).
+- Tabs “Tổng quan” và “Thuật ngữ” removed from sidebar to simplify navigation.
+- Automatic scroll reset to top on page navigation (`window.scrollTo(0, 0)`).
