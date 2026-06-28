@@ -25,7 +25,8 @@ Cổng thông tin dạng tài liệu hướng dẫn (Single Page Application - S
 - Bố cục CSS & Tiêu chuẩn giao diện:
   - Thiết kế Responsive sử dụng các biến định vị `--sw` (sidebar width = `260px` hoặc tùy biến) và `--sh` (header height = `56px` hoặc tùy biến).
   - **Đồng bộ Hero Banners**: Khi xem trang tổng quan, dùng dải banner `.faq-hero-section` có `marginTop: 'var(--sh)'`. Đặt `marginTop: 0` trên `.main-layout-container` khi banner hiển thị và `marginTop: 'var(--sh)'` khi xem chi tiết (có Sidebar active).
-  - **Cân chỉnh Header & Padding**: Đặt `padding: 0 20px` mặc định trên `.hdr` trong `bank.css`. Dùng inline `style={{ paddingLeft: isActive ? 'calc(var(--sw) + 20px)' : '20px' }}` trong React để căn lề nút Back chuẩn sát lề trái 20px giống trang FAQs khi Sidebar ẩn.
+  - **Cân chỉnh Header & Padding**: Đặt `padding: 0 20px` mặc định trên `.hdr` trong `bank.css`. Nút Quay lại (Back Button) và tiêu đề trang luôn luôn căn sát lề trái 20px ở mọi màn hình (kể cả khi Sidebar active) để đồng bộ nhất quán với các trang cha.
+  - **Hộp Nội dung Chi Tiết (.detail-pane)**: Không viết inline padding-left cho `.detail-pane` trong React. Toàn bộ padding được quản lý tập trung ở `bank.css`, tự động chuyển đổi sang đệm lề trái rộng ở Desktop khi Sidebar mở, và co về `padding: 16px !important` trên thiết bị di động/tablet để đảm bảo hiển thị chuẩn Responsive.
   - **Scroll Spacing Reset**: Bắt buộc thêm `window.scrollTo(0, 0)` trong handler chuyển đổi hash của `App.tsx` khi người dùng chuyển sang trang khác.
 - Giao diện: Dark Mode được điều khiển bằng thuộc tính `[data-theme="dark"]` trên phần tử `<html>` thông qua `ThemeContext` và lưu trữ trạng thái qua `localStorage`.
 - Tìm kiếm & Bình đẳng thương hiệu: Không sử dụng các từ khóa tìm kiếm nhanh mang tính độc quyền/cạnh tranh không lành mạnh cho các đối tác riêng biệt. Sử dụng bộ lọc accents-insensitive cho nội dung tiếng Việt.

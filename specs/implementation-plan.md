@@ -131,8 +131,12 @@ Roadmap and developmental checklist for the HENO × Tingee Bank Linking Portal p
   - Thay thế vòng tròn số màu đặc (solid pink) của `.step-node` thành vòng tròn viền mỏng (outline pink) và đổi màu chữ số bên trong thành màu hồng nhạt.
   - Chuyển đổi đường nối thẳng dày màu xám `.step-connector` thành đường nối mỏng 1px có hiệu ứng dải màu gradient mượt mà trùng khớp với các trang con khác.
 - **Task 7.11: Tích hợp hướng dẫn Onboarding đối tác Payoo** (Hoàn thành)
-  - Khởi tạo cấu trúc giao diện cho trang Payoo chi tiết (`PayooDetails.tsx`), kết nối grid danh sách giải pháp và bảng thuật ngữ chuyên ngành (loại bỏ thiết bị SmartPOS Payoo).
+  - Khởi tạo cấu trúc giao diện cho trang Payoo chi tiết (`PayooDetails.tsx`), kết nối grid danh sách giải pháp và bảng thuật ngữ chuyên ngành (loại bỏ hoàn toàn thiết bị SmartPOS Payoo và tích hợp logo WebP chính thức `/logo/Logo-Payoo.webp`).
   - Triển khai Accordion hướng dẫn quy trình onboard hợp tác HENO x Payoo chuyên nghiệp hóa không sử dụng từ viết tắt cho 2 trường hợp cụ thể:
     - *Trường hợp 1*: Khách hàng của HENO phát triển có nhu cầu kết nối thanh toán (yêu cầu cung cấp Tên đối tác / Doanh nghiệp sử dụng, Họ và tên cùng SĐT của người đại diện liên hệ).
     - *Trường hợp 2*: Khách hàng đã ký hợp đồng hợp tác với Payoo trước đó, nay muốn kết nối sử dụng trên hệ thống HENO (Payoo chuyển thông tin Khách hàng để ký hợp đồng dịch vụ bổ sung).
   - Hướng dẫn cấu hình bộ tham số kết nối nhận từ Payoo lên trang quản trị Tingee để sử dụng đầy đủ các API/Tính năng.
+- **Task 7.12: Đồng bộ khoảng đệm Header & Khắc phục lỗi Responsive** (Hoàn thành)
+  - Loại bỏ các inline style padding động trên Header và hộp nội dung (`.detail-pane`) trong các file React.
+  - Chuyển quyền quản lý đệm sang file CSS `bank.css`, thiết lập đệm cố định 20px cho Header và đệm responsive `padding: 16px !important` cho `.detail-pane` trên màn di động/tablet để giải quyết lỗi lệch lề và tràn màn hình.
+  - Đồng bộ tiêu đề trang chủ và trang con để loại bỏ hoàn toàn các thông tin liên quan đến SmartPOS Payoo.
