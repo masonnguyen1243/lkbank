@@ -23,6 +23,7 @@ Hệ thống tài liệu hướng dẫn quy trình liên kết tài khoản ngâ
   - **Sidebar tối giản**: Chuyển phần thông tin "Tổng quan" và "Thuật ngữ" hiển thị trực tiếp ở trang danh sách bên ngoài và loại bỏ chúng khỏi Sidebar để tránh làm rối mắt người dùng.
   - **Giao diện Chi hộ trực quan**: Cập nhật logo thực tế cho BIDV & Bảo Kim thay thế cho định dạng chữ text đơn điệu.
   - **Tích hợp Cổng thẻ Payoo**: Tích hợp hướng dẫn tích hợp cổng thẻ Payoo, quy trình tạo link thanh toán nhanh trực tuyến, bổ sung logo chính thức `/logo/Logo-Payoo.webp` và quy trình onboarding Hợp tác HENO x Payoo ngôn ngữ hóa chuyên nghiệp không dùng từ viết tắt, loại bỏ hoàn toàn SmartPOS.
+  - **Thông tin liên hệ**: Cung cấp danh bạ liên hệ hỗ trợ kỹ thuật và vận hành chính thức cho cả dịch vụ TingeeBox và Open API (Pay by Bank) đi kèm đầu mối kinh doanh vùng và Quản lý chung. Hỗ trợ tính năng sao chép thông tin nhanh qua clipboard.
 
 ---
 

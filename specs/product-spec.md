@@ -52,7 +52,7 @@ The primary goal is to provide a single, unified reference point that simplifies
   - **Scroll Position Reset**: Listen to hash changes in `App.tsx` and run `window.scrollTo(0, 0)` upon navigation to prevent the browser from maintaining scrolled scroll positions when switching views.
 - **Contact Details Component (`ContactDetails.tsx`)**:
   - Displays customer support contacts (Hotline, Zalo OA QR code, emails) and region-specific sales points.
-  - Features support groups for announcement speaker (TingeeBox) and Open API (Pay by Bank) service.
+  - Features support groups for announcement speaker (TingeeBox) and Open API (Pay by Bank) service (updated with contact list: openapi@heno.vn, technical support Nguyễn Duy Đạt, operational support Lê Khánh Huyền & Vũ Hoàng My, and general manager Trần Tiến Anh).
   - Implements copy-to-clipboard functionality next to phone numbers and email addresses.
   - Fully responsive, styles adjusted for both Light and Dark mode.
 - **Unified Branding & Navigation Layout Rules**:

@@ -2,6 +2,15 @@
 
 All notable changes to the Bank Linking Portal project are documented here.
 
+## [2026-06-29] - Update Pay by Bank Open API Contact Details
+### Added
+- **Open API Contact List (`ContactDetails.tsx`)**:
+  - Replaced the "Coming Soon" placeholder in the Open API (Pay by Bank) section with actual contact information.
+  - Added contact email: `openapi@heno.vn`.
+  - Added support staff directory: Nguyễn Duy Đạt (Technical support), Lê Khánh Huyền (Operations), Vũ Hoàng My (Operations).
+  - Added General Manager card for Mr. Trần Tiến Anh.
+  - Linked copy-to-clipboard actions to all new phone numbers and email addresses.
+
 ## [2026-06-29] - Integrate Payoo Onboarding Guideline & Correct Layout Responsiveness
 ### Added
 - **Payoo Onboarding Flow (`PayooSections.tsx` & `PayooDetails.tsx`)**:

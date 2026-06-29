@@ -348,7 +348,7 @@ export const ContactDetails: React.FC<ContactDetailsProps> = ({ onNavigateHome }
               </div>
             </div>
 
-            {/* GROUP 2: Open API placeholder */}
+            {/* GROUP 2: Open API (Pay by Bank) details */}
             <div>
               <h2 className="contact-section-title">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -358,20 +358,134 @@ export const ContactDetails: React.FC<ContactDetailsProps> = ({ onNavigateHome }
                 Dịch vụ Open API (Pay by Bank)
               </h2>
 
-              <div className="coming-soon-card api-coming-soon-card">
-                <div className="coming-soon-bg"></div>
-                <div className="coming-soon-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
+              <div className="contact-service-card">
+                {/* Email container */}
+                <div className="support-center-box" style={{ gridTemplateColumns: '1fr' }}>
+                  <div className="support-details-list" style={{ width: '100%' }}>
+                    <div className="support-item">
+                      <div className="support-item-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                          <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                      </div>
+                      <div className="support-item-content">
+                        <span className="support-item-label">Email liên hệ</span>
+                        <div className="support-item-value">
+                          <span>openapi@heno.vn</span>
+                          <button
+                            className="copy-button"
+                            onClick={() => handleCopy('openapi@heno.vn', 'api-email')}
+                            title="Copy Email"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span className={`copy-tooltip ${copiedId === 'api-email' ? 'show' : ''}`}>Đã copy!</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <span className="coming-soon-badge">Coming Soon</span>
-                <h3>Đang Cập Nhật Thông Tin</h3>
-                <p>Danh sách thông tin liên hệ và đầu mối hỗ trợ dịch vụ Open API (Pay by Bank) sẽ được bổ sung trong thời gian sớm nhất.</p>
-              </div>
-            </div>
 
+                {/* Operations & Tech heads */}
+                <h3 className="regional-sales-title" style={{ marginTop: '20px' }}>Đầu mối hỗ trợ kinh doanh</h3>
+                <div className="regional-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '12px' }}>
+
+                  {/* Nguyễn Duy Đạt */}
+                  <div className="region-card north">
+                    <div className="region-contact-name">Nguyễn Duy Đạt</div>
+                    <div className="region-phone">
+                      <span>093.166.1035</span>
+                      <button
+                        className="copy-button"
+                        onClick={() => handleCopy('0931661035', 'dat-phone')}
+                        title="Copy Phone"
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span className={`copy-tooltip ${copiedId === 'dat-phone' ? 'show' : ''}`}>Đã copy!</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Lê Khánh Huyền */}
+                  <div className="region-card central">
+                    <div className="region-contact-name">Lê Khánh Huyền</div>
+                    <div className="region-phone">
+                      <span>086.861.6765</span>
+                      <button
+                        className="copy-button"
+                        onClick={() => handleCopy('0868616765', 'huyen-phone')}
+                        title="Copy Phone"
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span className={`copy-tooltip ${copiedId === 'huyen-phone' ? 'show' : ''}`}>Đã copy!</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* VŨ HOÀNG MY */}
+                  <div className="region-card south">
+                    <div className="region-contact-name">Vũ Hoàng My</div>
+                    <div className="region-phone">
+                      <span>086.760.4772</span>
+                      <button
+                        className="copy-button"
+                        onClick={() => handleCopy('0867604772', 'my-phone')}
+                        title="Copy Phone"
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span className={`copy-tooltip ${copiedId === 'my-phone' ? 'show' : ''}`}>Đã copy!</span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* General Manager card */}
+                <div className="gm-card" style={{ marginTop: '16px' }}>
+                  <div className="gm-info">
+                    <div className="gm-avatar" style={{ background: 'var(--primary)', color: '#fff' }}>TA</div>
+                    <div className="gm-details">
+                      <h4>Quản lý chung</h4>
+                      <div className="gm-name">Mr. Trần Tiến Anh</div>
+                    </div>
+                  </div>
+                  <div className="gm-contacts">
+                    <div className="gm-contact-item">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: 'var(--contact-primary)' }}>
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                      </svg>
+                      <span>096.503.5659</span>
+                      <button
+                        className="copy-button"
+                        onClick={() => handleCopy('0965035659', 'api-gm-phone')}
+                        title="Copy Phone"
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span className={`copy-tooltip ${copiedId === 'api-gm-phone' ? 'show' : ''}`}>Đã copy!</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
           </div>
         </div>
       </main>
