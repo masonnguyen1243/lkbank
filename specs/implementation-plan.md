@@ -140,3 +140,9 @@ Roadmap and developmental checklist for the HENO × Tingee Bank Linking Portal p
   - Loại bỏ các inline style padding động trên Header và hộp nội dung (`.detail-pane`) trong các file React.
   - Chuyển quyền quản lý đệm sang file CSS `bank.css`, thiết lập đệm cố định 20px cho Header và đệm responsive `padding: 16px !important` cho `.detail-pane` trên màn di động/tablet để giải quyết lỗi lệch lề và tràn màn hình.
   - Đồng bộ tiêu đề trang chủ và trang con để loại bỏ hoàn toàn các thông tin liên quan đến SmartPOS Payoo.
+- **Task 7.13: Cập nhật danh bạ liên hệ dịch vụ Open API (Pay by Bank)** (Hoàn thành)
+  - Thay thế khối "Coming Soon" bằng danh sách thông tin liên hệ chính thức cho dịch vụ Open API (Pay by Bank).
+  - Tích hợp email hỗ trợ `openapi@heno.vn`.
+  - Cập nhật danh sách nhân sự hỗ trợ gồm: Nguyễn Duy Đạt (Kỹ thuật), Lê Khánh Huyền (Vận hành), Vũ Hoàng My (Vận hành).
+  - Thêm thẻ Quản lý chung hiển thị thông tin của ông Trần Tiến Anh.
+  - Tích hợp nút sao chép (copy-to-clipboard) kế bên tất cả số điện thoại và email liên hệ mới.

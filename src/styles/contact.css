@@ -402,6 +402,7 @@
   font-size: 15px;
   font-weight: 700;
   margin: 6px 0 4px;
+  white-space: nowrap;
 }
 
 .region-phone {
@@ -410,6 +411,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 /* General Manager */
@@ -459,12 +461,14 @@
   color: var(--contact-primary);
   letter-spacing: 0.5px;
   margin-bottom: 2px;
+  white-space: nowrap;
 }
 
 .gm-name {
   font-size: 15px;
   font-weight: 700;
   color: var(--contact-tx);
+  white-space: nowrap;
 }
 
 .gm-contacts {
@@ -486,6 +490,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 /* Group 2: Open API coming soon placeholder */
